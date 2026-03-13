@@ -1,0 +1,329 @@
+---
+import Base from '../layouts/Base.astro';
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Advocacy-Led Growth",
+  "url": "https://advocacyled.com",
+  "description": "ALG is a go-to-market motion where existing participants become the primary engine of distribution, trust, and pipeline.",
+  "author": {
+    "@type": "Person",
+    "name": "Roy",
+    "url": "https://twitter.com/doubts"
+  }
+};
+---
+
+<Base
+  title="Advocacy-Led Growth - The 1:1:N Framework"
+  description="Your people already believe in you. What happens after that moment? ALG is the growth motion that turns belief into distribution, trust, and pipeline."
+  activeNav="home"
+  jsonLd={jsonLd}
+>
+
+  <!-- THE HOOK - pain first -->
+  <div class="section animate-in">
+    <div class="section-label">
+      <span class="num">~</span> A Growth Motion Framework
+    </div>
+
+    <h1 class="t-display" style="margin-bottom: var(--sp-6);">
+      Your people already<br>believe in you.
+    </h1>
+
+    <p class="section-body" style="max-width: 620px; font-size: 1.15rem; margin-bottom: var(--sp-8); line-height: 1.7;">
+      Your employees just finished onboarding and they're excited.
+      Your partner just hit a milestone in your program.
+      Your attendees just walked out of a session that changed how they think.
+      Someone just earned a certification that validates their career.
+    </p>
+
+    <p class="section-body" style="max-width: 620px; font-size: 1.15rem; margin-bottom: var(--sp-10); line-height: 1.7;">
+      And then... nothing. The belief stays in the room. The moment passes. The most
+      powerful distribution channel your company has - the people who already believe -
+      goes completely unactivated.
+    </p>
+
+    <div class="pull-quote">
+      "Every company already has its most powerful distribution channel. It just hasn't been activated yet."
+    </div>
+  </div>
+
+  <!-- THE NAME -->
+  <div class="section">
+    <div class="section-label">
+      <span class="num">00</span> The framework
+    </div>
+
+    <h2 class="t-display" style="margin-bottom: var(--sp-6); font-size: clamp(2rem, 5vw, 3.2rem);">
+      Advocacy&#8209;Led<br><em class="t-accent t-italic">Growth</em>
+    </h2>
+
+    <p class="section-body" style="max-width: 620px; font-size: 1.05rem; margin-bottom: var(--sp-8);">
+      ALG is a go-to-market motion where existing participants - employees, partners,
+      community members, event attendees, certification holders, program graduates -
+      become the primary engine of distribution, trust, and pipeline.
+    </p>
+
+    <p class="section-body" style="max-width: 620px; margin-bottom: var(--sp-10);">
+      Not a channel. Not a tactic. A <strong>compound motion</strong> that works across
+      marketing, hiring, sales, and partnerships. Every interaction that creates belief
+      is an ALG surface.
+    </p>
+
+    <!-- The 1:1:N Notation -->
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Motion</th>
+          <th>Architecture</th>
+          <th>What happens</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Email, ads, cold outreach</td>
+          <td><strong>1:1</strong></td>
+          <td>Brand sends. Recipient acts or ignores. The chain ends.</td>
+        </tr>
+        <tr class="row-highlight">
+          <td>ALG</td>
+          <td><strong>1:1:N</strong></td>
+          <td>Brand activates one advocate. Advocate reaches their network. Trust transfers.</td>
+        </tr>
+        <tr class="row-highlight">
+          <td>ALG at maturity</td>
+          <td><strong>1:1:N:N</strong></td>
+          <td>Some of N become advocates themselves. The chain compounds.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- THE BELIEF WINDOW - universal, not event-specific -->
+  <div class="section">
+    <div class="section-label">
+      <span class="num">01</span> The mechanism
+    </div>
+    <h2 class="t-heading-1" style="margin-bottom: var(--sp-5);">Completion Creates Permission</h2>
+    <p class="section-body" style="margin-bottom: var(--sp-6);">
+      Every human interaction has a peak belief moment - the instant after someone finishes
+      something real. ALG calls this the <strong>Belief Window</strong>. It's when sharing
+      feels like expression, not obligation. Miss it, and you're asking people to promote you.
+      Catch it, and they're choosing to.
+    </p>
+
+    <table class="data-table" style="margin-bottom: var(--sp-8);">
+      <thead>
+        <tr>
+          <th>Interaction</th>
+          <th>The moment</th>
+          <th>Why it works</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Events</strong></td>
+          <td>Conference sessions, workshops, keynotes</td>
+          <td>Attendees walk out believing</td>
+        </tr>
+        <tr>
+          <td><strong>Certifications &amp; courses</strong></td>
+          <td>Skill validated, credential earned</td>
+          <td>Career-defining. Widest Belief Window</td>
+        </tr>
+        <tr>
+          <td><strong>Onboarding</strong></td>
+          <td>New hire, new partner, new customer</td>
+          <td>First week energy is real</td>
+        </tr>
+        <tr>
+          <td><strong>Product launches</strong></td>
+          <td>Beta access, early adoption</td>
+          <td>"I got to try X first"</td>
+        </tr>
+        <tr>
+          <td><strong>Partner milestones</strong></td>
+          <td>Tier achieved, co-delivery completed</td>
+          <td>Shared wins. Natural co-promotion</td>
+        </tr>
+        <tr>
+          <td><strong>Internal programs</strong></td>
+          <td>Hackathons, challenges, leaderboards</td>
+          <td>Team pride. Cohort cascade strongest here</td>
+        </tr>
+        <tr>
+          <td><strong>Always-on</strong></td>
+          <td>Community contributions, thought leadership</td>
+          <td>Ongoing signal. Compounds over time</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p class="section-body" style="margin-bottom: var(--sp-6);">
+      The unit of ALG is not the individual. It's the <strong>cohort</strong> - a group
+      sharing a completion moment and professional context. When one person shares, it
+      creates social permission for others. Signal clusters that algorithms read as strong
+      evidence of something real happening.
+    </p>
+
+    <a href="/framework" style="
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px solid var(--accent);
+      padding-bottom: 2px;
+      transition: color 0.2s;
+    ">Read the full framework &rarr;</a>
+  </div>
+
+  <!-- WHY NOW -->
+  <div class="section">
+    <div class="section-label">
+      <span class="num">02</span> Why now
+    </div>
+    <h2 class="t-heading-1" style="margin-bottom: var(--sp-5);">The Content Economy Inverted</h2>
+    <p class="section-body" style="margin-bottom: var(--sp-6);">
+      AI generates infinite brand content at zero cost. That made brand content noise.
+      Individual content - identity-verified, experiential, from real completion moments -
+      is now the only signal that algorithms and AI engines trust.
+    </p>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Trust type</th>
+          <th>How it works</th>
+          <th>Trajectory</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Paid trust</strong></td>
+          <td>Audience knows it's paid</td>
+          <td>Depreciating</td>
+        </tr>
+        <tr>
+          <td><strong>Borrowed trust</strong></td>
+          <td>Influencer model. Rented audience</td>
+          <td>Resets each campaign</td>
+        </tr>
+        <tr>
+          <td><strong>Earned trust</strong></td>
+          <td>Brand reputation over time</td>
+          <td>Real but slow</td>
+        </tr>
+        <tr class="row-highlight">
+          <td><strong>Cohort trust</strong></td>
+          <td>Authentic signals from real practitioners</td>
+          <td>Compounds rapidly</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ALG IS CEO-LEVEL ORCHESTRATION -->
+  <div class="section">
+    <div class="section-label">
+      <span class="num">03</span> In practice
+    </div>
+    <h2 class="t-heading-1" style="margin-bottom: var(--sp-5);">ALG is not a department. It's a CEO-level orchestration.</h2>
+    <p class="section-body" style="margin-bottom: var(--sp-6);">
+      Most growth motions live inside one team. ALG crosses the org chart. The CEO sees
+      the strategic play. Multiple leaders execute their part of the chain. The compound
+      effect is something no single department could produce alone.
+    </p>
+
+    <!-- The cross-org example -->
+    <div class="notation-block" style="margin-bottom: var(--sp-8);">
+      <span class="notation-label">Example: CSR &rarr; Community &rarr; Pipeline</span>
+      <div style="margin-bottom: var(--sp-4);">
+        <strong>CEO</strong> asks CMO to support the business development objective.
+        The lever? CSR activities that employees already care about.
+      </div>
+      <div style="margin-bottom: var(--sp-4);">
+        <strong>HR</strong> mobilizes employees to participate. They complete something
+        meaningful - a real social impact project, not a press release.
+        The Belief Window opens.
+      </div>
+      <div style="margin-bottom: var(--sp-4);">
+        <strong>Community Head</strong> activates the community members who participated.
+        They share naturally because the work was genuine. Their networks include
+        senior leadership at other organizations.
+      </div>
+      <div>
+        <strong>Sales</strong> harvests warm pipeline that never touched a cold email.
+        Decision makers saw authentic signals from people they trust.
+        That's <span class="notation-highlight">1:1:N</span> running through four departments.
+      </div>
+    </div>
+
+    <p class="section-body" style="margin-bottom: var(--sp-8);">
+      The same pattern works for NGOs mobilizing donors through program graduates. For
+      universities turning alumni milestones into enrollment signals. For partner ecosystems
+      where every co-delivery becomes mutual distribution. ALG applies wherever belief
+      moments happen and people have networks.
+    </p>
+
+    <!-- Department entry points -->
+    <div class="section-label" style="margin-bottom: var(--sp-4);">
+      <span class="num">&rarr;</span> Deep dives by function
+    </div>
+
+    <div class="verticals-grid">
+      <a href="/marketing" class="vertical-card">
+        <span class="vertical-icon">&rarr; alg/marketing</span>
+        <div class="vertical-name">Marketing</div>
+        <p class="vertical-desc">Events, product launches, certifications, community campaigns. Every interaction becomes a distribution surface.</p>
+      </a>
+      <a href="/hiring" class="vertical-card">
+        <span class="vertical-icon">&rarr; alg/hiring</span>
+        <div class="vertical-name">Hiring</div>
+        <p class="vertical-desc">Onboarding moments, promotions, team milestones. Your employees' networks are your talent pipeline.</p>
+      </a>
+      <a href="/sales" class="vertical-card">
+        <span class="vertical-icon">&rarr; alg/sales</span>
+        <div class="vertical-name">Sales</div>
+        <p class="vertical-desc">Partner co-selling, customer advocacy, warm introductions. Trust transferred person to person.</p>
+      </a>
+      <a href="/glossary" class="vertical-card">
+        <span class="vertical-icon"># reference</span>
+        <div class="vertical-name">Glossary</div>
+        <p class="vertical-desc">Belief Window, AQL, Cohort Cascade, Signal Ecosystem - the vocabulary of ALG practitioners.</p>
+      </a>
+    </div>
+  </div>
+
+  <!-- CANONICAL LINES -->
+  <div class="section">
+    <div class="canon-block">
+      <div class="canon-label">How ALG practitioners speak</div>
+      <div class="canon-lines">
+        <div class="canon-line">"Completion creates permission."</div>
+        <div class="canon-line">"Borrowed trust depreciates. Cohort trust compounds."</div>
+        <div class="canon-line">"1:1 terminates. 1:1:N multiplies. 1:1:N:N compounds."</div>
+        <div class="canon-line">"Campaigns reset. Infrastructure compounds."</div>
+        <div class="canon-line">"The strongest advocacy doesn't need to be asked for. It needs to be worth doing."</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- AUTHOR -->
+  <div class="section">
+    <div class="section-label">
+      <span class="num">&bull;</span> Author
+    </div>
+    <p class="section-body" style="margin-bottom: var(--sp-4);">
+      <strong>Roy</strong> - <a href="https://twitter.com/doubts" style="color: var(--accent);">@doubts</a>
+    </p>
+    <p class="section-body" style="margin-bottom: var(--sp-4);">
+      Founder at <a href="https://wozku.com" style="color: var(--accent);">Wozku</a> - the first platform built for ALG teams.
+    </p>
+    <p class="t-label" style="margin-top: var(--sp-4);">Coined 2024 &middot; Framework v0.2 &middot; advocacyled.com</p>
+  </div>
+
+</Base>

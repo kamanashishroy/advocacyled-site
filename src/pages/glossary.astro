@@ -1,0 +1,141 @@
+---
+import Base from '../layouts/Base.astro';
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "DefinedTermSet",
+  "name": "Advocacy-Led Growth Glossary",
+  "description": "The canonical vocabulary of ALG - terms, definitions, and concepts for practitioners.",
+  "url": "https://advocacyled.com/glossary",
+  "hasDefinedTerm": [
+    {
+      "@type": "DefinedTerm",
+      "name": "Advocacy-Led Growth (ALG)",
+      "description": "A go-to-market motion where existing participants become the primary engine of distribution, trust, and pipeline, operating on a 1:1:N distribution architecture."
+    },
+    {
+      "@type": "DefinedTerm",
+      "name": "1:1:N",
+      "description": "The distribution architecture of ALG. Brand activates one advocate (1), advocate shares (1), reaching their network (N). At maturity becomes 1:1:N:N as network members become advocates."
+    },
+    {
+      "@type": "DefinedTerm",
+      "name": "Belief Window",
+      "description": "The period of peak psychological belief after a completion moment. The optimal window for ALG activation. Measurable via share rate decay at T+0, T+1hr, T+24hr, T+7d."
+    },
+    {
+      "@type": "DefinedTerm",
+      "name": "Advocacy Qualified Lead (AQL)",
+      "description": "A person whose voluntary advocacy generated measurable downstream impact. Three tiers: AQL-1 (click), AQL-2 (action), AQL-3 (pipeline)."
+    },
+    {
+      "@type": "DefinedTerm",
+      "name": "Cohort",
+      "description": "A group sharing a completion moment and professional context. The fundamental unit of ALG activation, not the individual."
+    }
+  ]
+};
+
+const terms = [
+  {
+    name: "Advocacy-Led Growth (ALG)",
+    definition: "A go-to-market motion where existing participants - employees, community members, event attendees, and partners - become the primary engine of distribution, trust, and pipeline. Operates on a 1:1:N distribution architecture where advocacy compounds through cohort activation at completion moments.",
+    link: "/framework#definition"
+  },
+  {
+    name: "1:1:N",
+    definition: "The distribution architecture of ALG. Brand activates one advocate (1), who shares on their terms (1), reaching their entire professional network (N). Unlike 1:1 motions (email, ads, outreach) where the chain terminates, ALG's chain multiplies. At maturity, becomes 1:1:N:N as some people in the first N become advocates themselves.",
+    link: "/framework#architecture"
+  },
+  {
+    name: "Belief Window",
+    definition: "The period of peak psychological belief after a completion moment - the optimal window for ALG activation. Starts at the moment of completion and diminishes over hours and days. Traditional advocacy fails because it activates outside this window. Testable via share rate decay curves at T+0, T+1hr, T+24hr, T+7d.",
+    link: "/framework#mechanism"
+  },
+  {
+    name: "Completion Moment",
+    definition: "The point at which a participant finishes something real - an event attended, a certification earned, an onboarding completed, a challenge finished. Three intensity levels: high (certification, speaking), medium (conference session, onboarding), low (booth visit, form fill). Higher intensity = wider Belief Window = stronger advocacy.",
+    link: "/framework#mechanism"
+  },
+  {
+    name: "Cohort",
+    definition: "A group of people sharing a completion moment and professional context. The fundamental unit of ALG activation - not the individual. Cohorts enable cascade effects (social permission), structural audience relevance (pre-qualified networks), and signal clustering (AI engines read simultaneous signals as strong evidence).",
+    link: "/framework#mechanism"
+  },
+  {
+    name: "Cohort Cascade",
+    definition: "The social proof effect where early shares within a cohort trigger additional shares from peers. The first shares are hardest. Shares 5-20 become progressively easier as the cohort sees peers participating. Designed for, not hoped for.",
+    link: "/framework#mechanism"
+  },
+  {
+    name: "Advocacy Qualified Lead (AQL)",
+    definition: "A person whose voluntary advocacy behavior generated measurable downstream impact. Three tiers: AQL-1 (Basic: share + downstream click), AQL-2 (Influence: share + downstream participant completes action), AQL-3 (Pipeline: share + downstream participant enters pipeline stage).",
+    link: "/framework#measurement"
+  },
+  {
+    name: "Activation Rate",
+    definition: "The percentage of a cohort that shares at the completion moment. ALG's core operating variable - equivalent to email open rates or PLG activation rates. Typically 15-25% at well-designed completion moments. Optimized via value exchange quality, timing (inside Belief Window), friction reduction, cohort cascade visibility, and recognition.",
+    link: "/framework#measurement"
+  },
+  {
+    name: "Signal Ecosystem",
+    definition: "The multi-surface landscape where advocacy signals persist and compound. Three layers: Layer 1 - Network Signals (LinkedIn, X - immediate, ephemeral), Layer 2 - Authority Signals (G2, Reddit, blogs - persistent, compounding), Layer 3 - AI Engine Signals (aggregate, algorithmic, category-defining).",
+    link: "/framework#signals"
+  },
+  {
+    name: "Value Exchange",
+    definition: "What the advocate gains from sharing - credentials, recognition, economic access, professional positioning. ALG only compounds when all three actors gain: participant (value), company (distribution), network (relevant discovery). Diagnostic: would the participant still want to post it if you removed the company's name?",
+    link: "/framework#value-exchange"
+  },
+  {
+    name: "Motive Alignment",
+    definition: "When the advocate's economic or professional interest naturally aligns with the act of distribution. The fourth prerequisite for ALG. Without motive alignment, advocacy requires constant incentivizing. With it, advocacy is self-sustaining.",
+    link: "/framework#prerequisites"
+  },
+  {
+    name: "Cohort Trust",
+    definition: "The highest tier of the trust taxonomy. Authentic signals from real practitioners who completed something real - personal, verified, corroborated, persistent. Unlike paid trust (depreciating) or borrowed trust (non-compounding), cohort trust compounds rapidly across cycles.",
+    link: "/framework#why-now"
+  },
+  {
+    name: "Content Economy Inversion",
+    definition: "The structural shift where AI makes brand content (infinite supply, zero cost) into noise, while individual content (identity-verified, experiential) becomes the primary signal that algorithms and AI engines trust. The macro condition that makes ALG the growth motion for the AI age.",
+    link: "/framework#why-now"
+  },
+  {
+    name: "The Compound Formula",
+    definition: "Participants × A (Activation Rate) × R (Reach Multiplier) × C (Conversion Rate) = New Participants per cycle. ALG compounds when any variable improves over time. A increases through recognition, R through network growth, C through trust-based conversion.",
+    link: "/framework#measurement"
+  },
+];
+---
+
+<Base
+  title="Glossary - Advocacy-Led Growth"
+  description="The canonical vocabulary of ALG practitioners: 1:1:N, Belief Window, AQL, Cohort, Activation Rate, Signal Ecosystem, and more."
+  activeNav="glossary"
+  jsonLd={jsonLd}
+>
+
+  <div class="section animate-in">
+    <div class="section-label"><span class="num">#</span> Reference</div>
+    <h1 class="t-heading-1" style="margin-bottom: var(--sp-5);">Glossary</h1>
+    <p class="section-body mb-8">
+      The canonical vocabulary of Advocacy-Led Growth. A growth motion is also a language -
+      these are the terms practitioners use to orient decisions, challenge assumptions, and
+      explain the motion to people who haven't seen it yet.
+    </p>
+
+    <div>
+      {terms.map((term) => (
+        <div class="glossary-term" id={term.name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}>
+          <div class="glossary-term-name">
+            <a href={term.link} style="color: var(--accent); text-decoration: none; border-bottom: 1px solid transparent; transition: border-color 0.2s;">{term.name}</a>
+          </div>
+          <p class="glossary-term-def">{term.definition}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+
+</Base>

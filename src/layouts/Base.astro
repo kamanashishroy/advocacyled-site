@@ -1,0 +1,266 @@
+---
+import '../styles/design-system.css';
+
+interface Props {
+  title: string;
+  description?: string;
+  ogImage?: string;
+  canonical?: string;
+  activeNav?: string;
+  jsonLd?: object;
+  hasAside?: boolean;
+}
+
+const {
+  title,
+  description = 'Advocacy-Led Growth (ALG) is a go-to-market motion where existing participants become the primary engine of distribution, trust, and pipeline. The 1:1:N framework.',
+  ogImage = '/og-image.png',
+  canonical,
+  activeNav = '',
+  jsonLd,
+  hasAside = false,
+} = Astro.props;
+
+const siteUrl = 'https://advocacyled.com';
+const pageUrl = canonical || `${siteUrl}${Astro.url.pathname}`;
+const fullOgImage = ogImage.startsWith('http') ? ogImage : `${siteUrl}${ogImage}`;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={pageUrl} />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content={pageUrl} />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:image" content={fullOgImage} />
+  <meta property="og:site_name" content="Advocacy-Led Growth" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:creator" content="@doubts" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={fullOgImage} />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+  <!-- JSON-LD -->
+  {jsonLd && (
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  )}
+</head>
+<body>
+  <div class="shell">
+
+    <!-- MASTHEAD -->
+    <header class="masthead">
+      <a href="/" class="masthead-wordmark">advocacyled.com</a>
+      <div class="masthead-right">
+        <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle navigation">
+          Menu
+        </button>
+        <span class="masthead-tag">Framework v0.2</span>
+      </div>
+    </header>
+
+    <!-- SIDEBAR -->
+    <nav class="sidebar" id="sidebar" aria-label="Main navigation">
+
+      <div class="sidebar-section">
+        <div class="sidebar-section-label">The Framework</div>
+        <ul class="sidebar-nav">
+          <li><a href="/" class={activeNav === 'home' ? 'active' : ''}>
+            <span class="nav-num">~</span> Start here
+          </a></li>
+          <li><a href="/framework" class={activeNav === 'framework' ? 'active' : ''}>
+            <span class="nav-num">00</span> The 1:1:N Architecture
+          </a></li>
+          <li><a href="/framework#definition" class={activeNav === 'definition' ? 'active' : ''}>
+            <span class="nav-num">01</span> Definition
+          </a></li>
+          <li><a href="/framework#why-now" class={activeNav === 'why-now' ? 'active' : ''}>
+            <span class="nav-num">02</span> Why Now
+          </a></li>
+          <li><a href="/framework#mechanism" class={activeNav === 'mechanism' ? 'active' : ''}>
+            <span class="nav-num">03</span> The Mechanism
+          </a></li>
+          <li><a href="/framework#signals" class={activeNav === 'signals' ? 'active' : ''}>
+            <span class="nav-num">04</span> Signal Ecosystem
+          </a></li>
+          <li><a href="/framework#value-exchange" class={activeNav === 'value-exchange' ? 'active' : ''}>
+            <span class="nav-num">05</span> Value Exchange
+          </a></li>
+          <li><a href="/framework#distinctions" class={activeNav === 'distinctions' ? 'active' : ''}>
+            <span class="nav-num">06</span> ALG vs Everything
+          </a></li>
+          <li><a href="/framework#prerequisites" class={activeNav === 'prerequisites' ? 'active' : ''}>
+            <span class="nav-num">07</span> Prerequisites
+          </a></li>
+          <li><a href="/framework#measurement" class={activeNav === 'measurement' ? 'active' : ''}>
+            <span class="nav-num">08</span> Measurement
+          </a></li>
+          <li><a href="/framework#economics" class={activeNav === 'economics' ? 'active' : ''}>
+            <span class="nav-num">09</span> Economics
+          </a></li>
+          <li><a href="/framework#maturity" class={activeNav === 'maturity' ? 'active' : ''}>
+            <span class="nav-num">10</span> Maturity Model
+          </a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-section-label">In Practice</div>
+        <ul class="sidebar-nav">
+          <li><a href="/marketing" class={activeNav === 'marketing' ? 'active' : ''}>
+            <span class="nav-num">&rarr;</span> Marketing
+          </a></li>
+          <li><a href="/hiring" class={activeNav === 'hiring' ? 'active' : ''}>
+            <span class="nav-num">&rarr;</span> Hiring
+          </a></li>
+          <li><a href="/sales" class={activeNav === 'sales' ? 'active' : ''}>
+            <span class="nav-num">&rarr;</span> Sales
+          </a></li>
+          <li><a href="/framework#mechanism" style="opacity: 0.5; font-size: 0.8em;">
+            <span class="nav-num">+</span> CSR, Partnerships, Community...
+          </a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-section-label">Reference</div>
+        <ul class="sidebar-nav">
+          <li><a href="/glossary" class={activeNav === 'glossary' ? 'active' : ''}>
+            <span class="nav-num">#</span> Glossary
+          </a></li>
+          <li><a href="/aql" class={activeNav === 'aql' ? 'active' : ''}>
+            <span class="nav-num">#</span> AQL Specification
+          </a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-section-label">Interviews</div>
+        <ul class="sidebar-nav">
+          <li><a href="/interviews" class={activeNav === 'interviews' ? 'active' : ''}>
+            <span class="nav-num">&bull;</span> All interviews
+          </a></li>
+        </ul>
+      </div>
+
+    </nav>
+
+    <!-- MAIN -->
+    <main class="main">
+      <slot />
+
+      <footer class="footer">
+        <div class="footer-copy">&copy; 2024-2026 advocacyled.com</div>
+        <div class="footer-cite">Cite as: <span>advocacyled.com{Astro.url.pathname}</span></div>
+        <div class="footer-wozku">Built for ALG teams: <a href="https://wozku.com" target="_blank" rel="noopener">wozku.com</a></div>
+      </footer>
+    </main>
+
+    <!-- FLOATING TOOLS STRIP -->
+    <div class="tools-strip" id="toolsStrip">
+      <a
+        class="tools-btn"
+        href={`https://claude.ai/new?q=${encodeURIComponent(`I'm reading about Advocacy-Led Growth (ALG) on advocacyled.com${Astro.url.pathname}. Help me understand: how would ALG apply to my company?`)}`}
+        target="_blank"
+        rel="noopener"
+        title="Discuss with Claude"
+      >
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        <span class="tools-label">Claude</span>
+      </a>
+      <a
+        class="tools-btn"
+        href={`https://chatgpt.com/?q=${encodeURIComponent(`I'm reading about Advocacy-Led Growth (ALG) - a 1:1:N go-to-market framework from advocacyled.com${Astro.url.pathname}. Help me understand how this applies to my company.`)}`}
+        target="_blank"
+        rel="noopener"
+        title="Discuss with ChatGPT"
+      >
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+        <span class="tools-label">ChatGPT</span>
+      </a>
+      <button
+        class="tools-btn"
+        id="shareLinkedIn"
+        title="Share on LinkedIn"
+      >
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        <span class="tools-label">LinkedIn</span>
+      </button>
+      <button
+        class="tools-btn"
+        id="shareX"
+        title="Share on X"
+      >
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l11.733 16h4.267l-11.733-16z"/><path d="M4 20l6.768-6.768M20 4l-6.768 6.768"/></svg>
+        <span class="tools-label">X</span>
+      </button>
+      <button
+        class="tools-btn"
+        id="copyLink"
+        title="Copy link"
+      >
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+        <span class="tools-label">Copy</span>
+      </button>
+    </div>
+
+  </div>
+
+  <script>
+    const toggle = document.getElementById('sidebarToggle');
+    const sidebar = document.getElementById('sidebar');
+    if (toggle && sidebar) {
+      toggle.addEventListener('click', () => {
+        sidebar.classList.toggle('open');
+      });
+      sidebar.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          sidebar.classList.remove('open');
+        });
+      });
+    }
+
+    // Tools strip actions
+    const pageUrl = window.location.href;
+    const pageTitle = document.title;
+
+    document.getElementById('shareLinkedIn')?.addEventListener('click', () => {
+      window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(pageUrl)}`, '_blank', 'width=600,height=500');
+    });
+
+    document.getElementById('shareX')?.addEventListener('click', () => {
+      const text = `${pageTitle} - advocacyled.com`;
+      window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(pageUrl)}`, '_blank', 'width=600,height=400');
+    });
+
+    document.getElementById('copyLink')?.addEventListener('click', (e) => {
+      navigator.clipboard.writeText(pageUrl).then(() => {
+        const btn = e.currentTarget;
+        const label = btn.querySelector('.tools-label');
+        if (label) {
+          label.textContent = 'Copied!';
+          setTimeout(() => { label.textContent = 'Copy'; }, 2000);
+        }
+      });
+    });
+  </script>
+</body>
+</html>

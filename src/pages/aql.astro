@@ -1,0 +1,116 @@
+---
+import Base from '../layouts/Base.astro';
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "AQL - Advocacy Qualified Lead Specification",
+  "description": "The three-tier measurement specification for advocacy-led growth: AQL-1 (Basic), AQL-2 (Influence), AQL-3 (Pipeline).",
+  "author": { "@type": "Person", "name": "Roy" },
+  "url": "https://advocacyled.com/aql"
+};
+---
+
+<Base
+  title="AQL Specification - Advocacy-Led Growth"
+  description="The Advocacy Qualified Lead (AQL): a three-tier measurement specification for ALG. AQL-1 (Basic), AQL-2 (Influence), AQL-3 (Pipeline)."
+  activeNav="aql"
+  jsonLd={jsonLd}
+>
+
+  <div class="section animate-in">
+    <div class="section-label"><span class="num">#</span> Reference</div>
+    <h1 class="t-heading-1" style="margin-bottom: var(--sp-5);">AQL - Advocacy Qualified Lead</h1>
+
+    <p class="section-body mb-8">
+      An AQL is a person whose voluntary advocacy behavior generated measurable downstream impact.
+      Not a vanity metric. Not a share count. A qualified signal that connects advocacy to business outcomes.
+    </p>
+
+    <p class="section-body mb-8">
+      Two criteria must be met: the advocacy action was voluntary (not prompted by a manager, not
+      auto-posted, not obligation) and the share generated measurable downstream activity in the
+      advocate's network.
+    </p>
+
+    <h2 class="t-heading-2" style="margin-bottom: var(--sp-4); margin-top: var(--sp-10);">The Three Tiers</h2>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Tier</th>
+          <th>Name</th>
+          <th>Criteria</th>
+          <th>Signal</th>
+          <th>Who measures</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>AQL-1</strong></td>
+          <td>Basic</td>
+          <td>Voluntary share + at least one downstream click</td>
+          <td>Entry-level advocacy. Any team can measure this with basic UTM tracking.</td>
+          <td>Marketing</td>
+        </tr>
+        <tr>
+          <td><strong>AQL-2</strong></td>
+          <td>Influence</td>
+          <td>Voluntary share + downstream participant completes their own action (form fill, registration, download)</td>
+          <td>Compounding signal. The share didn't just reach people - it moved them to act.</td>
+          <td>Marketing / Growth</td>
+        </tr>
+        <tr class="row-highlight">
+          <td><strong>AQL-3</strong></td>
+          <td>Pipeline</td>
+          <td>Voluntary share + downstream participant enters a pipeline stage (demo, trial, meeting)</td>
+          <td>Revenue signal. Connects advocacy directly to business outcomes.</td>
+          <td>Sales / Revenue</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2 class="t-heading-2" style="margin-bottom: var(--sp-4); margin-top: var(--sp-10);">What AQL Is Not</h2>
+
+    <div class="compare-grid">
+      <div class="compare-col negative">
+        <span class="compare-col-label">Not AQL</span>
+        <ul class="compare-list">
+          <li>Share count without downstream impact</li>
+          <li>Manager-prompted shares</li>
+          <li>Auto-posted company content</li>
+          <li>Likes or reactions on company posts</li>
+          <li>Referral link clicks without context</li>
+        </ul>
+      </div>
+      <div class="compare-col positive">
+        <span class="compare-col-label">AQL</span>
+        <ul class="compare-list">
+          <li>Voluntary share with tracked network impact</li>
+          <li>Self-initiated at a completion moment</li>
+          <li>Personal voice, own experience</li>
+          <li>Downstream action from the advocate's network</li>
+          <li>Attributable to specific advocacy behavior</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2 class="t-heading-2" style="margin-bottom: var(--sp-4); margin-top: var(--sp-10);">The Compound Formula</h2>
+
+    <div class="notation-block">
+      <span class="notation-label">Per-cycle formula</span>
+      <div style="margin-bottom: var(--sp-4); font-size: 1.05rem;">
+        <span class="notation-highlight">Participants &times; A &times; R &times; C = New Participants</span>
+      </div>
+      <div style="margin-bottom: var(--sp-2);"><strong>A</strong> (Activation Rate) - % of cohort that shares</div>
+      <div style="margin-bottom: var(--sp-2);"><strong>R</strong> (Reach Multiplier) - unique people per share</div>
+      <div><strong>C</strong> (Conversion Rate) - % of reached who become participants</div>
+    </div>
+
+    <p class="section-body mb-8">
+      ALG compounds when any variable improves over time. Track per cohort, per completion moment type,
+      and per campaign. After 3-4 campaigns, activation rates converge to predictable baselines.
+    </p>
+  </div>
+
+</Base>

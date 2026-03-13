@@ -1,0 +1,691 @@
+---
+import Base from '../layouts/Base.astro';
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Advocacy-Led Growth Framework v0.2",
+  "description": "The complete theoretical architecture for ALG - a 1:1:N go-to-market motion where existing participants become the primary engine of distribution, trust, and pipeline.",
+  "author": { "@type": "Person", "name": "Roy", "url": "https://twitter.com/doubts" },
+  "publisher": { "@type": "Organization", "name": "advocacyled.com", "url": "https://advocacyled.com" },
+  "datePublished": "2024-01-01",
+  "dateModified": "2026-03-14",
+  "url": "https://advocacyled.com/framework",
+  "mainEntityOfPage": "https://advocacyled.com/framework"
+};
+---
+
+<Base
+  title="The Framework - Advocacy-Led Growth"
+  description="The complete ALG framework: 1:1:N architecture, Belief Window, cohort activation, signal ecosystem, AQL measurement, and the economic model for advocacy-led distribution."
+  activeNav="framework"
+  jsonLd={jsonLd}
+>
+
+  <!-- ═══ SECTION 0: THE CORE CONCEPT ═══ -->
+  <div class="section animate-in" id="architecture">
+    <div class="section-label"><span class="num">00</span> The core concept</div>
+    <h1 class="t-heading-1" style="margin-bottom: var(--sp-5);">1:1:N - A Different Distribution Architecture</h1>
+
+    <p class="section-body mb-8">
+      Every growth motion has a distribution architecture. Almost every motion in B2B runs on
+      the same one: <strong>1:1</strong>. Brand sends, recipient acts or ignores. The chain ends.
+      To reach another 10,000, send another 10,000. The cost structure is linear. Every recipient
+      is a terminal node.
+    </p>
+
+    <div class="notation-block">
+      <span class="notation-label">Distribution architectures</span>
+      <div style="margin-bottom: var(--sp-3);">
+        <strong>1:1</strong> - Email, ads, cold outreach, content. Brand &rarr; Recipient &rarr; End.
+        2x the reach = 2x the cost.
+      </div>
+      <div style="margin-bottom: var(--sp-3);">
+        <span class="notation-highlight">1:1:N</span> - Brand activates Advocate (1) &rarr;
+        Advocate shares on their terms (1) &rarr; Reaches their network (N).
+        The Brand doesn't reach N directly. The advocate unlocks access to an entire network
+        the Brand could never reach on its own, carrying trust the Brand could never buy.
+      </div>
+      <div>
+        <span class="notation-highlight">1:1:N:N</span> - At maturity. Some people in the
+        first N become participants themselves. They complete something. ALG activates again.
+        The chain doesn't terminate. It cycles.
+      </div>
+    </div>
+
+    <p class="section-body mb-8">
+      <strong>1:1 is distribution. 1:1:N is multiplication. 1:1:N:N is compounding.</strong>
+    </p>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Motion</th>
+          <th>Architecture</th>
+          <th>Economics</th>
+          <th>Trust model</th>
+          <th>Compounds?</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Email marketing</td>
+          <td>1:1</td>
+          <td>Linear (per send)</td>
+          <td>Brand&rarr;Recipient (cold)</td>
+          <td>No</td>
+        </tr>
+        <tr>
+          <td>Paid ads</td>
+          <td>1:1</td>
+          <td>Linear (per impression)</td>
+          <td>Brand&rarr;Viewer (cold)</td>
+          <td>No</td>
+        </tr>
+        <tr>
+          <td>Cold outreach</td>
+          <td>1:1</td>
+          <td>Linear (per touch)</td>
+          <td>SDR&rarr;Prospect (cold)</td>
+          <td>No</td>
+        </tr>
+        <tr>
+          <td>Content/SEO</td>
+          <td>1:1</td>
+          <td>Semi-linear</td>
+          <td>Brand&rarr;Reader (warm)</td>
+          <td>Weak</td>
+        </tr>
+        <tr>
+          <td>Influencer</td>
+          <td>1:1:N (rented)</td>
+          <td>Linear (per campaign)</td>
+          <td>Borrowed trust</td>
+          <td>No - resets</td>
+        </tr>
+        <tr class="row-highlight">
+          <td><strong>ALG</strong></td>
+          <td><strong>1:1:N:N</strong></td>
+          <td><strong>Front-loaded, then marginal</strong></td>
+          <td><strong>Cohort trust (earned)</strong></td>
+          <td><strong>Yes</strong></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ═══ SECTION 1: DEFINITION ═══ -->
+  <div class="section" id="definition">
+    <div class="section-label"><span class="num">01</span> The definition</div>
+    <h2 class="t-heading-1" style="margin-bottom: var(--sp-5);">What Advocacy-Led Growth Is</h2>
+
+    <p class="section-body mb-8">
+      <strong>Advocacy-Led Growth (ALG)</strong> is a go-to-market motion where existing participants
+      - employees, community members, event attendees, and partners - become the primary
+      engine of distribution, trust, and pipeline.
+    </p>
+    <p class="section-body mb-8">
+      ALG operates on a 1:1:N architecture. The company activates one advocate at a completion moment.
+      That advocate's share reaches their entire professional network. Some of that network enters the
+      loop and does it again. Growth is not bought or broadcast. It is earned through people who have
+      already said yes - and it compounds because each cycle's participants become the next cycle's advocates.
+    </p>
+
+    <div class="pull-quote">
+      ALG is the growth motion where the people who already believe in you become the engine
+      that reaches the people who should.
+    </div>
+  </div>
+
+  <!-- ═══ SECTION 2: WHY NOW ═══ -->
+  <div class="section" id="why-now">
+    <div class="section-label"><span class="num">02</span> Why now</div>
+    <h2 class="t-heading-1" style="margin-bottom: var(--sp-5);">The Content Economy Inversion</h2>
+
+    <p class="section-body mb-8">
+      For two decades, growth meant publishing - more blog posts, more landing pages, more SEO
+      content. AI has ended that era. When any company can generate infinite content at zero cost,
+      brand-published content becomes noise.
+    </p>
+    <p class="section-body mb-8">
+      The algorithms know it. Google, Perplexity, and ChatGPT are actively shifting weight from brand
+      content to individual, experiential signals. AI platforms are growing as discovery engines. Gartner
+      predicts search engine volumes will drop 25% across 2026.
+    </p>
+
+    <div class="notation-block">
+      <span class="notation-label">The inversion</span>
+      <div style="margin-bottom: var(--sp-3);">
+        <strong>Brand content &rarr; noise</strong> - AI-generated, infinite supply, decreasing trust
+      </div>
+      <div>
+        <span class="notation-highlight">Individual content &rarr; signal</span> - Identity-verified, experiential, increasing algorithmic weight
+      </div>
+    </div>
+
+    <p class="section-body mb-8">
+      Every other growth motion relies on brand-generated touchpoints. ALG is the only growth
+      motion built on individual signals. Real people, at real completion moments, choosing to share
+      real experiences through their own networks. That's the only signal the AI content economy
+      can't devalue - because it's the only signal that can't be faked.
+    </p>
+
+    <h3 class="t-heading-2" style="margin-bottom: var(--sp-4); margin-top: var(--sp-10);">The Trust Taxonomy</h3>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Trust type</th>
+          <th>Source</th>
+          <th>Compounds?</th>
+          <th>Trajectory</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Paid</strong></td>
+          <td>Ads, sponsored content</td>
+          <td>No</td>
+          <td>Depreciating. Audience knows it's paid.</td>
+        </tr>
+        <tr>
+          <td><strong>Borrowed</strong></td>
+          <td>Influencers, analyst endorsements</td>
+          <td>No</td>
+          <td>Resets each campaign. Trust belongs to intermediary.</td>
+        </tr>
+        <tr>
+          <td><strong>Earned</strong></td>
+          <td>Brand reputation, thought leadership</td>
+          <td>Slowly</td>
+          <td>Real but slow. Years to build.</td>
+        </tr>
+        <tr class="row-highlight">
+          <td><strong>Cohort</strong></td>
+          <td>Real practitioners who completed something real</td>
+          <td>Rapidly</td>
+          <td>Personal, verified, corroborated. Compounds each cycle.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="pull-quote">
+      "Borrowed trust depreciates. Cohort trust compounds."
+    </div>
+  </div>
+
+  <!-- ═══ SECTION 3: THE MECHANISM ═══ -->
+  <div class="section" id="mechanism">
+    <div class="section-label"><span class="num">03</span> The mechanism</div>
+    <h2 class="t-heading-1" style="margin-bottom: var(--sp-5);">How ALG Works</h2>
+
+    <h3 class="t-heading-2" style="margin-bottom: var(--sp-4);">The Belief Window</h3>
+    <p class="section-body mb-8">
+      Every human interaction follows an emotional arc. At the moment of completion - finishing a
+      certification, speaking at an event, completing an onboarding - belief peaks. This is the
+      <strong>Belief Window</strong>: the period from the completion moment through its decay.
+    </p>
+    <p class="section-body mb-8">
+      This is why traditional advocacy fails. Asking employees to share a post on Tuesday about
+      an event they attended last month doesn't work. The Belief Window closed. The ask feels like
+      obligation, not expression.
+    </p>
+    <p class="section-body mb-8">
+      <strong>This is testable.</strong> Measure share rates at T+0 (immediately), T+1 hour, T+24 hours,
+      T+7 days. If the data shows sharp decline after the completion moment, the theory is confirmed.
+    </p>
+
+    <h3 class="t-heading-2" style="margin-bottom: var(--sp-4); margin-top: var(--sp-10);">Completion Moment Taxonomy</h3>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Intensity</th>
+          <th>Examples</th>
+          <th>Belief Window</th>
+          <th>Advocacy quality</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>High</strong></td>
+          <td>Certification, speaking at event, product deployment</td>
+          <td>Wide</td>
+          <td>Strong, authentic</td>
+        </tr>
+        <tr>
+          <td><strong>Medium</strong></td>
+          <td>Conference session, onboarding, community challenge</td>
+          <td>Moderate</td>
+          <td>Good with right activation</td>
+        </tr>
+        <tr>
+          <td><strong>Low</strong></td>
+          <td>Booth visit, whitepaper download, form fill</td>
+          <td>Narrow</td>
+          <td>Weak - don't activate here</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3 class="t-heading-2" style="margin-bottom: var(--sp-4); margin-top: var(--sp-10);">The Cohort as the Unit of ALG</h3>
+    <p class="section-body mb-8">
+      The real unit of ALG is not the individual advocate. It is the <strong>cohort</strong> -
+      a group of people who share a completion moment and professional context. A certification
+      graduating class. An event attendee group. A product onboarding batch.
+    </p>
+    <p class="section-body mb-4"><strong>Why cohorts matter more than individuals:</strong></p>
+    <div class="principles-list" style="margin-bottom: var(--sp-8);">
+      <div class="principle">
+        <span class="principle-dash">-</span>
+        <p class="principle-text"><strong>Audience relevance is structural.</strong> Cohort members are connected to people with the same professional context. A MongoDB developer's network contains other developers. The audience is pre-qualified by network structure.</p>
+      </div>
+      <div class="principle">
+        <span class="principle-dash">-</span>
+        <p class="principle-text"><strong>Cohort cascade effect.</strong> When one person shares, it creates social permission for others. The first shares are hardest. Shares 5-20 are easier because peers are doing it.</p>
+      </div>
+      <div class="principle">
+        <span class="principle-dash">-</span>
+        <p class="principle-text"><strong>Signal clustering for AI engines.</strong> When 50 people simultaneously post about the same experience, AI engines interpret this as strong evidence of something real. A signal cluster is nearly impossible to fake.</p>
+      </div>
+    </div>
+
+    <h3 class="t-heading-2" style="margin-bottom: var(--sp-4); margin-top: var(--sp-10);">The Infinite Activation Loop</h3>
+
+    <div class="loop-container">
+      <div class="loop-step">
+        <span class="loop-num">01</span>
+        <span class="loop-text"><strong>A cohort completes something real</strong> - an event attended, a certification earned, an onboarding finished, a challenge completed.</span>
+      </div>
+      <div class="loop-step">
+        <span class="loop-num">02</span>
+        <span class="loop-text"><strong>The Belief Window opens.</strong> Participants are at peak belief. This is the activation window.</span>
+      </div>
+      <div class="loop-step">
+        <span class="loop-num">03</span>
+        <span class="loop-text"><strong>ALG activation appears - contextual, optional, valuable.</strong> The participant sees a reason to share that serves their own interest (credential display, professional positioning, recognition).</span>
+      </div>
+      <div class="loop-step">
+        <span class="loop-num">04</span>
+        <span class="loop-text"><strong>Distribution flows through 1:1:N.</strong> The participant shares publicly. Their network - pre-qualified by professional context - sees it.</span>
+      </div>
+      <div class="loop-step">
+        <span class="loop-num">05</span>
+        <span class="loop-text"><strong>Signals seed across the ecosystem.</strong> LinkedIn (network signal), reviews (authority signal), forums (community signal), blogs (SEO signal). Each surface feeds the AEO layer.</span>
+      </div>
+      <div class="loop-step">
+        <span class="loop-num">06</span>
+        <span class="loop-text"><strong>New participants enter.</strong> Someone from the advocate's network discovers, joins, attends, completes.</span>
+      </div>
+      <div class="loop-step">
+        <span class="loop-num">07</span>
+        <span class="loop-text"><strong>The loop compounds.</strong> New participants hit their own completion moment. ALG activates again. 1:1:N becomes 1:1:N:N.</span>
+      </div>
+    </div>
+
+    <div class="pull-quote">
+      "Distribution creates participants. Participants create distribution. There is no fixed start, and no ceiling."
+    </div>
+  </div>
+
+  <!-- ═══ SECTION 4: SIGNAL ECOSYSTEM ═══ -->
+  <div class="section" id="signals">
+    <div class="section-label"><span class="num">04</span> Signal ecosystem</div>
+    <h2 class="t-heading-1" style="margin-bottom: var(--sp-5);">Beyond LinkedIn - Three Signal Layers</h2>
+
+    <p class="section-body mb-8">
+      LinkedIn is the highest-density professional network for B2B. It should remain the primary
+      activation channel. But LinkedIn signals are ephemeral - a post lives 48-72 hours.
+      If ALG stops at LinkedIn, you get spikes. If ALG activates across the signal ecosystem,
+      you get compounding authority.
+    </p>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Layer</th>
+          <th>Signal type</th>
+          <th>Examples</th>
+          <th>Persistence</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Layer 1</strong></td>
+          <td>Network Signals</td>
+          <td>LinkedIn posts, X threads, community shares</td>
+          <td>Ephemeral (days). Wide reach.</td>
+        </tr>
+        <tr>
+          <td><strong>Layer 2</strong></td>
+          <td>Authority Signals</td>
+          <td>G2 reviews, Reddit, Stack Overflow, blog posts</td>
+          <td>Persistent (months-years). Compounding.</td>
+        </tr>
+        <tr class="row-highlight">
+          <td><strong>Layer 3</strong></td>
+          <td>AI Engine Signals</td>
+          <td>Aggregated from Layers 1 &amp; 2 by AI platforms</td>
+          <td>Category-defining. Default recommendation.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p class="section-body mb-8">
+      Layer 1 creates immediate visibility. Layer 2 converts that into persistent signals. Layer 3
+      aggregates into authority. Over time, Layer 3 authority makes Layer 1 more effective and Layer 2
+      more discoverable. The three layers form their own compounding loop.
+    </p>
+
+    <h3 class="t-heading-2" style="margin-bottom: var(--sp-4); margin-top: var(--sp-10);">Multi-Surface Activation</h3>
+    <p class="section-body mb-8">
+      At the completion moment, the advocate chooses where to seed their signal. Different advocates
+      gravitate to different surfaces. ALG shouldn't force everyone through the same channel.
+    </p>
+
+    <table class="data-table">
+      <thead>
+        <tr><th>Surface</th><th>Signal type</th><th>Persistence</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>LinkedIn, X</td><td>Network signal</td><td>Ephemeral (days)</td></tr>
+        <tr><td>G2, TrustRadius</td><td>Authority signal</td><td>Persistent (years)</td></tr>
+        <tr><td>Reddit, Slack, Discord</td><td>Community signal</td><td>Semi-persistent</td></tr>
+        <tr><td>Blog, Dev.to</td><td>SEO + AI citation</td><td>Persistent</td></tr>
+        <tr><td>Stack Overflow, Quora</td><td>Utility signal</td><td>Evergreen</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ═══ SECTION 5: VALUE EXCHANGE ═══ -->
+  <div class="section" id="value-exchange">
+    <div class="section-label"><span class="num">05</span> Value exchange</div>
+    <h2 class="t-heading-1" style="margin-bottom: var(--sp-5);">Why People Advocate</h2>
+
+    <p class="section-body mb-8">
+      ALG only compounds when every actor in the loop gains something. If any actor is subsidizing
+      the others, the loop decays. The participant gains credentials, recognition, economic access.
+      The company gains distribution and pipeline. The network gains relevant discovery. All three
+      must be positive.
+    </p>
+
+    <div class="pull-quote">
+      "If we removed our name from the share, would the participant still want to post it?"<br>
+      <span style="font-size: 0.85em; font-style: normal; color: var(--muted);">If yes - the value exchange works. If no - you're running employee advocacy, not ALG.</span>
+    </div>
+
+    <h3 class="t-heading-2" style="margin-bottom: var(--sp-4); margin-top: var(--sp-10);">Value Exchange by Persona</h3>
+
+    <table class="data-table">
+      <thead>
+        <tr><th>Persona</th><th>What they gain</th><th>Why they share</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Developer / IC</strong></td>
+          <td>Certificate, skill verification, leaderboard recognition</td>
+          <td>The share IS the credential display</td>
+        </tr>
+        <tr>
+          <td><strong>Manager / Director</strong></td>
+          <td>Results visibility, speaking opportunities</td>
+          <td>Demonstrates leadership effectiveness</td>
+        </tr>
+        <tr>
+          <td><strong>CTO / VP / C-Suite</strong></td>
+          <td>Thought leadership positioning, peer recognition</td>
+          <td>Positioned as strategic thinker</td>
+        </tr>
+        <tr>
+          <td><strong>Partner / Agency</strong></td>
+          <td>Client acquisition, co-marketing, revenue opportunity</td>
+          <td>Economic self-interest (WordPress model)</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3 class="t-heading-2" style="margin-bottom: var(--sp-4); margin-top: var(--sp-10);">Economic Access - The Deeper Motive Layer</h3>
+    <p class="section-body mb-8">
+      Recognition is a reward. Economic access is a motive. The communities that produce the strongest
+      advocacy - WordPress, Salesforce Trailblazer, Shopify - all share one structural feature:
+      membership creates economic access. People build careers, businesses, and livelihoods inside
+      the ecosystem. Advocacy is economically rational.
+    </p>
+
+    <div class="pull-quote">
+      "The strongest advocacy doesn't need to be asked for. It needs to be worth doing."
+    </div>
+  </div>
+
+  <!-- ═══ SECTION 6: ALG VS EVERYTHING ═══ -->
+  <div class="section" id="distinctions">
+    <div class="section-label"><span class="num">06</span> Distinctions</div>
+    <h2 class="t-heading-1" style="margin-bottom: var(--sp-5);">ALG vs Everything Else</h2>
+
+    <h3 class="t-heading-2" style="margin-bottom: var(--sp-4);">ALG vs Employee Advocacy</h3>
+
+    <table class="data-table">
+      <thead>
+        <tr><th>Dimension</th><th>Employee Advocacy</th><th>ALG</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Who shares</td><td>Employees (prompted)</td><td>Any participant (at completion)</td></tr>
+        <tr><td>What</td><td>Company content</td><td>Their own experience</td></tr>
+        <tr><td>When</td><td>Random Tuesday</td><td>Belief Window (completion moment)</td></tr>
+        <tr><td>Why</td><td>Obligation</td><td>Value exchange</td></tr>
+        <tr><td>Unit</td><td>Individual</td><td>Cohort</td></tr>
+        <tr><td>Compounds?</td><td>No - decays via burnout</td><td>Yes - repeat advocates increase</td></tr>
+      </tbody>
+    </table>
+
+    <h3 class="t-heading-2" style="margin-bottom: var(--sp-4); margin-top: var(--sp-10);">ALG vs Influencer Marketing</h3>
+    <p class="section-body mb-8">
+      Influencer marketing is 1:1:N with rented trust. The trust belongs to the influencer, not
+      the company. It resets each campaign. ALG is 1:1:N with cohort trust. The trust belongs to
+      the practitioners. It compounds.
+    </p>
+
+    <h3 class="t-heading-2" style="margin-bottom: var(--sp-4); margin-top: var(--sp-10);">ALG vs Community-Led Growth</h3>
+    <p class="section-body mb-8">
+      CLG built the engagement layer. It showed companies how to create belonging, trust, and shared
+      identity. But CLG never solved the distribution problem. Most communities are engagement
+      traps: energy circulates inside the walls, never compounds externally.
+    </p>
+    <p class="section-body mb-8">
+      <strong>ALG is the missing activation layer for CLG.</strong> CLG creates depth. ALG converts
+      that depth into external distribution. Without ALG, CLG is an engagement trap.
+      Without CLG, ALG has no community depth. Together: the community grows through its own
+      members' distribution.
+    </p>
+
+    <h3 class="t-heading-2" style="margin-bottom: var(--sp-4); margin-top: var(--sp-10);">The Community Spectrum</h3>
+    <table class="data-table">
+      <thead>
+        <tr><th>Level</th><th>Type</th><th>ALG potential</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>0</td><td>Customer Service - support forum with a community label</td><td>None</td></tr>
+        <tr><td>1</td><td>Engagement - knowledge sharing, AMAs, content</td><td>Low</td></tr>
+        <tr><td>2</td><td>Credential - certifications, verified skills</td><td>Medium</td></tr>
+        <tr class="row-highlight"><td>3</td><td>Economic Ecosystem - livelihoods connected to the platform</td><td>Highest</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ═══ SECTION 7: PREREQUISITES ═══ -->
+  <div class="section" id="prerequisites">
+    <div class="section-label"><span class="num">07</span> Prerequisites</div>
+    <h2 class="t-heading-1" style="margin-bottom: var(--sp-5);">Where ALG Works - and Where It Doesn't</h2>
+
+    <p class="section-body mb-8">Four conditions. All must be present.</p>
+
+    <div class="principles-list" style="margin-bottom: var(--sp-8);">
+      <div class="principle">
+        <span class="principle-dash">1.</span>
+        <p class="principle-text"><strong>Participation layer.</strong> People are already doing something - attending events, using the product, joining communities, completing certifications. ALG doesn't create participation. It activates existing participation.</p>
+      </div>
+      <div class="principle">
+        <span class="principle-dash">2.</span>
+        <p class="principle-text"><strong>Network density.</strong> Participants are connected to relevant audiences - on LinkedIn, in communities, in professional networks.</p>
+      </div>
+      <div class="principle">
+        <span class="principle-dash">3.</span>
+        <p class="principle-text"><strong>Digital distribution surface.</strong> Sharing happens in a space where it's visible, measurable, and persistent.</p>
+      </div>
+      <div class="principle">
+        <span class="principle-dash">4.</span>
+        <p class="principle-text"><strong>Motive alignment.</strong> Advocating serves the advocate's own professional or economic interest - not just the company's.</p>
+      </div>
+    </div>
+
+    <div class="notation-block">
+      <span class="notation-label">Diagnostic</span>
+      <div style="margin-bottom: var(--sp-2);"><strong>4 yeses:</strong> ALG will compound aggressively.</div>
+      <div style="margin-bottom: var(--sp-2);"><strong>3 yeses</strong> (weak motive alignment): ALG works but needs more recognition infrastructure.</div>
+      <div><strong>2 or fewer:</strong> Build the prerequisites first. ALG is not your motion yet.</div>
+    </div>
+
+    <h3 class="t-heading-2" style="margin-bottom: var(--sp-4); margin-top: var(--sp-10);">Where ALG Fails</h3>
+    <p class="section-body">
+      B2C/D2C - consumer networks aren't professionally curated. Industries without digital footprint -
+      manufacturing, heavy industry. Companies with no participation layer. Networks without density -
+      participants exist but aren't connected to relevant buyers.
+    </p>
+  </div>
+
+  <!-- ═══ SECTION 8: MEASUREMENT ═══ -->
+  <div class="section" id="measurement">
+    <div class="section-label"><span class="num">08</span> Measurement</div>
+    <h2 class="t-heading-1" style="margin-bottom: var(--sp-5);">AQL &amp; the Compound Formula</h2>
+
+    <h3 class="t-heading-2" style="margin-bottom: var(--sp-4);">The Advocacy Qualified Lead (AQL)</h3>
+    <p class="section-body mb-8">
+      An AQL is a person whose advocacy behavior meets two criteria: voluntary advocacy action
+      (not prompted by a manager, not auto-posted) and measurable downstream network impact.
+    </p>
+
+    <table class="data-table">
+      <thead>
+        <tr><th>Tier</th><th>Definition</th><th>Signal</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>AQL-1</strong> (Basic)</td><td>Voluntary share + downstream click</td><td>Entry-level</td></tr>
+        <tr><td><strong>AQL-2</strong> (Influence)</td><td>Share + downstream participant completes action</td><td>Compounding</td></tr>
+        <tr class="row-highlight"><td><strong>AQL-3</strong> (Pipeline)</td><td>Share + downstream participant enters pipeline</td><td>Revenue</td></tr>
+      </tbody>
+    </table>
+
+    <h3 class="t-heading-2" style="margin-bottom: var(--sp-4); margin-top: var(--sp-10);">The Compound Formula</h3>
+
+    <div class="notation-block">
+      <span class="notation-label">Three variables</span>
+      <div style="margin-bottom: var(--sp-3);">
+        <span class="notation-highlight">A</span> (Activation Rate) - What % of a cohort shares at the completion moment?
+      </div>
+      <div style="margin-bottom: var(--sp-3);">
+        <span class="notation-highlight">R</span> (Reach Multiplier) - How many unique people does each share reach?
+      </div>
+      <div style="margin-bottom: var(--sp-4);">
+        <span class="notation-highlight">C</span> (Conversion Rate) - What % of reached people become new participants?
+      </div>
+      <div>
+        Each cycle: <strong>Participants &times; A &times; R &times; C = New Participants</strong>
+      </div>
+    </div>
+
+    <p class="section-body mb-8">
+      ALG compounds when any variable improves over time. A increases because recognition makes
+      repeat advocates more likely. R increases because advocates who participate repeatedly build
+      larger networks. C increases because trust-based distribution has higher conversion than cold channels.
+    </p>
+
+    <h3 class="t-heading-2" style="margin-bottom: var(--sp-4); margin-top: var(--sp-10);">Activation Rate as an Operating Variable</h3>
+    <p class="section-body mb-8">
+      ALG's activation rate (15-25% at well-designed completion moments) is equivalent to email open rates,
+      PLG activation rates, or SLG meeting-to-demo conversion. It's an operating variable, not a design flaw.
+      Every motion has a chain of uncertain variables. ALG's chain is shorter and more reliable at
+      audience qualification, deliverability, trust, and timing.
+    </p>
+  </div>
+
+  <!-- ═══ SECTION 9: ECONOMICS ═══ -->
+  <div class="section" id="economics">
+    <div class="section-label"><span class="num">09</span> Economics</div>
+    <h2 class="t-heading-1" style="margin-bottom: var(--sp-5);">The Economic Model</h2>
+
+    <p class="section-body mb-8">
+      ALG doesn't create new spend. It multiplies return on existing spend - events, community,
+      product, employer brand. The question isn't "what's the ROI of ALG?" It's "what's the incremental
+      ROI when ALG is added?"
+    </p>
+
+    <h3 class="t-heading-2" style="margin-bottom: var(--sp-4); margin-top: var(--sp-10);">The Distribution Arbitrage</h3>
+    <div class="notation-block">
+      <div style="margin-bottom: var(--sp-3);">LinkedIn paid: <strong>$33-65 CPM</strong> for B2B. CPC: $3.94-$5.58.</div>
+      <div style="margin-bottom: var(--sp-3);">ALG organic: 50 advocates &times; 2,000 reach &times; 12 campaigns = <span class="notation-highlight">1.2M impressions/year</span></div>
+      <div>At $50 CPM equivalent: <strong>$60K in equivalent media value.</strong> Marginal cost per additional impression: near zero.</div>
+    </div>
+
+    <h3 class="t-heading-2" style="margin-bottom: var(--sp-4); margin-top: var(--sp-10);">The Event ROI Multiplier</h3>
+    <p class="section-body mb-8">
+      Companies allocate ~31.6% of marketing budget to events. Average event lead cost: $112. But 94%
+      fail to convert event leads to opportunities. Without ALG: event ROI calculated on in-room outcomes
+      only. With ALG: event ROI includes out-of-room distribution, extended reach, and new leads from
+      attendee networks.
+    </p>
+
+    <h3 class="t-heading-2" style="margin-bottom: var(--sp-4); margin-top: var(--sp-10);">The Hiring Cost Avoidance</h3>
+    <p class="section-body mb-8">
+      Agencies charge 15-25% per hire. At $120K salary: $18K-$30K per placement. If ALG shifts 20%
+      of hires from agency to organic advocacy channel: direct cost avoidance.
+    </p>
+  </div>
+
+  <!-- ═══ SECTION 10: MATURITY MODEL ═══ -->
+  <div class="section" id="maturity">
+    <div class="section-label"><span class="num">10</span> Maturity model</div>
+    <h2 class="t-heading-1" style="margin-bottom: var(--sp-5);">The Three Levels</h2>
+
+    <table class="data-table">
+      <thead>
+        <tr><th>Level</th><th>Description</th><th>Measure</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Level 1</strong><br>First Activation</td>
+          <td>Single campaign, one completion moment, LinkedIn-primary. Certificate or recognition as value exchange. Goal: prove the loop works.</td>
+          <td>Activation rate, reach</td>
+        </tr>
+        <tr>
+          <td><strong>Level 2</strong><br>Repeatable</td>
+          <td>Multiple campaigns across completion moments. Light gamification. Cohort-level measurement. Multiple signal surfaces. Repeat advocates identified.</td>
+          <td>AQL-1s, AQL-2s</td>
+        </tr>
+        <tr class="row-highlight">
+          <td><strong>Level 3</strong><br>Compounding Engine</td>
+          <td>Always-on activation across events, product, community. Multi-surface signal strategy. Cross-team. Economic access designed into ecosystem.</td>
+          <td>AQL-3s, compound rate</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ═══ CANONICAL LINES ═══ -->
+  <div class="section" id="language">
+    <div class="canon-block">
+      <div class="canon-label">Canonical lines - ALG v0.2</div>
+      <div class="canon-lines">
+        <div class="canon-line">"Completion creates permission."</div>
+        <div class="canon-line">"Distribution creates participants. Participants create distribution."</div>
+        <div class="canon-line">"Borrowed trust depreciates. Cohort trust compounds."</div>
+        <div class="canon-line">"Campaigns reset. Infrastructure compounds."</div>
+        <div class="canon-line">"The strongest advocacy doesn't need to be asked for. It needs to be worth doing."</div>
+        <div class="canon-line">"Advocacy fails the moment it feels like obligation."</div>
+        <div class="canon-line">"1:1 terminates. 1:1:N multiplies. 1:1:N:N compounds."</div>
+        <div class="canon-line">"Forced advocacy gives you a number you can report once. Voluntary advocacy gives you a rate you can compound forever."</div>
+      </div>
+    </div>
+  </div>
+
+
+</Base>
