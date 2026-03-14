@@ -76,14 +76,24 @@ const fullOgImage = ogImage.startsWith('http') ? ogImage : `${siteUrl}${ogImage}
         <div class="masthead-actions">
           <a href="/connect" class="masthead-action-btn">Let's talk</a>
           <a href="https://advocacyled.substack.com/subscribe" target="_blank" rel="noopener" class="masthead-action-btn">Subscribe</a>
+          <span class="masthead-discuss-label">Discuss ALG</span>
           <a
-            class="masthead-action-icon"
+            class="masthead-action-icon masthead-ai-logo"
             href={`https://claude.ai/new?q=${encodeURIComponent(`I'm reading about Advocacy-Led Growth (ALG) on advocacyled.com${Astro.url.pathname}. Help me understand: how would ALG apply to my company?`)}`}
             target="_blank"
             rel="noopener"
             title="Discuss with Claude"
           >
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            <img src="/claude-logo.svg" alt="Claude" width="18" height="18" />
+          </a>
+          <a
+            class="masthead-action-icon masthead-ai-logo"
+            href={`https://chatgpt.com/?q=${encodeURIComponent(`I'm reading about Advocacy-Led Growth (ALG) on advocacyled.com${Astro.url.pathname}. Help me understand: how would ALG apply to my company?`)}`}
+            target="_blank"
+            rel="noopener"
+            title="Discuss with ChatGPT"
+          >
+            <img src="/chatgpt-icon.svg" alt="ChatGPT" width="18" height="18" />
           </a>
           <button class="masthead-action-icon" id="shareLinkedIn" title="Share on LinkedIn">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
@@ -195,8 +205,6 @@ const fullOgImage = ogImage.startsWith('http') ? ogImage : `${siteUrl}${ogImage}
         <div class="footer-wozku">Built for ALG teams: <a href="https://wozku.com" target="_blank" rel="noopener">wozku.com</a></div>
       </footer>
     </main>
-
-    <!-- ALG PATTERN GRID -->
 
     <!-- ALG PATTERN GRID -->
     <div class="alg-pattern" id="algPattern"></div>

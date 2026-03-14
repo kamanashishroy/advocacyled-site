@@ -273,6 +273,25 @@ body::before {
   color: var(--accent);
 }
 
+.masthead-discuss-label {
+  font-family: var(--mono);
+  font-size: 0.55rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.masthead-ai-logo img {
+  display: block;
+  border-radius: 3px;
+}
+
+.toolkit-btn-ai img {
+  display: block;
+  border-radius: 3px;
+}
+
 .footer-version {
   font-family: var(--mono);
   font-size: 0.6rem;
@@ -1097,6 +1116,7 @@ select.form-input {
   }
 
   .masthead-action-icon { display: none; }
+  .masthead-discuss-label { display: none; }
 
   .compare-grid {
     grid-template-columns: 1fr;
