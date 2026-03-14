@@ -130,14 +130,22 @@ const chatgptUrl = `https://chatgpt.com/?q=${encodeURIComponent(algContext)}`;
       and community updates. No spam. Just signal.
     </p>
 
-    <iframe
-      src="https://advocacyled.substack.com/embed"
-      width="480"
-      height="150"
-      style="border: none; background: transparent; max-width: 100%;"
-      frameborder="0"
-      scrolling="no"
-    ></iframe>
+    <div id="custom-substack-embed"></div>
+    <script>
+      window.CustomSubstackWidget = {
+        substackUrl: "advocacyled.substack.com",
+        placeholder: "your@email.com",
+        buttonText: "Subscribe",
+        theme: "custom",
+        colors: {
+          primary: "#c8401a",
+          input: "#f5f0e8",
+          email: "#0e0d0b",
+          text: "#f5f0e8",
+        }
+      };
+    </script>
+    <script src="https://substackapi.com/widget.js" async></script>
   </div>
 
   <!-- GO DEEPER -->
