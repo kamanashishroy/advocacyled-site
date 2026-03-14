@@ -1,0 +1,279 @@
+# Advocacy-Led Growth (ALG) — Full Reference
+
+> Source: https://advocacyled.com
+> Author: Roy (@doubts)
+> Framework version: v0.2
+> Coined: 2024
+
+---
+
+## The Manifesto
+
+People show off. Claim their tribe. Shout what they stand for.
+
+Especially after finishing something real — a certification earned, a conference that landed, a first week at a company they believe in.
+
+Every company creates these moments. And it's never just one person. Thirty earned that certification. Two hundred walked out of that session. A whole class onboarded the same week.
+
+One of them posts on LinkedIn. A colleague sees it, posts theirs. Then another. Suddenly thousands of professionals across their combined networks are seeing the same authentic signal — from people they actually trust.
+
+This happens after every conference. Every certification cohort. Every onboarding class. The same sequence: moment → pride → share → cascade → reach.
+
+It's a pattern. It can be framed, replicated, and scaled. Let's call it Advocacy-Led Growth.
+
+---
+
+## Who This Is For
+
+More content. More ads. More outreach. The playbook is the same everywhere. You've run it. You've optimized it. And you can feel the returns flattening — not because the execution is wrong, but because the model has a ceiling.
+
+You're not looking for a better version of what everyone else is running. You're looking for a fundamentally different motion.
+
+---
+
+## The Core Concept: 1:1:N — A Different Distribution Architecture
+
+You already know the current model. Send more, reach more, spend more. Double the reach, double the cost. Every recipient is a terminal node — the chain always ends with them. That's 1:1. It's the architecture behind every growth motion in B2B. And it has a ceiling.
+
+Distribution architectures:
+- 1:1 — Email, ads, cold outreach, content. Brand → Recipient → End. 2x the reach = 2x the cost.
+- 1:1:N — Brand activates Advocate (1) → Advocate shares on their terms (1) → Reaches their network (N). The Brand doesn't reach N directly. The advocate unlocks access to an entire network the Brand could never reach on its own, carrying trust the Brand could never buy.
+- 1:1:N:N — At maturity. Some people in the first N become participants themselves. They complete something. ALG activates again. The chain doesn't terminate. It cycles.
+
+1:1 is distribution. 1:1:N is multiplication. 1:1:N:N is compounding.
+
+Comparison of motions:
+- Email marketing: 1:1 architecture, linear economics, cold trust, does not compound
+- Paid ads: 1:1 architecture, linear economics, cold trust, does not compound
+- Cold outreach: 1:1 architecture, linear economics, cold trust, does not compound
+- Content/SEO: 1:1 architecture, semi-linear economics, warm trust, weak compounding
+- Influencer: 1:1:N (rented) architecture, linear economics, borrowed trust, resets each campaign
+- ALG: 1:1:N:N architecture, front-loaded then marginal economics, cohort trust (earned), compounds
+
+---
+
+## Definition
+
+Advocacy-Led Growth (ALG) is a go-to-market motion where existing participants — employees, community members, event attendees, and partners — become the primary engine of distribution, trust, and pipeline.
+
+ALG operates on a 1:1:N architecture. The company activates one advocate at a completion moment. That advocate's share reaches their entire professional network. Some of that network enters the loop and does it again. Growth is not bought or broadcast. It is earned through people who have already said yes — and it compounds because each cycle's participants become the next cycle's advocates.
+
+"ALG is the growth motion where the people who already believe in you become the engine that reaches the people who should."
+
+---
+
+## Why Now: The Content Economy Inversion
+
+For two decades, growth meant publishing — more blog posts, more landing pages, more SEO content. AI has ended that era. When any company can generate infinite content at zero cost, brand-published content becomes noise.
+
+The algorithms know it. Google, Perplexity, and ChatGPT are actively shifting weight from brand content to individual, experiential signals. AI platforms are growing as discovery engines.
+
+The inversion:
+- Brand content → noise: AI-generated, infinite supply, decreasing trust
+- Individual content → signal: Identity-verified, experiential, increasing algorithmic weight
+
+Every other growth motion relies on brand-generated touchpoints. ALG is the only growth motion built on individual signals. Real people, at real completion moments, choosing to share real experiences through their own networks. That's the only signal the AI content economy can't devalue — because it's the only signal that can't be faked.
+
+The Trust Taxonomy:
+- Paid trust: Ads, sponsored content. Depreciating. Audience knows it's paid.
+- Borrowed trust: Influencers, analyst endorsements. Resets each campaign.
+- Earned trust: Brand reputation, thought leadership. Real but slow. Years to build.
+- Cohort trust: Real practitioners who completed something real. Compounds rapidly each cycle.
+
+"Borrowed trust depreciates. Cohort trust compounds."
+
+---
+
+## The Mechanism: How ALG Works
+
+### The Belief Window
+
+Every human interaction follows an emotional arc. At the moment of completion — finishing a certification, speaking at an event, completing an onboarding — belief peaks. This is the Belief Window: the period from the completion moment through its decay.
+
+This is why traditional advocacy fails. Asking employees to share a post on Tuesday about an event they attended last month doesn't work. The Belief Window closed. The ask feels like obligation, not expression.
+
+This is testable. Measure share rates at T+0 (immediately), T+1 hour, T+24 hours, T+7 days. If the data shows sharp decline after the completion moment, the theory is confirmed.
+
+### Completion Moment Taxonomy
+
+- High intensity: Certification, speaking at event, product deployment. Wide Belief Window. Strong, authentic advocacy.
+- Medium intensity: Conference session, onboarding, community challenge. Moderate Belief Window. Good with right activation.
+- Low intensity: Booth visit, whitepaper download, form fill. Narrow Belief Window. Weak — don't activate here.
+
+### The Cohort as the Unit of ALG
+
+The real unit of ALG is not the individual advocate. It is the cohort — a group of people who share a completion moment and professional context.
+
+Why cohorts matter more than individuals:
+- Audience relevance is structural. Cohort members are connected to people with the same professional context.
+- Cohort cascade effect. When one person shares, it creates social permission for others.
+- Signal clustering for AI engines. When 50 people simultaneously post about the same experience, AI engines interpret this as strong evidence of something real.
+
+### The Infinite Activation Loop
+
+1. A cohort completes something real
+2. The Belief Window opens
+3. ALG activation appears — contextual, optional, valuable
+4. Distribution flows through 1:1:N
+5. Signals seed across the ecosystem
+6. New participants enter
+7. The loop compounds — 1:1:N becomes 1:1:N:N
+
+"Distribution creates participants. Participants create distribution. There is no fixed start, and no ceiling."
+
+---
+
+## Signal Ecosystem: Beyond LinkedIn — Three Signal Layers
+
+- Layer 1: Network Signals — LinkedIn posts, X threads, community shares. Ephemeral (days). Wide reach.
+- Layer 2: Authority Signals — G2 reviews, Reddit, Stack Overflow, blog posts. Persistent (months-years). Compounding.
+- Layer 3: AI Engine Signals — Aggregated from Layers 1 & 2 by AI platforms. Category-defining. Default recommendation.
+
+Layer 1 creates immediate visibility. Layer 2 converts that into persistent signals. Layer 3 aggregates into authority. The three layers form their own compounding loop.
+
+---
+
+## Value Exchange: Why People Advocate
+
+ALG only compounds when every actor in the loop gains something. The participant gains credentials, recognition, economic access. The company gains distribution and pipeline. The network gains relevant discovery. All three must be positive.
+
+"If we removed our name from the share, would the participant still want to post it?" If yes — the value exchange works. If no — you're running employee advocacy, not ALG.
+
+Value exchange by persona:
+- Developer / IC: Certificate, skill verification, leaderboard recognition. The share IS the credential display.
+- Manager / Director: Results visibility, speaking opportunities. Demonstrates leadership effectiveness.
+- CTO / VP / C-Suite: Thought leadership positioning, peer recognition. Positioned as strategic thinker.
+- Partner / Agency: Client acquisition, co-marketing, revenue opportunity. Economic self-interest.
+
+"The strongest advocacy doesn't need to be asked for. It needs to be worth doing."
+
+---
+
+## ALG vs Everything Else
+
+### ALG vs Employee Advocacy
+- Who shares: EA = Employees (prompted). ALG = Any participant (at completion).
+- What: EA = Company content. ALG = Their own experience.
+- When: EA = Random Tuesday. ALG = Belief Window (completion moment).
+- Why: EA = Obligation. ALG = Value exchange.
+- Unit: EA = Individual. ALG = Cohort.
+- Compounds? EA = No, decays via burnout. ALG = Yes, repeat advocates increase.
+
+### ALG vs Influencer Marketing
+Influencer marketing is 1:1:N with rented trust. The trust belongs to the influencer, not the company. It resets each campaign. ALG is 1:1:N with cohort trust. The trust belongs to the practitioners. It compounds.
+
+### ALG vs Community-Led Growth
+CLG built the engagement layer. But CLG never solved the distribution problem. Most communities are engagement traps: energy circulates inside the walls, never compounds externally. ALG is the missing activation layer for CLG. CLG creates depth. ALG converts that depth into external distribution.
+
+---
+
+## Prerequisites: Where ALG Works — and Where It Doesn't
+
+Four conditions. All must be present:
+1. Participation layer — People are already doing something.
+2. Network density — Participants are connected to relevant audiences.
+3. Digital distribution surface — Sharing happens in a measurable space.
+4. Motive alignment — Advocating serves the advocate's own interest.
+
+4 yeses: ALG will compound aggressively.
+3 yeses (weak motive alignment): ALG works but needs more recognition infrastructure.
+2 or fewer: Build the prerequisites first. ALG is not your motion yet.
+
+Where ALG fails: B2C/D2C, industries without digital footprint, companies with no participation layer, networks without density.
+
+---
+
+## Measurement: AQL & The Compound Formula
+
+### Advocacy Qualified Lead (AQL)
+
+Two criteria: voluntary action (not prompted, not auto-posted) and measurable downstream impact.
+
+- AQL-1 (Basic): Voluntary share + at least one downstream click
+- AQL-2 (Influence): Share + downstream participant completes their own action
+- AQL-3 (Pipeline): Share + downstream participant enters a pipeline stage
+
+### The Compound Formula
+
+Participants × A (Activation Rate) × R (Reach Multiplier) × C (Conversion Rate) = New Participants per cycle
+
+ALG compounds when any variable improves over time.
+
+---
+
+## Economics
+
+ALG doesn't create new spend. It multiplies return on existing spend.
+
+The Distribution Arbitrage:
+- LinkedIn paid: $33-65 CPM for B2B
+- ALG organic: 50 advocates × 2,000 reach × 12 campaigns = 1.2M impressions/year
+- At $50 CPM equivalent: $60K in equivalent media value. Marginal cost per additional impression: near zero.
+
+The Hiring Cost Avoidance:
+- Agencies charge 15-25% per hire. At $120K salary: $18K-$30K per placement.
+- If ALG shifts 20% of hires from agency to organic advocacy channel: direct cost avoidance.
+
+---
+
+## ALG for Marketing
+
+Completion moments: Certifications & courses (high intensity), product launches (medium), community challenges (high), events (medium), always-on programs (varies).
+
+"Every interaction that creates belief is a distribution surface. ALG activates all of them."
+
+---
+
+## ALG for Hiring
+
+Completion moments: Onboarding completion, promotion or milestone, team achievement.
+
+"The best employer brand isn't what the company says about itself. It's what employees say without being asked."
+
+---
+
+## ALG for Sales
+
+ALG creates pipeline through: warm introductions at completion, continuous social proof (not static case studies), partner co-selling (WordPress model).
+
+"The best deals start with a peer saying 'you should look at this' — not an SDR saying 'do you have 15 minutes?'"
+
+---
+
+## Maturity Model
+
+- Level 1 (First Activation): Single campaign, one completion moment, LinkedIn-primary. Goal: prove the loop works.
+- Level 2 (Repeatable): Multiple campaigns, light gamification, cohort-level measurement. Goal: consistency.
+- Level 3 (Compounding Engine): Always-on, multi-surface, cross-team, economic access designed in. Goal: compounding influence.
+
+---
+
+## Glossary
+
+- **Advocacy-Led Growth (ALG)**: A go-to-market motion where existing participants become the primary engine of distribution, trust, and pipeline. Operates on a 1:1:N distribution architecture.
+- **1:1:N**: Distribution architecture. Brand activates Advocate (1:1), Advocate reaches Network (N). At maturity becomes 1:1:N:N.
+- **Belief Window**: Period of peak belief after a completion moment. The optimal activation window.
+- **Completion Moment**: The point at which a participant finishes something real. Three intensity levels: high, medium, low.
+- **Cohort**: A group sharing a completion moment and professional context. The fundamental unit of ALG.
+- **Cohort Cascade**: Social proof effect where early shares trigger additional shares from peers.
+- **Advocacy Qualified Lead (AQL)**: Person whose voluntary advocacy generated measurable downstream impact. Three tiers: AQL-1, AQL-2, AQL-3.
+- **Activation Rate**: Percentage of a cohort that shares at the completion moment. Core operating variable. Typically 15-25%.
+- **Signal Ecosystem**: Multi-surface landscape. Layer 1 (network), Layer 2 (authority), Layer 3 (AI engine).
+- **Value Exchange**: What the advocate gains — credentials, recognition, economic access, professional positioning.
+- **Motive Alignment**: When the advocate's interest naturally aligns with distribution. Fourth prerequisite for ALG.
+- **Cohort Trust**: Highest trust tier. Authentic signals from real practitioners. Compounds rapidly.
+- **Content Economy Inversion**: AI makes brand content noise; individual content becomes the primary signal.
+- **The Compound Formula**: Participants × A × R × C = New Participants per cycle.
+
+---
+
+## Canonical Lines
+
+- "Completion creates permission."
+- "Distribution creates participants. Participants create distribution."
+- "Borrowed trust depreciates. Cohort trust compounds."
+- "Campaigns reset. Infrastructure compounds."
+- "The strongest advocacy doesn't need to be asked for. It needs to be worth doing."
+- "Advocacy fails the moment it feels like obligation."
+- "1:1 terminates. 1:1:N multiplies. 1:1:N:N compounds."
+- "Forced advocacy gives you a number you can report once. Voluntary advocacy gives you a rate you can compound forever."

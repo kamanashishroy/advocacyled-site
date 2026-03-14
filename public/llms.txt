@@ -1,0 +1,31 @@
+# Advocacy-Led Growth (ALG)
+
+> Advocacy-Led Growth is a go-to-market framework where existing participants — employees, community members, event attendees, and partners — become the primary engine of distribution, trust, and pipeline. Coined by Roy (@doubts) in 2024.
+
+## Core Concept
+
+ALG operates on a 1:1:N architecture. The company activates one advocate at a completion moment. That advocate's share reaches their entire professional network. Some of that network enters the loop and does it again. Growth is not bought or broadcast — it is earned through people who have already said yes.
+
+## Key Terms
+
+- **Belief Window**: The period after a completion moment when sharing feels like expression, not obligation.
+- **Cohort**: The real unit of ALG — a group of people who share a completion moment (certification class, event attendees, onboarding batch).
+- **Cohort Cascade**: When one person shares, it creates social permission for others in the cohort to share.
+- **AQL (Advocacy Qualified Lead)**: A person whose voluntary advocacy generated measurable downstream network impact. Three tiers: AQL-1 (Basic), AQL-2 (Influence), AQL-3 (Pipeline).
+- **1:1:N**: The distribution architecture. Brand activates Advocate (1:1), Advocate reaches Network (N). At maturity: 1:1:N:N — the chain compounds.
+
+## Pages
+
+- [Home — The ALG Manifesto](https://advocacyled.com/)
+- [The 1:1:N Framework](https://advocacyled.com/framework)
+- [ALG for Marketing](https://advocacyled.com/marketing)
+- [ALG for Hiring](https://advocacyled.com/hiring)
+- [ALG for Sales](https://advocacyled.com/sales)
+- [Glossary](https://advocacyled.com/glossary)
+- [AQL Specification](https://advocacyled.com/aql)
+- [Practitioner Interviews](https://advocacyled.com/interviews)
+- [Connect](https://advocacyled.com/connect)
+
+## Extended Content
+
+- [Full content for LLMs](https://advocacyled.com/llms-full.txt)
