@@ -73,7 +73,28 @@ const fullOgImage = ogImage.startsWith('http') ? ogImage : `${siteUrl}${ogImage}
         <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle navigation">
           Menu
         </button>
-        <span class="masthead-tag">Framework v0.2</span>
+        <div class="masthead-actions">
+          <a href="/connect" class="masthead-action-btn">Let's talk</a>
+          <a href="https://advocacyled.substack.com/subscribe" target="_blank" rel="noopener" class="masthead-action-btn">Subscribe</a>
+          <a
+            class="masthead-action-icon"
+            href={`https://claude.ai/new?q=${encodeURIComponent(`I'm reading about Advocacy-Led Growth (ALG) on advocacyled.com${Astro.url.pathname}. Help me understand: how would ALG apply to my company?`)}`}
+            target="_blank"
+            rel="noopener"
+            title="Discuss with Claude"
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          </a>
+          <button class="masthead-action-icon" id="shareLinkedIn" title="Share on LinkedIn">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          </button>
+          <button class="masthead-action-icon" id="shareX" title="Share on X">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l11.733 16h4.267l-11.733-16z"/><path d="M4 20l6.768-6.768M20 4l-6.768 6.768"/></svg>
+          </button>
+          <button class="masthead-action-icon" id="copyLink" title="Copy link">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+          </button>
+        </div>
       </div>
     </header>
 
@@ -170,57 +191,12 @@ const fullOgImage = ogImage.startsWith('http') ? ogImage : `${siteUrl}${ogImage}
       <footer class="footer">
         <div class="footer-copy">&copy; 2024-2026 advocacyled.com</div>
         <div class="footer-cite">Cite as: <span>advocacyled.com{Astro.url.pathname}</span></div>
+        <div class="footer-version">Framework v0.2</div>
         <div class="footer-wozku">Built for ALG teams: <a href="https://wozku.com" target="_blank" rel="noopener">wozku.com</a></div>
       </footer>
     </main>
 
-    <!-- FLOATING TOOLS STRIP -->
-    <div class="tools-strip" id="toolsStrip">
-      <a
-        class="tools-btn"
-        href={`https://claude.ai/new?q=${encodeURIComponent(`I'm reading about Advocacy-Led Growth (ALG) on advocacyled.com${Astro.url.pathname}. Help me understand: how would ALG apply to my company?`)}`}
-        target="_blank"
-        rel="noopener"
-        title="Discuss with Claude"
-      >
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-        <span class="tools-label">Claude</span>
-      </a>
-      <a
-        class="tools-btn"
-        href={`https://chatgpt.com/?q=${encodeURIComponent(`I'm reading about Advocacy-Led Growth (ALG) - a 1:1:N go-to-market framework from advocacyled.com${Astro.url.pathname}. Help me understand how this applies to my company.`)}`}
-        target="_blank"
-        rel="noopener"
-        title="Discuss with ChatGPT"
-      >
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
-        <span class="tools-label">ChatGPT</span>
-      </a>
-      <button
-        class="tools-btn"
-        id="shareLinkedIn"
-        title="Share on LinkedIn"
-      >
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
-        <span class="tools-label">LinkedIn</span>
-      </button>
-      <button
-        class="tools-btn"
-        id="shareX"
-        title="Share on X"
-      >
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l11.733 16h4.267l-11.733-16z"/><path d="M4 20l6.768-6.768M20 4l-6.768 6.768"/></svg>
-        <span class="tools-label">X</span>
-      </button>
-      <button
-        class="tools-btn"
-        id="copyLink"
-        title="Copy link"
-      >
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
-        <span class="tools-label">Copy</span>
-      </button>
-    </div>
+    <!-- ALG PATTERN GRID -->
 
     <!-- ALG PATTERN GRID -->
     <div class="alg-pattern" id="algPattern"></div>

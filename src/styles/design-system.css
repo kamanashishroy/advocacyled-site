@@ -228,6 +228,59 @@ body::before {
   color: var(--accent);
 }
 
+.masthead-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+}
+
+.masthead-action-btn {
+  font-family: var(--mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink);
+  text-decoration: none;
+  padding: 0.3rem 0.7rem;
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  transition: all 0.2s var(--ease);
+  white-space: nowrap;
+}
+
+.masthead-action-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.masthead-action-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border: none;
+  background: none;
+  color: var(--muted);
+  cursor: pointer;
+  border-radius: 3px;
+  transition: color 0.2s var(--ease);
+  text-decoration: none;
+  padding: 0;
+}
+
+.masthead-action-icon:hover {
+  color: var(--accent);
+}
+
+.footer-version {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  color: var(--accent);
+  text-transform: uppercase;
+}
+
 /* ── SIDEBAR ── */
 .sidebar {
   grid-column: 1;
@@ -1043,19 +1096,7 @@ select.form-input {
     padding: var(--sp-8) var(--sp-6);
   }
 
-  .tools-strip {
-    right: var(--sp-2);
-    padding: 3px;
-  }
-
-  .tools-btn {
-    padding: var(--sp-2);
-    min-width: 40px;
-  }
-
-  .tools-label {
-    display: none;
-  }
+  .masthead-action-icon { display: none; }
 
   .compare-grid {
     grid-template-columns: 1fr;
@@ -1072,11 +1113,12 @@ select.form-input {
   }
 
   .masthead-right {
-    gap: var(--sp-3);
+    gap: var(--sp-2);
   }
 
-  .tools-strip {
-    display: none;
+  .masthead-action-btn {
+    font-size: 0.5rem;
+    padding: 0.25rem 0.5rem;
   }
 }
 
@@ -1232,14 +1274,6 @@ select.form-input {
 /* Reserve space for pattern on wide screens */
 @media (min-width: 1281px) {
   .main { margin-right: 280px; }
-  .tools-strip {
-    top: auto;
-    bottom: var(--sp-6);
-    right: calc(270px / 2 - 22px); /* center in pattern strip */
-    transform: none;
-    flex-direction: row;
-    border-radius: 6px;
-  }
 }
 
 /* Hide pattern on screens that can't fit it */
