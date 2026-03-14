@@ -1229,7 +1229,20 @@ select.form-input {
 .alg-t4 .tile-sq { background: #c8401a; }
 .alg-t4 .tile-cr { background: #f5f0e8; }
 
-/* Hide on screens where it would overlap content */
+/* Reserve space for pattern on wide screens */
+@media (min-width: 1281px) {
+  .main { margin-right: 280px; }
+  .tools-strip {
+    top: auto;
+    bottom: var(--sp-6);
+    right: calc(270px / 2 - 22px); /* center in pattern strip */
+    transform: none;
+    flex-direction: row;
+    border-radius: 6px;
+  }
+}
+
+/* Hide pattern on screens that can't fit it */
 @media (max-width: 1280px) {
   .alg-pattern { display: none; }
 }
