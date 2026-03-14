@@ -238,6 +238,16 @@ const fullOgImage = ogImage.startsWith('http') ? ogImage : `${siteUrl}${ogImage}
       });
     }
 
+    // Auto-wrap data tables for mobile scroll
+    document.querySelectorAll('.data-table').forEach(table => {
+      if (!table.parentElement.classList.contains('table-wrap')) {
+        const wrap = document.createElement('div');
+        wrap.className = 'table-wrap';
+        table.parentNode.insertBefore(wrap, table);
+        wrap.appendChild(table);
+      }
+    });
+
     // Tools strip actions
     const pageUrl = window.location.href;
     const pageTitle = document.title;

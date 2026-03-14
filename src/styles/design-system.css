@@ -639,11 +639,21 @@ body::before {
 }
 
 /* ── DATA TABLE ── */
+.table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: var(--sp-8) 0;
+}
+
 .data-table {
   width: 100%;
+  min-width: 480px;
   border-collapse: collapse;
-  margin: var(--sp-8) 0;
   font-size: 0.88rem;
+}
+
+.table-wrap .data-table {
+  margin: 0;
 }
 
 .data-table th {
@@ -672,6 +682,117 @@ body::before {
   background: var(--highlight);
   font-weight: 400;
   color: var(--ink);
+}
+
+/* ── FORMS ── */
+.alg-form {
+  max-width: 480px;
+}
+
+.form-group {
+  margin-bottom: var(--sp-6);
+}
+
+.form-label {
+  display: block;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: var(--sp-2);
+  font-weight: 500;
+}
+
+.form-input {
+  width: 100%;
+  padding: var(--sp-3) var(--sp-4);
+  font-family: var(--sans);
+  font-size: 0.95rem;
+  color: var(--ink);
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  transition: border-color 0.2s var(--ease);
+  -webkit-appearance: none;
+  border-radius: 0;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.form-input::placeholder {
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
+textarea.form-input {
+  resize: vertical;
+  line-height: 1.6;
+}
+
+select.form-input {
+  cursor: pointer;
+}
+
+.form-inline {
+  display: flex;
+  gap: var(--sp-3);
+  max-width: 480px;
+}
+
+.form-inline .form-input {
+  flex: 1;
+}
+
+.form-inline .toolkit-btn {
+  flex-shrink: 0;
+}
+
+@media (max-width: 600px) {
+  .form-inline {
+    flex-direction: column;
+  }
+}
+
+/* ── TOOLKIT ACTIONS ── */
+.toolkit-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-3);
+}
+
+.toolkit-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  padding: var(--sp-3) var(--sp-5);
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  text-decoration: none;
+  transition: all 0.2s var(--ease);
+  cursor: pointer;
+  background: transparent;
+}
+
+.toolkit-btn:hover {
+  background: var(--accent);
+  color: var(--paper);
+}
+
+.toolkit-btn-secondary {
+  border-color: var(--rule);
+  color: var(--muted);
+}
+
+.toolkit-btn-secondary:hover {
+  border-color: var(--accent);
+  background: transparent;
+  color: var(--accent);
 }
 
 /* ── VERTICAL CARDS ── */

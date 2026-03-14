@@ -13,6 +13,11 @@ const jsonLd = {
     "url": "https://twitter.com/doubts"
   }
 };
+
+const algContext = `I just read the Advocacy-Led Growth (ALG) manifesto on advocacyled.com. ALG is a 1:1:N go-to-market framework where companies activate people at completion moments (certifications, events, onboarding, milestones) to share authentically through their professional networks. The key concepts: Belief Window (the hours after completion when sharing feels like expression, not obligation), Cohort activation (it's never one person - it's 30 who earned that cert, 200 who walked out of that session), and Cohort Cascade (one shares, others follow, networks light up with authentic signals). Help me find my company's ALG surfaces. Ask me about: 1) What completion moments does my company create? 2) Who goes through them and in what numbers? 3) What currently happens after those moments? Then help me map where the biggest Belief Windows are and which have the highest activation potential.`;
+
+const claudeUrl = `https://claude.ai/new?q=${encodeURIComponent(algContext)}`;
+const chatgptUrl = `https://chatgpt.com/?q=${encodeURIComponent(algContext)}`;
 ---
 
 <Base
@@ -22,6 +27,7 @@ const jsonLd = {
   jsonLd={jsonLd}
 >
 
+  <!-- THE MANIFESTO -->
   <div class="section animate-in">
 
     <h1 class="t-display" style="margin-bottom: var(--sp-8); font-size: clamp(2.2rem, 5.5vw, 3.4rem); line-height: 1.15;">
@@ -39,7 +45,7 @@ const jsonLd = {
     </p>
 
     <p class="section-body" style="max-width: 620px; font-size: 1.15rem; margin-bottom: var(--sp-8); line-height: 1.7;">
-      One of them posts on LinkedIn. A colleague sees it, posts theirs. Then another. Suddenly thousands of professionals across their combined networks are seeing the same authentic signal  - from people they actually trust.
+      One of them posts on LinkedIn. A colleague sees it, posts theirs. Then another. Suddenly thousands of professionals across their combined networks are seeing the same authentic signal - from people they actually trust.
     </p>
 
     <p class="section-body" style="max-width: 620px; font-size: 1.05rem; margin-bottom: var(--sp-8); line-height: 1.7; color: var(--muted);">
@@ -76,7 +82,65 @@ const jsonLd = {
     </p>
   </div>
 
-  <!-- NAVIGATION -->
+  <!-- TOOLKIT -->
+  <div class="section">
+    <div class="section-label">
+      <span class="num">01</span> Start here
+    </div>
+
+    <!-- APPLY IT -->
+    <h2 class="t-heading-2" style="margin-bottom: var(--sp-4);">Find your ALG surfaces</h2>
+    <p class="section-body" style="max-width: 620px; margin-bottom: var(--sp-6);">
+      Bring your company. AI will walk you through identifying your completion moments, mapping your cohorts, and finding where the biggest Belief Windows are.
+    </p>
+
+    <div class="toolkit-actions" style="margin-bottom: var(--sp-10);">
+      <a href={claudeUrl} target="_blank" rel="noopener" class="toolkit-btn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        Run with Claude
+      </a>
+      <a href={chatgptUrl} target="_blank" rel="noopener" class="toolkit-btn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+        Run with ChatGPT
+      </a>
+    </div>
+
+    <!-- JOIN IT -->
+    <h2 class="t-heading-2" style="margin-bottom: var(--sp-4);">Share your story</h2>
+    <p class="section-body" style="max-width: 620px; margin-bottom: var(--sp-6);">
+      Already running parts of this pattern? Seeing it work in your org? We're building a practitioner
+      interview series - real stories from people who are activating ALG before it had a name.
+    </p>
+
+    <div class="toolkit-actions" style="margin-bottom: var(--sp-10);">
+      <a href="/connect" class="toolkit-btn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+        Let's talk
+      </a>
+      <a href="/interviews" class="toolkit-btn toolkit-btn-secondary">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        Read interviews
+      </a>
+    </div>
+
+    <!-- STAY WITH IT -->
+    <h2 class="t-heading-2" style="margin-bottom: var(--sp-4);">Stay in the loop</h2>
+    <p class="section-body" style="max-width: 620px; margin-bottom: var(--sp-6);">
+      The framework is v0.2. It's being built in the open. New verticals, practitioner tools,
+      and community updates. No spam. Just signal.
+    </p>
+
+    <iframe
+      src="https://advocacyled.substack.com/embed"
+      width="480"
+      height="150"
+      style="border: none; background: transparent; max-width: 100%;"
+      frameborder="0"
+      scrolling="no"
+    ></iframe>
+  </div>
+
+  <!-- GO DEEPER -->
   <div class="section">
     <div class="section-label" style="margin-bottom: var(--sp-4);">
       <span class="num">&rarr;</span> Go deeper
