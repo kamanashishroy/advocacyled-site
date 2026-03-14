@@ -222,9 +222,68 @@ const fullOgImage = ogImage.startsWith('http') ? ogImage : `${siteUrl}${ogImage}
       </button>
     </div>
 
+    <!-- ALG PATTERN GRID -->
+    <div class="alg-pattern" id="algPattern"></div>
+
   </div>
 
   <script>
+    // ALG Pattern Grid - 3 cols, fills viewport height
+    (function() {
+      const COLS = 3;
+      const CELL = 90;
+      const INTERVAL = 3500;
+      const container = document.getElementById('algPattern');
+      if (!container) return;
+
+      const ROWS = Math.ceil(window.innerHeight / CELL);
+      const TOTAL = COLS * ROWS;
+      const tiles = [];
+      const positions = [];
+
+      // Distribute 4 types evenly
+      const types = [];
+      for (let i = 0; i < TOTAL; i++) types.push((i % 4) + 1);
+
+      // Shuffle array
+      for (let i = types.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [types[i], types[j]] = [types[j], types[i]];
+      }
+
+      // Create tiles
+      for (let i = 0; i < TOTAL; i++) {
+        positions.push(i);
+        const el = document.createElement('div');
+        el.className = 'alg-pattern-tile alg-t' + types[i];
+        el.innerHTML = '<div class="tile-sq"><div class="tile-cr"></div></div>';
+        container.appendChild(el);
+        tiles.push(el);
+      }
+
+      function place(i) {
+        const s = positions[i];
+        tiles[i].style.transform = 'translate(' + (s % COLS) * CELL + 'px,' + Math.floor(s / COLS) * CELL + 'px)';
+      }
+
+      for (let i = 0; i < TOTAL; i++) place(i);
+
+      // Shuffle pairs every interval
+      setInterval(function() {
+        const swaps = 4 + Math.floor(Math.random() * 4);
+        for (let s = 0; s < swaps; s++) {
+          const a = Math.floor(Math.random() * TOTAL);
+          let b = Math.floor(Math.random() * TOTAL);
+          while (b === a) b = Math.floor(Math.random() * TOTAL);
+          const tmp = positions[a];
+          positions[a] = positions[b];
+          positions[b] = tmp;
+          place(a);
+          place(b);
+        }
+      }, INTERVAL);
+    })();
+
     const toggle = document.getElementById('sidebarToggle');
     const sidebar = document.getElementById('sidebar');
     if (toggle && sidebar) {

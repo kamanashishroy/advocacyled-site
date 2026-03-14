@@ -1182,3 +1182,54 @@ select.form-input {
 .mb-8 { margin-bottom: var(--sp-8); }
 .mt-8 { margin-top: var(--sp-8); }
 .mt-12 { margin-top: var(--sp-12); }
+
+/* ── ALG PATTERN GRID ── */
+.alg-pattern {
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 270px; /* 3 cols x 90px */
+  height: 100vh;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.alg-pattern-tile {
+  position: absolute;
+  width: 90px;
+  height: 90px;
+  transition: transform 1.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.alg-pattern-tile .tile-sq {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.alg-pattern-tile .tile-cr {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+}
+
+/* Type 1: Red square + Black circle */
+.alg-t1 .tile-sq { background: #c8401a; }
+.alg-t1 .tile-cr { background: #0e0d0b; }
+/* Type 2: Black square + Red circle */
+.alg-t2 .tile-sq { background: #0e0d0b; }
+.alg-t2 .tile-cr { background: #c8401a; }
+/* Type 3: Black square + White circle */
+.alg-t3 .tile-sq { background: #0e0d0b; }
+.alg-t3 .tile-cr { background: #f5f0e8; }
+/* Type 4: Red square + White circle */
+.alg-t4 .tile-sq { background: #c8401a; }
+.alg-t4 .tile-cr { background: #f5f0e8; }
+
+/* Hide on screens where it would overlap content */
+@media (max-width: 1280px) {
+  .alg-pattern { display: none; }
+}
