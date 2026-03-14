@@ -191,6 +191,14 @@ body::before {
   color: var(--muted);
   text-decoration: none;
   transition: color 0.2s var(--ease);
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+}
+
+.masthead-logo {
+  display: block;
+  border-radius: 50%;
 }
 
 .masthead-wordmark:hover {
