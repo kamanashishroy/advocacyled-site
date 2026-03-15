@@ -1049,6 +1049,7 @@ select.form-input {
   background: var(--ink);
   border-radius: 6px;
   max-width: 620px;
+  align-self: flex-start;
 }
 
 .hero-cta-label {
@@ -1199,6 +1200,11 @@ select.form-input {
 .discuss-ai-btn img {
   display: block;
   border-radius: 2px;
+}
+
+.discuss-ai-btn img[alt="ChatGPT"],
+.hero-cta-btn-alt img[alt="ChatGPT"] {
+  filter: brightness(0) invert(0.65);
 }
 
 @media (max-width: 600px) {
