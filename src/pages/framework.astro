@@ -13,6 +13,17 @@ const jsonLd = {
   "url": "https://advocacyled.com/framework",
   "mainEntityOfPage": "https://advocacyled.com/framework"
 };
+
+const discussBase = `I'm reading the Advocacy-Led Growth (ALG) framework on advocacyled.com/framework. ALG is a 1:1:N go-to-market architecture where companies activate people at completion moments to share authentically through professional networks.`;
+
+const prompt1 = `${discussBase}\n\nI just read about the 1:1:N distribution architecture. My company currently relies on [describe your main growth channels]. Help me compare: which of my current motions are 1:1 (linear, terminal) vs where there might be untapped 1:1:N potential? Walk me through it.`;
+const prompt2 = `${discussBase}\n\nI just read about the Belief Window - the idea that advocacy works only when timed to completion moments, not random asks. Help me map my company's completion moments: What events, certifications, onboarding milestones, or achievements does my company create? For each one, help me estimate the Belief Window duration and cohort size.`;
+const prompt3 = `${discussBase}\n\nI just read about the ALG value exchange - the idea that advocacy only compounds when the advocate gains something (credentials, positioning, economic access), not just the company. Help me audit my company's value exchange: If we removed our brand name from the share, would the participant still want to post it? Walk me through each persona.`;
+const prompt4 = `${discussBase}\n\nI just read the ALG prerequisites diagnostic. The four conditions are: participation layer, network density, digital distribution surface, and motive alignment. Run this diagnostic for my company. Ask me about each condition and score us. Then tell me honestly: is ALG our motion right now, or do we need to build prerequisites first?`;
+const prompt5 = `${discussBase}\n\nI just read about the AQL (Advocacy Qualified Lead) measurement and the compound formula: Participants x A (activation rate) x R (reach multiplier) x C (conversion rate) = New Participants. Help me estimate these numbers for my company. What's our realistic activation rate? What reach can we expect? Where does the loop have the most leverage?`;
+
+const makeClaudeUrl = (prompt: string) => `https://claude.ai/new?q=${encodeURIComponent(prompt)}`;
+const makeChatgptUrl = (prompt: string) => `https://chatgpt.com/?q=${encodeURIComponent(prompt)}`;
 ---
 
 <Base
@@ -21,6 +32,11 @@ const jsonLd = {
   activeNav="framework"
   jsonLd={jsonLd}
 >
+
+  <!-- SHORT VERSION LINK -->
+  <div class="section animate-in" style="padding-bottom: 0; margin-bottom: calc(-1 * var(--sp-8));">
+    <p class="t-label" style="font-size: 0.85rem;">Short on time? <a href="/short" style="color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent);">See the 2-minute version</a></p>
+  </div>
 
   <!-- ═══ SECTION 0: THE CORE CONCEPT ═══ -->
   <div class="section animate-in" id="architecture">
@@ -112,6 +128,18 @@ const jsonLd = {
         </tr>
       </tbody>
     </table>
+
+    <div class="discuss-ai">
+      <div class="discuss-ai-prompt"><strong>Which of your growth channels are 1:1?</strong> Discuss your distribution architecture with AI</div>
+      <div class="discuss-ai-actions">
+        <a href={makeClaudeUrl(prompt1)} target="_blank" rel="noopener" class="discuss-ai-btn" title="Discuss in Claude">
+          <img src="/claude-logo.svg" alt="Claude" width="20" height="20" />
+        </a>
+        <a href={makeChatgptUrl(prompt1)} target="_blank" rel="noopener" class="discuss-ai-btn" title="Discuss in ChatGPT">
+          <img src="/chatgpt-icon.svg" alt="ChatGPT" width="20" height="20" />
+        </a>
+      </div>
+    </div>
   </div>
 
   <!-- ═══ SECTION 1: DEFINITION ═══ -->
@@ -326,6 +354,18 @@ const jsonLd = {
     <div class="pull-quote">
       "Distribution creates participants. Participants create distribution. There is no fixed start, and no ceiling."
     </div>
+
+    <div class="discuss-ai">
+      <div class="discuss-ai-prompt"><strong>Map your completion moments.</strong> Find your Belief Windows and estimate cohort sizes</div>
+      <div class="discuss-ai-actions">
+        <a href={makeClaudeUrl(prompt2)} target="_blank" rel="noopener" class="discuss-ai-btn" title="Discuss in Claude">
+          <img src="/claude-logo.svg" alt="Claude" width="20" height="20" />
+        </a>
+        <a href={makeChatgptUrl(prompt2)} target="_blank" rel="noopener" class="discuss-ai-btn" title="Discuss in ChatGPT">
+          <img src="/chatgpt-icon.svg" alt="ChatGPT" width="20" height="20" />
+        </a>
+      </div>
+    </div>
   </div>
 
   <!-- ═══ SECTION 4: SIGNAL ECOSYSTEM ═══ -->
@@ -455,6 +495,18 @@ const jsonLd = {
     <div class="pull-quote">
       "The strongest advocacy doesn't need to be asked for. It needs to be worth doing."
     </div>
+
+    <div class="discuss-ai">
+      <div class="discuss-ai-prompt"><strong>Audit your value exchange.</strong> Would your advocates still share if you removed your brand name?</div>
+      <div class="discuss-ai-actions">
+        <a href={makeClaudeUrl(prompt3)} target="_blank" rel="noopener" class="discuss-ai-btn" title="Discuss in Claude">
+          <img src="/claude-logo.svg" alt="Claude" width="20" height="20" />
+        </a>
+        <a href={makeChatgptUrl(prompt3)} target="_blank" rel="noopener" class="discuss-ai-btn" title="Discuss in ChatGPT">
+          <img src="/chatgpt-icon.svg" alt="ChatGPT" width="20" height="20" />
+        </a>
+      </div>
+    </div>
   </div>
 
   <!-- ═══ SECTION 6: ALG VS EVERYTHING ═══ -->
@@ -546,11 +598,23 @@ const jsonLd = {
     </div>
 
     <h3 class="t-heading-2" style="margin-bottom: var(--sp-4); margin-top: var(--sp-10);">Where ALG Fails</h3>
-    <p class="section-body">
+    <p class="section-body mb-8">
       B2C/D2C - consumer networks aren't professionally curated. Industries without digital footprint -
       manufacturing, heavy industry. Companies with no participation layer. Networks without density -
       participants exist but aren't connected to relevant buyers.
     </p>
+
+    <div class="discuss-ai">
+      <div class="discuss-ai-prompt"><strong>Run the diagnostic.</strong> Score your company on all four prerequisites - find out if ALG is your motion</div>
+      <div class="discuss-ai-actions">
+        <a href={makeClaudeUrl(prompt4)} target="_blank" rel="noopener" class="discuss-ai-btn" title="Discuss in Claude">
+          <img src="/claude-logo.svg" alt="Claude" width="20" height="20" />
+        </a>
+        <a href={makeChatgptUrl(prompt4)} target="_blank" rel="noopener" class="discuss-ai-btn" title="Discuss in ChatGPT">
+          <img src="/chatgpt-icon.svg" alt="ChatGPT" width="20" height="20" />
+        </a>
+      </div>
+    </div>
   </div>
 
   <!-- ═══ SECTION 8: MEASUREMENT ═══ -->
@@ -606,6 +670,18 @@ const jsonLd = {
       Every motion has a chain of uncertain variables. ALG's chain is shorter and more reliable at
       audience qualification, deliverability, trust, and timing.
     </p>
+
+    <div class="discuss-ai">
+      <div class="discuss-ai-prompt"><strong>Estimate your compound formula.</strong> Calculate A x R x C for your company and find your biggest lever</div>
+      <div class="discuss-ai-actions">
+        <a href={makeClaudeUrl(prompt5)} target="_blank" rel="noopener" class="discuss-ai-btn" title="Discuss in Claude">
+          <img src="/claude-logo.svg" alt="Claude" width="20" height="20" />
+        </a>
+        <a href={makeChatgptUrl(prompt5)} target="_blank" rel="noopener" class="discuss-ai-btn" title="Discuss in ChatGPT">
+          <img src="/chatgpt-icon.svg" alt="ChatGPT" width="20" height="20" />
+        </a>
+      </div>
+    </div>
   </div>
 
   <!-- ═══ SECTION 9: ECONOMICS ═══ -->

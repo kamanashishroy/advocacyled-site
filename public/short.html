@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Advocacy-Led Growth in 2 Minutes</title>
+<meta name="description" content="The 1:1:N framework - how completion moments become your growth engine. A visual walkthrough.">
+<meta property="og:title" content="Advocacy-Led Growth in 2 Minutes">
+<meta property="og:description" content="The 1:1:N framework - how completion moments become your growth engine.">
+<meta property="og:url" content="https://advocacyled.com/short">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://advocacyled.com/og-image.png">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=DM+Sans:wght@300;400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0e0d0b;
+    --paper: #f5f0e8;
+    --accent: #c8401a;
+    --muted: #7a7568;
+    --rule: #d4cfc4;
+    --highlight: #f0e6c8;
+    --canon-bg: #1a1918;
+    --serif: 'Playfair Display', Georgia, serif;
+    --sans: 'DM Sans', system-ui, sans-serif;
+    --mono: 'IBM Plex Mono', monospace;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--sans);
+    overflow: hidden;
+    height: 100vh;
+    width: 100vw;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Noise texture */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.3;
+  }
+
+  .deck {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+  }
+
+  .slide {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 8vh 10vw;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+  }
+
+  .slide.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* Slide types */
+  .slide--dark {
+    background: var(--canon-bg);
+    color: var(--paper);
+  }
+
+  .slide--accent {
+    background: var(--accent);
+    color: var(--paper);
+  }
+
+  /* Typography */
+  .s-label {
+    font-family: var(--mono);
+    font-size: clamp(0.6rem, 1vw, 0.75rem);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 3vh;
+  }
+
+  .slide--dark .s-label { color: var(--accent); }
+  .slide--accent .s-label { color: rgba(255,255,255,0.6); }
+
+  .s-title {
+    font-family: var(--serif);
+    font-size: clamp(2.4rem, 5.5vw, 4.5rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    max-width: 85%;
+  }
+
+  .s-title em {
+    color: var(--accent);
+    font-style: italic;
+  }
+
+  .slide--dark .s-title em,
+  .slide--accent .s-title em {
+    color: var(--paper);
+    opacity: 0.5;
+  }
+
+  .s-subtitle {
+    font-family: var(--sans);
+    font-size: clamp(1rem, 1.8vw, 1.4rem);
+    font-weight: 300;
+    color: var(--muted);
+    margin-top: 3vh;
+    max-width: 70%;
+    line-height: 1.6;
+  }
+
+  .slide--dark .s-subtitle { color: #a09888; }
+  .slide--accent .s-subtitle { color: rgba(255,255,255,0.7); }
+
+  .s-big {
+    font-family: var(--serif);
+    font-size: clamp(3rem, 7vw, 6rem);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+  }
+
+  .s-big em {
+    color: var(--accent);
+    font-style: italic;
+  }
+
+  .slide--dark .s-big em { color: var(--accent); }
+
+  .s-quote {
+    font-family: var(--serif);
+    font-size: clamp(1.6rem, 3.5vw, 2.8rem);
+    font-weight: 700;
+    font-style: italic;
+    line-height: 1.3;
+    max-width: 80%;
+    border-left: 4px solid var(--accent);
+    padding-left: 4vw;
+  }
+
+  .s-notation {
+    font-family: var(--mono);
+    font-size: clamp(0.9rem, 1.5vw, 1.2rem);
+    letter-spacing: 0.04em;
+    background: var(--canon-bg);
+    color: var(--paper);
+    padding: 3vh 3vw;
+    border-radius: 4px;
+    margin-top: 4vh;
+    max-width: 75%;
+    line-height: 1.8;
+  }
+
+  .slide--dark .s-notation {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .s-notation .accent { color: var(--accent); font-weight: 500; }
+
+  .s-points {
+    margin-top: 4vh;
+    display: grid;
+    gap: 2.5vh;
+    max-width: 75%;
+  }
+
+  .s-point {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 2vw;
+    align-items: baseline;
+  }
+
+  .s-point-num {
+    font-family: var(--mono);
+    font-size: clamp(0.6rem, 1vw, 0.8rem);
+    color: var(--accent);
+    letter-spacing: 0.04em;
+    padding-top: 0.3em;
+  }
+
+  .s-point-text {
+    font-family: var(--sans);
+    font-size: clamp(1.1rem, 2vw, 1.5rem);
+    font-weight: 300;
+    line-height: 1.5;
+  }
+
+  .s-point-text strong {
+    font-weight: 500;
+    color: var(--ink);
+  }
+
+  .slide--dark .s-point-text { color: #e8e3d8; }
+  .slide--dark .s-point-text strong { color: var(--paper); }
+
+  .s-vs {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 4vw;
+    align-items: center;
+    margin-top: 4vh;
+    max-width: 85%;
+  }
+
+  .s-vs-col {
+    text-align: center;
+  }
+
+  .s-vs-label {
+    font-family: var(--mono);
+    font-size: clamp(0.55rem, 0.9vw, 0.7rem);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 1.5vh;
+  }
+
+  .s-vs-value {
+    font-family: var(--serif);
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 700;
+  }
+
+  .s-vs-desc {
+    font-family: var(--sans);
+    font-size: clamp(0.85rem, 1.2vw, 1rem);
+    font-weight: 300;
+    color: var(--muted);
+    margin-top: 1vh;
+    line-height: 1.5;
+  }
+
+  .s-vs-divider {
+    font-family: var(--mono);
+    font-size: clamp(1rem, 1.5vw, 1.3rem);
+    color: var(--rule);
+  }
+
+  .s-vs-value.highlight { color: var(--accent); }
+
+  .s-meta {
+    font-family: var(--mono);
+    font-size: clamp(0.6rem, 0.9vw, 0.75rem);
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    margin-top: 4vh;
+  }
+
+  .s-meta a {
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  .slide--dark .s-meta { color: #7a7568; }
+  .slide--dark .s-meta a { color: var(--accent); }
+
+  .s-takeaway {
+    display: grid;
+    gap: 3vh;
+    margin-top: 4vh;
+    max-width: 80%;
+  }
+
+  .s-takeaway-item {
+    padding: 2.5vh 2.5vw;
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 2vw;
+    align-items: center;
+  }
+
+  .slide--dark .s-takeaway-item {
+    border-color: rgba(255,255,255,0.1);
+  }
+
+  .s-takeaway-icon {
+    font-family: var(--mono);
+    font-size: clamp(0.9rem, 1.3vw, 1.1rem);
+    color: var(--accent);
+    font-weight: 500;
+  }
+
+  .s-takeaway-text {
+    font-family: var(--sans);
+    font-size: clamp(1rem, 1.6vw, 1.2rem);
+    font-weight: 300;
+    line-height: 1.5;
+  }
+
+  .s-takeaway-text strong {
+    font-weight: 500;
+  }
+
+  .slide--dark .s-takeaway-text { color: #e8e3d8; }
+
+  /* Progress bar */
+  .progress {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    background: var(--accent);
+    transition: width 0.4s ease;
+    z-index: 100;
+  }
+
+  /* Slide counter */
+  .counter {
+    position: fixed;
+    bottom: 3vh;
+    right: 4vw;
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    z-index: 100;
+  }
+
+  .slide--dark ~ .counter { color: #7a7568; }
+
+  /* Nav hint */
+  .nav-hint {
+    position: fixed;
+    bottom: 3vh;
+    left: 4vw;
+    font-family: var(--mono);
+    font-size: 0.55rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--rule);
+    z-index: 100;
+    opacity: 0.6;
+  }
+
+  /* ── ALG PATTERN GRID ── */
+  .alg-pattern {
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 270px;
+    height: 100vh;
+    z-index: 50;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .alg-pattern-tile {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 90px;
+    height: 90px;
+    transition: transform 1.6s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.6s ease;
+    will-change: transform, opacity;
+  }
+
+  .alg-pattern-tile .tile-sq {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .alg-pattern-tile .tile-cr {
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+  }
+
+  /* Type 1: Red square + Black circle */
+  .alg-t1 .tile-sq { background: #c8401a; }
+  .alg-t1 .tile-cr { background: #0e0d0b; }
+  /* Type 2: Black square + Red circle */
+  .alg-t2 .tile-sq { background: #0e0d0b; }
+  .alg-t2 .tile-cr { background: #c8401a; }
+  /* Type 3: Black square + White circle */
+  .alg-t3 .tile-sq { background: #0e0d0b; }
+  .alg-t3 .tile-cr { background: #f5f0e8; }
+  /* Type 4: Red square + White circle */
+  .alg-t4 .tile-sq { background: #c8401a; }
+  .alg-t4 .tile-cr { background: #f5f0e8; }
+
+  /* Fade pattern on dark/accent slides */
+  .alg-pattern.theme-dark { opacity: 0.35; }
+  .alg-pattern.theme-accent { opacity: 0.2; }
+  .alg-pattern.theme-light { opacity: 1; }
+
+  .alg-pattern {
+    transition: opacity 0.6s ease;
+  }
+
+  @media (max-width: 960px) {
+    .alg-pattern { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="deck" id="deck">
+
+  <!-- SLIDE 1: TITLE -->
+  <div class="slide active" data-theme="light">
+    <div class="s-label">A framework for what's already happening</div>
+    <div class="s-big">Advocacy-Led<br>Growth</div>
+    <div class="s-subtitle">The 1:1:N distribution architecture</div>
+    <div class="s-meta">Kamanashish Roy &middot; <a href="https://doubts.page">@doubts</a> &middot; advocacyled.com</div>
+  </div>
+
+  <!-- SLIDE 2: START WITH YOU -->
+  <div class="slide" data-theme="light">
+    <div class="s-label">Start with you</div>
+    <div class="s-title">Think about the last conference<br>you attended.</div>
+    <div class="s-subtitle">You posted about it. On LinkedIn, on X, maybe a story. Nobody from the company asked you to. Nobody paid you. You just... did it. Why?</div>
+  </div>
+
+  <!-- SLIDE 3: WHAT ACTUALLY HAPPENED -->
+  <div class="slide slide--dark" data-theme="dark">
+    <div class="s-label">What actually happened</div>
+    <div class="s-title">You just ran a<br><em>growth motion.</em></div>
+    <div class="s-points">
+      <div class="s-point">
+        <span class="s-point-num">01</span>
+        <span class="s-point-text">You completed something real. Your belief was at its peak.</span>
+      </div>
+      <div class="s-point">
+        <span class="s-point-num">02</span>
+        <span class="s-point-text">You shared it because it said something about <strong>you</strong> - not the brand.</span>
+      </div>
+      <div class="s-point">
+        <span class="s-point-num">03</span>
+        <span class="s-point-text">Your network saw it. Some clicked. Some signed up for the next one.</span>
+      </div>
+      <div class="s-point">
+        <span class="s-point-num">04</span>
+        <span class="s-point-text">You carried trust the company could never buy. And you did it for free.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 4: THESE ARE MOMENTS -->
+  <div class="slide" data-theme="light">
+    <div class="s-label">These are completion moments</div>
+    <div class="s-title">Every company creates them.<br><em>Every day.</em></div>
+    <div class="s-points">
+      <div class="s-point">
+        <span class="s-point-num">-</span>
+        <span class="s-point-text">A developer <strong>passes a certification</strong> and posts their badge</span>
+      </div>
+      <div class="s-point">
+        <span class="s-point-num">-</span>
+        <span class="s-point-text">200 people <strong>walk out of a conference session</strong> buzzing with ideas</span>
+      </div>
+      <div class="s-point">
+        <span class="s-point-num">-</span>
+        <span class="s-point-text">A new hire <strong>finishes onboarding</strong> and announces their first week</span>
+      </div>
+      <div class="s-point">
+        <span class="s-point-num">-</span>
+        <span class="s-point-text">A partner <strong>closes their first deal</strong> on your platform</span>
+      </div>
+      <div class="s-point">
+        <span class="s-point-num">-</span>
+        <span class="s-point-text">A community member <strong>wins a challenge</strong> and shares the result</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 5: THE PATTERN HAS A NAME -->
+  <div class="slide" data-theme="light">
+    <div class="s-label">This pattern has a name</div>
+    <div class="s-title">Moment. Identity. Share.<br><em>Cascade.</em></div>
+    <div class="s-subtitle">Belonging. Gaining. Connecting. Different people share for different reasons - but they all share at the moment of completion. And when one shares, others follow.</div>
+  </div>
+
+  <!-- SLIDE 6: PROOF AT SCALE -->
+  <div class="slide slide--dark" data-theme="dark">
+    <div class="s-label">Proof</div>
+    <div class="s-title">You've seen this at scale.<br><em>You just didn't name it.</em></div>
+    <div class="s-points">
+      <div class="s-point">
+        <span class="s-point-num">#</span>
+        <span class="s-point-text"><strong>AWSCertified</strong> - thousands post their badge the day they pass. Nobody asked them to.</span>
+      </div>
+      <div class="s-point">
+        <span class="s-point-num">#</span>
+        <span class="s-point-text"><strong>Salesforce Trailblazers</strong> - people build entire careers inside the ecosystem. Advocacy is economically rational.</span>
+      </div>
+      <div class="s-point">
+        <span class="s-point-num">#</span>
+        <span class="s-point-text"><strong>Every post-conference LinkedIn flood</strong> - the same authentic signal, from dozens of people, reaching thousands of connections.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 7: THE ARCHITECTURE -->
+  <div class="slide" data-theme="light">
+    <div class="s-label">The architecture shift</div>
+    <div class="s-vs">
+      <div class="s-vs-col">
+        <div class="s-vs-label">How you grow today</div>
+        <div class="s-vs-value">1:1</div>
+        <div class="s-vs-desc">Brand reaches Recipient.<br>Chain ends. Linear cost.</div>
+      </div>
+      <div class="s-vs-divider">vs</div>
+      <div class="s-vs-col">
+        <div class="s-vs-label">What just happened with you</div>
+        <div class="s-vs-value highlight">1:1:N</div>
+        <div class="s-vs-desc">Brand activates Advocate.<br>Advocate reaches Network.<br>Trust transfers. Cost drops.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 8: BELIEF WINDOW -->
+  <div class="slide slide--dark" data-theme="dark">
+    <div class="s-label">Why timing is everything</div>
+    <div class="s-title">The Belief Window</div>
+    <div class="s-points">
+      <div class="s-point">
+        <span class="s-point-num">01</span>
+        <span class="s-point-text"><strong>Completion moment.</strong> You finish something real - the belief peaks.</span>
+      </div>
+      <div class="s-point">
+        <span class="s-point-num">02</span>
+        <span class="s-point-text"><strong>The window opens.</strong> Sharing feels like expression, not obligation. You want to tell people.</span>
+      </div>
+      <div class="s-point">
+        <span class="s-point-num">03</span>
+        <span class="s-point-text"><strong>The window closes.</strong> Ask someone on a random Tuesday about last month's event? Too late.</span>
+      </div>
+    </div>
+    <div class="s-subtitle">This is why employee advocacy fails. The timing is always wrong.</div>
+  </div>
+
+  <!-- SLIDE 9: THE COHORT -->
+  <div class="slide" data-theme="light">
+    <div class="s-label">The multiplier</div>
+    <div class="s-title">It's never <em>one person.</em></div>
+    <div class="s-subtitle">30 earned that certification. 200 walked out of that session. A whole class onboarded the same week. When one shares, others see it and share theirs.</div>
+    <div class="s-notation">
+      <span class="accent">The cohort is the unit.</span> Every member's network is pre-qualified by professional context. A developer's connections are other developers. The audience is structural, not accidental.
+    </div>
+  </div>
+
+  <!-- SLIDE 10: VALUE EXCHANGE -->
+  <div class="slide" data-theme="light">
+    <div class="s-label">The test</div>
+    <div class="s-quote">"If we removed our brand name from the share, would the participant still want to post it?"</div>
+    <div class="s-subtitle">Yes = value exchange works. The share serves the advocate.<br>No = you're running employee advocacy, not ALG.</div>
+  </div>
+
+  <!-- SLIDE 11: IT'S ALREADY HAPPENING -->
+  <div class="slide slide--accent" data-theme="accent">
+    <div class="s-label">The uncomfortable truth</div>
+    <div class="s-big">You're already<br>creating these<br>moments.<br><em>You're just not<br>capturing them.</em></div>
+  </div>
+
+  <!-- SLIDE 12: PREREQUISITES -->
+  <div class="slide slide--dark" data-theme="dark">
+    <div class="s-label">The diagnostic</div>
+    <div class="s-title">Four conditions. All required.</div>
+    <div class="s-points">
+      <div class="s-point">
+        <span class="s-point-num">01</span>
+        <span class="s-point-text"><strong>Participation layer.</strong> People are already doing something - events, product, community.</span>
+      </div>
+      <div class="s-point">
+        <span class="s-point-num">02</span>
+        <span class="s-point-text"><strong>Network density.</strong> Participants are connected to relevant audiences.</span>
+      </div>
+      <div class="s-point">
+        <span class="s-point-num">03</span>
+        <span class="s-point-text"><strong>Distribution surface.</strong> Sharing happens where it's visible and measurable.</span>
+      </div>
+      <div class="s-point">
+        <span class="s-point-num">04</span>
+        <span class="s-point-text"><strong>Motive alignment.</strong> Advocating serves the advocate's interest, not just yours.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 13: WHAT YOU'RE TAKING HOME -->
+  <div class="slide" data-theme="light">
+    <div class="s-label">What you're taking with you</div>
+    <div class="s-title">Three things.</div>
+    <div class="s-takeaway">
+      <div class="s-takeaway-item">
+        <span class="s-takeaway-icon">01</span>
+        <span class="s-takeaway-text"><strong>The framework.</strong> advocacyled.com/framework - the full architecture, open, free.</span>
+      </div>
+      <div class="s-takeaway-item">
+        <span class="s-takeaway-icon">02</span>
+        <span class="s-takeaway-text"><strong>The diagnostic.</strong> Run it with Claude or ChatGPT - links on the site. Find out if ALG is your motion.</span>
+      </div>
+      <div class="s-takeaway-item">
+        <span class="s-takeaway-icon">03</span>
+        <span class="s-takeaway-text"><strong>The question.</strong> What completion moments does your company create - and what happens after them?</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 14: CLOSE -->
+  <div class="slide slide--dark" data-theme="dark">
+    <div class="s-label">advocacyled.com</div>
+    <div class="s-big">Completion creates<br>permission.</div>
+    <div class="s-meta">Kamanashish Roy &middot; <a href="https://doubts.page">@doubts</a> &middot; Framework v0.2</div>
+  </div>
+
+</div>
+
+<!-- ALG PATTERN GRID -->
+<div class="alg-pattern" id="algPattern"></div>
+
+<div class="progress" id="progress"></div>
+<div class="counter" id="counter"></div>
+<div class="nav-hint">Arrow keys or click to navigate</div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  const progress = document.getElementById('progress');
+  const counter = document.getElementById('counter');
+  let current = 0;
+
+  function goTo(n) {
+    if (n < 0 || n >= slides.length) return;
+    slides[current].classList.remove('active');
+    current = n;
+    slides[current].classList.add('active');
+    progress.style.width = ((current + 1) / slides.length * 100) + '%';
+    counter.textContent = (current + 1) + ' / ' + slides.length;
+
+    // Update counter color based on slide theme
+    const theme = slides[current].dataset.theme;
+    counter.style.color = theme === 'dark' || theme === 'accent' ? '#7a7568' : '#7a7568';
+    document.querySelector('.nav-hint').style.color = theme === 'dark' || theme === 'accent' ? '#3a3830' : '#d4cfc4';
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') {
+      e.preventDefault();
+      goTo(current + 1);
+    }
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+      e.preventDefault();
+      goTo(current - 1);
+    }
+    if (e.key === 'Home') goTo(0);
+    if (e.key === 'End') goTo(slides.length - 1);
+    if (e.key === 'f' || e.key === 'F') {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen();
+      } else {
+        document.exitFullscreen();
+      }
+    }
+  });
+
+  document.addEventListener('click', (e) => {
+    if (e.clientX > window.innerWidth / 2) {
+      goTo(current + 1);
+    } else {
+      goTo(current - 1);
+    }
+  });
+
+  // Touch support
+  let touchStart = 0;
+  document.addEventListener('touchstart', (e) => { touchStart = e.touches[0].clientX; });
+  document.addEventListener('touchend', (e) => {
+    const diff = touchStart - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 50) {
+      diff > 0 ? goTo(current + 1) : goTo(current - 1);
+    }
+  });
+
+  // ── ALG PATTERN GRID ──
+  const patternEl = document.getElementById('algPattern');
+  const types = ['alg-t1', 'alg-t2', 'alg-t3', 'alg-t4'];
+  const cols = 3;
+  const tileSize = 90;
+  const rows = Math.ceil(window.innerHeight / tileSize) + 1;
+  const tiles = [];
+  const positions = [];
+
+  // Build position map
+  for (let r = 0; r < rows; r++) {
+    for (let c = 0; c < cols; c++) {
+      positions.push({ row: r, col: c });
+    }
+  }
+
+  // Place a tile at its grid position using transform
+  function placeTile(tile) {
+    const pos = positions[tile.posIdx];
+    tile.el.style.transform = `translate(${pos.col * tileSize}px, ${pos.row * tileSize}px)`;
+  }
+
+  // Build grid
+  for (let i = 0; i < positions.length; i++) {
+    const tile = document.createElement('div');
+    const type = types[Math.floor(Math.random() * types.length)];
+    tile.className = `alg-pattern-tile ${type}`;
+    tile.innerHTML = '<div class="tile-sq"><div class="tile-cr"></div></div>';
+    patternEl.appendChild(tile);
+    const tileObj = { el: tile, posIdx: i };
+    tiles.push(tileObj);
+    placeTile(tileObj);
+  }
+
+  // Shuffle: swap tile positions and change types
+  function shufflePattern() {
+    const swapCount = 3 + Math.floor(Math.random() * 3);
+    for (let i = 0; i < swapCount; i++) {
+      const a = Math.floor(Math.random() * tiles.length);
+      const b = Math.floor(Math.random() * tiles.length);
+      if (a === b) continue;
+
+      // Swap position indices
+      const tmpIdx = tiles[a].posIdx;
+      tiles[a].posIdx = tiles[b].posIdx;
+      tiles[b].posIdx = tmpIdx;
+
+      // Animate to new positions
+      placeTile(tiles[a]);
+      placeTile(tiles[b]);
+    }
+
+    // Fade-swap some tile types
+    const typeChangeCount = 3 + Math.floor(Math.random() * 4);
+    for (let i = 0; i < typeChangeCount; i++) {
+      const idx = Math.floor(Math.random() * tiles.length);
+      const tile = tiles[idx];
+      tile.el.style.opacity = '0';
+      const tileRef = tile;
+      setTimeout(() => {
+        const newType = types[Math.floor(Math.random() * types.length)];
+        tileRef.el.className = `alg-pattern-tile ${newType}`;
+        placeTile(tileRef);
+        tileRef.el.style.opacity = '1';
+      }, 350);
+    }
+  }
+
+  // Slow ambient shuffle - one swap every 3s
+  let ambientInterval;
+  function startAmbient() {
+    clearInterval(ambientInterval);
+    ambientInterval = setInterval(() => {
+      const a = Math.floor(Math.random() * tiles.length);
+      const b = Math.floor(Math.random() * tiles.length);
+      if (a !== b) {
+        const tmpIdx = tiles[a].posIdx;
+        tiles[a].posIdx = tiles[b].posIdx;
+        tiles[b].posIdx = tmpIdx;
+        placeTile(tiles[a]);
+        placeTile(tiles[b]);
+      }
+    }, 3000);
+  }
+
+  // Update pattern theme with slide
+  function updatePatternTheme(theme) {
+    patternEl.className = `alg-pattern theme-${theme}`;
+  }
+
+  // Patch goTo to include pattern
+  const _origGoTo = goTo;
+  goTo = function(n) {
+    if (n < 0 || n >= slides.length) return;
+    slides[current].classList.remove('active');
+    current = n;
+    slides[current].classList.add('active');
+    progress.style.width = ((current + 1) / slides.length * 100) + '%';
+    counter.textContent = (current + 1) + ' / ' + slides.length;
+
+    const theme = slides[current].dataset.theme;
+    counter.style.color = theme === 'dark' || theme === 'accent' ? '#7a7568' : '#7a7568';
+    document.querySelector('.nav-hint').style.color = theme === 'dark' || theme === 'accent' ? '#3a3830' : '#d4cfc4';
+
+    updatePatternTheme(theme);
+    shufflePattern();
+  };
+
+  goTo(0);
+  startAmbient();
+</script>
+
+</body>
+</html>
