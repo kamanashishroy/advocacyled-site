@@ -1,0 +1,1735 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Completion Moment Audit - Map Your ALG Activation Points</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=DM+Sans:wght@300;400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --red: #c8401a;
+    --red-light: rgba(200, 64, 26, 0.08);
+    --red-mid: rgba(200, 64, 26, 0.15);
+    --ink: #0e0d0b;
+    --paper: #f5f0e8;
+    --gray: #6b6560;
+    --gray-light: #a09890;
+    --white: #ffffff;
+    --green: #2d7a4f;
+    --amber: #b8860b;
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    color: var(--ink);
+    background: var(--paper);
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ============ TOOLTIP SYSTEM ============ */
+  .tip {
+    position: relative;
+    border-bottom: 1.5px dotted var(--gray-light);
+    cursor: help;
+  }
+
+  .tip .tip-body {
+    display: none;
+    position: absolute;
+    bottom: calc(100% + 10px);
+    left: 50%;
+    transform: translateX(-50%);
+    width: 320px;
+    background: var(--ink);
+    color: var(--paper);
+    padding: 16px 18px;
+    border-radius: 8px;
+    font-size: 12.5px;
+    line-height: 1.55;
+    font-weight: 300;
+    z-index: 100;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    pointer-events: none;
+  }
+
+  .tip .tip-body::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 6px solid transparent;
+    border-top-color: var(--ink);
+  }
+
+  .tip:hover .tip-body,
+  .tip:focus .tip-body {
+    display: block;
+    animation: tipFade 0.2s ease;
+  }
+
+  @keyframes tipFade {
+    from { opacity: 0; transform: translateX(-50%) translateY(4px); }
+    to { opacity: 1; transform: translateX(-50%) translateY(0); }
+  }
+
+  .tip .tip-body .tip-title {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 6px;
+    font-weight: 500;
+  }
+
+  .tip .tip-body .tip-example {
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid rgba(245,240,232,0.1);
+    font-size: 11.5px;
+    color: var(--gray-light);
+  }
+
+  .tip .tip-body .tip-exclude {
+    margin-top: 6px;
+    font-size: 11px;
+    color: rgba(200, 64, 26, 0.8);
+  }
+
+  /* Light context tooltip (for dark backgrounds) */
+  .tip-light .tip-body {
+    background: var(--paper);
+    color: var(--ink);
+    border: 1px solid rgba(0,0,0,0.08);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+  }
+  .tip-light .tip-body::after { border-top-color: var(--paper); }
+  .tip-light .tip-body .tip-example { border-top-color: rgba(0,0,0,0.06); color: var(--gray); }
+
+  /* ============ EXAMPLE CALLOUT ============ */
+  .example-callout {
+    background: var(--ink);
+    border-radius: 8px;
+    padding: 16px 18px;
+    margin-bottom: 24px;
+  }
+
+  .example-callout .ec-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 8px;
+    font-weight: 500;
+  }
+
+  .example-callout .ec-text {
+    font-size: 12.5px;
+    line-height: 1.55;
+    color: rgba(245,240,232,0.85);
+  }
+
+  .example-callout .ec-text strong {
+    color: var(--paper);
+    font-weight: 500;
+  }
+
+  /* ============ CONSEQUENCE LINE ============ */
+  .consequence {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--red);
+    letter-spacing: 0.03em;
+    padding: 10px 14px;
+    background: var(--red-light);
+    border-radius: 6px;
+    margin-bottom: 20px;
+    line-height: 1.5;
+  }
+
+  /* ============ INTRO SCREEN ============ */
+  .screen {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 60px 24px 80px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .screen.hidden { display: none; }
+
+  .topline {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 20px;
+  }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 36px;
+    line-height: 1.15;
+    color: var(--ink);
+    margin-bottom: 16px;
+  }
+
+  .intro-text {
+    font-size: 15px;
+    line-height: 1.65;
+    color: var(--gray);
+    margin-bottom: 32px;
+    max-width: 480px;
+  }
+
+  .intro-what {
+    background: var(--ink);
+    border-radius: 10px;
+    padding: 24px;
+    margin-bottom: 32px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+  }
+
+  .intro-what-item {
+    text-align: center;
+  }
+
+  .intro-what-item .iw-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--paper);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .intro-what-item .iw-label {
+    font-size: 11px;
+    color: var(--gray-light);
+    line-height: 1.3;
+  }
+
+  .intro-meta {
+    display: flex;
+    gap: 24px;
+    margin-bottom: 36px;
+  }
+
+  .meta-item {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--gray-light);
+    letter-spacing: 0.03em;
+  }
+
+  .meta-item span {
+    color: var(--ink);
+    font-weight: 500;
+  }
+
+  .start-btn {
+    display: inline-block;
+    padding: 16px 36px;
+    background: var(--ink);
+    color: var(--paper);
+    border: none;
+    border-radius: 8px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+
+  .start-btn:hover { opacity: 0.85; }
+
+  /* ============ CATEGORY SCREENS ============ */
+  .cat-screen {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 48px 24px 80px;
+    min-height: 100vh;
+    display: none;
+    flex-direction: column;
+  }
+
+  .cat-screen.active {
+    display: flex;
+    animation: slideIn 0.35s ease;
+  }
+
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateX(40px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  /* Progress */
+  .q-progress {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 40px;
+  }
+
+  .progress-dots {
+    display: flex;
+    gap: 6px;
+  }
+
+  .p-dot {
+    width: 32px;
+    height: 4px;
+    border-radius: 2px;
+    background: var(--red-mid);
+    transition: background 0.3s;
+  }
+
+  .p-dot.done { background: var(--red); }
+  .p-dot.current { background: var(--red); opacity: 0.6; }
+
+  .progress-text {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--gray-light);
+    letter-spacing: 0.05em;
+    margin-left: auto;
+  }
+
+  /* Category header */
+  .cat-section-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 12px;
+    font-weight: 500;
+  }
+
+  .cat-heading {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--ink);
+    margin-bottom: 10px;
+  }
+
+  .cat-desc {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--gray);
+    margin-bottom: 28px;
+    max-width: 540px;
+  }
+
+  /* Intensity legend */
+  .intensity-legend {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+  }
+
+  .il-chip {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    color: var(--gray);
+  }
+
+  .il-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .il-dot.high { background: var(--red); }
+  .il-dot.medium { background: var(--amber); }
+  .il-dot.low { background: var(--gray-light); }
+
+  /* Moment rows */
+  .moment-row {
+    background: var(--white);
+    border-radius: 8px;
+    padding: 16px 18px;
+    margin-bottom: 8px;
+    border: 1.5px solid rgba(0,0,0,0.04);
+    display: grid;
+    grid-template-columns: 10px 1fr auto;
+    gap: 14px;
+    align-items: start;
+    transition: all 0.2s ease;
+    cursor: default;
+  }
+
+  .moment-row:hover {
+    border-color: rgba(0,0,0,0.08);
+  }
+
+  .moment-row.checked-row {
+    border-color: var(--red);
+    background: rgba(200, 64, 26, 0.03);
+  }
+
+  .moment-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-top: 5px;
+  }
+
+  .moment-dot.high { background: var(--red); }
+  .moment-dot.medium { background: var(--amber); }
+  .moment-dot.low { background: var(--gray-light); }
+
+  .moment-name {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 3px;
+    line-height: 1.3;
+  }
+
+  .moment-desc {
+    font-size: 12px;
+    line-height: 1.45;
+    color: var(--gray);
+  }
+
+  .moment-check {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .check-box {
+    width: 24px;
+    height: 24px;
+    border-radius: 6px;
+    border: 1.5px solid rgba(0,0,0,0.12);
+    background: var(--paper);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    transition: all 0.15s ease;
+    color: transparent;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  .check-box:hover {
+    border-color: var(--red);
+  }
+
+  .check-box.checked {
+    background: var(--red);
+    border-color: var(--red);
+    color: white;
+  }
+
+  .check-label {
+    font-size: 10px;
+    color: var(--gray-light);
+    font-family: 'IBM Plex Mono', monospace;
+  }
+
+  /* Custom moment input */
+  .add-moment {
+    margin-top: 12px;
+    display: flex;
+    gap: 8px;
+    align-items: stretch;
+  }
+
+  .add-input {
+    flex: 1;
+    padding: 12px 14px;
+    border: 1.5px dashed rgba(0,0,0,0.12);
+    border-radius: 8px;
+    background: transparent;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    color: var(--ink);
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .add-input::placeholder {
+    color: var(--gray-light);
+  }
+
+  .add-input:focus {
+    border-color: var(--red);
+    border-style: solid;
+  }
+
+  /* Intensity picker for custom moments */
+  .intensity-picker {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+  }
+
+  .ip-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.06em;
+    color: var(--gray-light);
+    margin-right: 4px;
+    white-space: nowrap;
+  }
+
+  .ip-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    border: 1.5px solid rgba(0,0,0,0.08);
+    background: var(--white);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s ease;
+    position: relative;
+  }
+
+  .ip-btn:hover { border-color: var(--gray); }
+
+  .ip-btn::after {
+    content: attr(title);
+    position: absolute;
+    bottom: calc(100% + 6px);
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    color: var(--paper);
+    background: var(--ink);
+    padding: 4px 8px;
+    border-radius: 4px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.15s;
+  }
+
+  .ip-btn:hover::after { opacity: 1; }
+
+  .ip-btn.ip-selected { border-width: 2px; }
+  .ip-btn.ip-selected.ip-high { border-color: var(--red); background: rgba(200,64,26,0.08); }
+  .ip-btn.ip-selected.ip-medium { border-color: var(--amber); background: rgba(184,134,11,0.08); }
+  .ip-btn.ip-selected.ip-low { border-color: var(--gray-light); background: rgba(160,152,144,0.08); }
+
+  .ip-btn .ip-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+  }
+
+  .ip-btn.ip-high .ip-dot { background: var(--red); }
+  .ip-btn.ip-medium .ip-dot { background: var(--amber); }
+  .ip-btn.ip-low .ip-dot { background: var(--gray-light); }
+
+  .add-btn {
+    padding: 12px 18px;
+    border: none;
+    background: var(--ink);
+    color: var(--paper);
+    border-radius: 8px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: opacity 0.2s;
+    white-space: nowrap;
+  }
+
+  .add-btn:hover {
+    opacity: 0.85;
+  }
+
+  /* Category count badge */
+  .cat-count-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    background: var(--red-light);
+    border-radius: 20px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--red);
+    font-weight: 500;
+    margin-top: 16px;
+    transition: all 0.3s ease;
+  }
+
+  .cat-count-badge.has-moments {
+    background: var(--red);
+    color: white;
+  }
+
+  /* Navigation */
+  .q-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
+    padding-top: 32px;
+  }
+
+  .nav-back {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: var(--gray);
+    cursor: pointer;
+    border: none;
+    background: none;
+    padding: 8px 0;
+    letter-spacing: 0.03em;
+    transition: color 0.2s;
+  }
+  .nav-back:hover { color: var(--red); }
+
+  .nav-next {
+    padding: 14px 32px;
+    border: none;
+    background: var(--ink);
+    color: var(--paper);
+    border-radius: 8px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .nav-next:hover { opacity: 0.85; }
+  .nav-next.final { background: var(--red); }
+
+  /* ============ RESULTS SCREEN ============ */
+  .results-screen {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 48px 24px 80px;
+    display: none;
+  }
+
+  .results-screen.active {
+    display: block;
+    animation: fadeUp 0.5s ease;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .result-header {
+    background: var(--ink);
+    border-radius: 12px 12px 0 0;
+    padding: 32px 28px 28px;
+  }
+
+  .rh-topline {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 16px;
+    font-weight: 500;
+  }
+
+  .score-row {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+    align-items: center;
+  }
+
+  .score-circle {
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    border: 3px solid var(--red);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .score-circle .sc-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--paper);
+    line-height: 1;
+  }
+
+  .score-circle .sc-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 8px;
+    color: var(--gray-light);
+    letter-spacing: 0.05em;
+    margin-top: 2px;
+  }
+
+  .score-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .score-verdict {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--paper);
+  }
+
+  .score-profile-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--red);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  /* Category bars in results */
+  .cat-bars {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 10px;
+    margin-top: 20px;
+  }
+
+  .cat-bar {
+    background: rgba(245,240,232,0.06);
+    border-radius: 6px;
+    padding: 12px 10px;
+    text-align: center;
+  }
+
+  .cat-bar .cb-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 8px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--gray-light);
+    margin-bottom: 6px;
+  }
+
+  .cb-meter {
+    height: 4px;
+    background: rgba(245,240,232,0.1);
+    border-radius: 2px;
+    overflow: hidden;
+    margin-bottom: 4px;
+  }
+
+  .cb-fill {
+    height: 100%;
+    background: var(--red);
+    border-radius: 2px;
+    transition: width 0.8s ease;
+  }
+
+  .cat-bar .cb-val {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--paper);
+  }
+
+  /* Result body */
+  .result-body {
+    background: var(--white);
+    border-radius: 0 0 12px 12px;
+    padding: 28px;
+    border: 1px solid rgba(0,0,0,0.04);
+    border-top: none;
+  }
+
+  .rb-section-head {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 10px;
+    margin-top: 24px;
+    font-weight: 500;
+  }
+  .rb-section-head:first-child { margin-top: 0; }
+
+  .rb-text {
+    font-size: 13.5px;
+    line-height: 1.6;
+    color: var(--ink);
+    margin-bottom: 12px;
+  }
+  .rb-text strong { font-weight: 500; }
+
+  .entry-path-card {
+    background: var(--paper);
+    border-radius: 8px;
+    padding: 18px 20px;
+    margin-bottom: 16px;
+    border: 1px solid rgba(0,0,0,0.04);
+  }
+
+  .ep-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 6px;
+    font-weight: 500;
+  }
+
+  .ep-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 6px;
+  }
+
+  .ep-desc {
+    font-size: 12.5px;
+    line-height: 1.5;
+    color: var(--gray);
+  }
+
+  .bottleneck-card {
+    background: rgba(200, 64, 26, 0.04);
+    border-radius: 8px;
+    padding: 18px 20px;
+    margin-bottom: 16px;
+    border-left: 3px solid var(--red);
+  }
+
+  .bn-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 6px;
+    font-weight: 500;
+  }
+
+  .bn-text {
+    font-size: 13px;
+    line-height: 1.55;
+    color: var(--ink);
+  }
+
+  /* Projection table */
+  .projection-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0 16px;
+    font-size: 12px;
+  }
+
+  .projection-table th {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--gray);
+    font-weight: 500;
+    padding: 8px 10px;
+    text-align: left;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+  }
+
+  .projection-table td {
+    padding: 10px;
+    border-bottom: 1px solid rgba(0,0,0,0.03);
+    color: var(--ink);
+    font-size: 13px;
+  }
+
+  .projection-table td:first-child {
+    font-weight: 500;
+  }
+
+  .projection-table .pt-highlight {
+    color: var(--red);
+    font-weight: 500;
+  }
+
+  /* CTA */
+  .results-cta {
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(0,0,0,0.06);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .cta-btn {
+    display: inline-block;
+    padding: 14px 24px;
+    background: var(--red);
+    color: white;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    transition: opacity 0.2s;
+  }
+
+  .cta-btn:hover { opacity: 0.9; }
+
+  .toolkit-footer-link {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--gray-light);
+    text-decoration: none;
+    letter-spacing: 0.03em;
+  }
+
+  .toolkit-footer-link:hover { color: var(--red); }
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width: 600px) {
+    h1 { font-size: 28px; }
+    .cat-heading { font-size: 24px; }
+    .intro-what { grid-template-columns: 1fr; gap: 12px; }
+    .moment-row { grid-template-columns: 10px 1fr; }
+    .moment-check { grid-column: 2; justify-self: start; margin-top: 4px; }
+    .add-moment { flex-wrap: wrap; }
+    .intensity-picker { flex-wrap: nowrap; }
+    .cat-bars { grid-template-columns: 1fr 1fr; }
+    .score-row { flex-direction: column; text-align: center; }
+    .score-meta { align-items: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ SCREEN 0: INTRO ============ -->
+<div class="screen" id="intro-screen">
+  <div class="topline">ALG Toolkit / Completion Moment Audit</div>
+
+  <h1>Map the moments your participants already cross</h1>
+
+  <p class="intro-text">
+    Every company has points where people finish something they invested effort in - a certification earned, a conference attended, a deployment completed. These are <span class="tip" tabindex="0">completion moments<span class="tip-body"><span class="tip-title">Completion Moment</span>The point where someone crosses a finish line they personally invested in. Attended your conference in person. Passed your certification exam. Deployed your product into production. Graduated from your cohort program. Completed your partner training.<span class="tip-example">Count anyone who crossed a meaningful finish line with you. The key test: did they put in effort to get here, and do they feel a sense of accomplishment now that they're done?</span><span class="tip-exclude">Don't count: downloading a whitepaper, registering for a webinar, filling out a form, visiting a booth. Those are interactions, not completions.</span></span></span>, and each one opens a <span class="tip" tabindex="0">belief window<span class="tip-body"><span class="tip-title">Belief Window</span>The brief period right after someone finishes something real where sharing feels natural and intrinsically motivated. A speaker who just delivered a keynote posts about it within hours. A team that just went live with your platform shares the milestone on LinkedIn the same day.<span class="tip-example">The window is widest immediately after the completion moment and narrows over time. Higher personal investment = wider window = more natural sharing.</span><span class="tip-exclude">Not a marketing automation window. Not a "nudge 7 days later" trigger. If you have to remind them to share, the window has already closed.</span></span></span>.
+  </p>
+
+  <p class="intro-text" style="margin-bottom: 28px;">
+    This audit catalogues yours, assesses their <span class="tip" tabindex="0">intensity<span class="tip-body"><span class="tip-title">Intensity</span>How much personal effort and identity someone invested in reaching the completion moment. A 12-week cohort program where they built something real = high intensity. Attending a virtual webinar for 45 minutes = low intensity.<span class="tip-example">High: passed a certification exam, delivered a keynote, deployed to production, graduated a cohort. Medium: attended an event in person, completed onboarding, earned a badge. Low: joined a webinar, watched a demo, attended a virtual session.</span><span class="tip-exclude">Intensity is about the participant's investment, not your production budget. A $500K event where attendees passively watch is lower intensity than a $5K workshop where 20 people build something.</span></span></span>, and identifies where ALG activation will have the highest impact.
+  </p>
+
+  <div class="intro-what">
+    <div class="intro-what-item">
+      <div class="iw-num">4</div>
+      <div class="iw-label">categories to audit</div>
+    </div>
+    <div class="intro-what-item">
+      <div class="iw-num">14</div>
+      <div class="iw-label">pre-mapped moments</div>
+    </div>
+    <div class="intro-what-item">
+      <div class="iw-num">~5m</div>
+      <div class="iw-label">to complete</div>
+    </div>
+  </div>
+
+  <div class="intro-meta">
+    <div class="meta-item">Output: <span>ALG Surface Map + Activation Potential Score</span></div>
+  </div>
+
+  <button class="start-btn" onclick="startAudit()">Begin your audit</button>
+</div>
+
+<!-- ============ SCREEN 1: EVENTS ============ -->
+<div class="cat-screen" id="cat-screen-0">
+  <div class="q-progress">
+    <div class="progress-dots" id="progress-0"></div>
+    <div class="progress-text">1 of 4</div>
+  </div>
+
+  <div class="cat-section-label">Category 1</div>
+  <div class="cat-heading">Events</div>
+  <div class="cat-desc">
+    Conferences, workshops, summits, meetups. Any gathering where participants show up and finish an experience. The <span class="tip tip-light" tabindex="0">completion moment<span class="tip-body"><span class="tip-title">Completion Moment</span>The point where someone crosses a finish line they personally invested in. For events: delivering a talk, finishing a workshop, attending a full conference day, completing a hackathon project.<span class="tip-exclude">Don't count: registering for the event, adding it to their calendar, or scanning a badge at the door. Registration is intent, not completion.</span></span></span> intensity depends on how actively they participated - a speaker finishing their talk vs. someone sitting in the audience.
+  </div>
+
+  <div class="example-callout">
+    <div class="ec-label">Real-world example</div>
+    <div class="ec-text"><strong>Dreamforce</strong> averages 40,000+ in-person attendees. Within 48 hours, LinkedIn sees thousands of posts from speakers, workshop completers, and attendees - each carrying the Salesforce brand. The highest-intensity posts come from <strong>speakers (22% activation)</strong> vs. general attendees (3-5%). Same event, 5x activation gap.</div>
+  </div>
+
+  <div class="consequence">High-intensity event moments (speaking, workshops) see 15-22% activation. Low-intensity (virtual attendance) drops to 1-3%. The difference isn't the event budget - it's the personal investment the participant made.</div>
+
+  <div class="intensity-legend">
+    <div class="il-chip"><div class="il-dot high"></div> High</div>
+    <div class="il-chip"><div class="il-dot medium"></div> Medium</div>
+    <div class="il-chip"><div class="il-dot low"></div> Low</div>
+  </div>
+
+  <div class="moment-row" data-cat="events" data-intensity="high">
+    <div class="moment-dot high"></div>
+    <div class="moment-content">
+      <div class="moment-name">Speaking at your event</div>
+      <div class="moment-desc">Weeks of preparation, personal reputation on the line. The moment they finish their talk, the <span class="tip tip-light" tabindex="0">belief window<span class="tip-body"><span class="tip-title">Belief Window</span>The period right after the talk ends when sharing feels effortless. They'll post their slide deck, tag the event, thank the organizers - all without being asked. This window is typically 24-48 hours for speakers.<span class="tip-exclude">Not the "please share your experience" email you send a week later. By then, the moment has passed.</span></span></span> opens wide - they'll share slides, tag the event, post reflections without being asked.</div>
+    </div>
+    <div class="moment-check">
+      <div class="check-box" onclick="toggleCheck(this)" data-checked="false">&#10003;</div>
+      <div class="check-label">We have this</div>
+    </div>
+  </div>
+
+  <div class="moment-row" data-cat="events" data-intensity="high">
+    <div class="moment-dot high"></div>
+    <div class="moment-content">
+      <div class="moment-name">Completing a hands-on workshop or hackathon</div>
+      <div class="moment-desc">They built or created something tangible during the session. The output itself becomes shareable proof - a prototype, a solution, a working demo they can show their team.</div>
+    </div>
+    <div class="moment-check">
+      <div class="check-box" onclick="toggleCheck(this)" data-checked="false">&#10003;</div>
+      <div class="check-label">We have this</div>
+    </div>
+  </div>
+
+  <div class="moment-row" data-cat="events" data-intensity="medium">
+    <div class="moment-dot medium"></div>
+    <div class="moment-content">
+      <div class="moment-name">Attending the full event in person</div>
+      <div class="moment-desc">Traveled, committed a full day (or more), participated in sessions. Moderate personal investment, but the <span class="tip tip-light" tabindex="0">cohort<span class="tip-body"><span class="tip-title">Cohort</span>The group of people who cross the same completion moment together. At an event, every in-person attendee is a cohort. When one person shares, others in the cohort see it and the social proof lowers their sharing threshold.<span class="tip-example">500 people attend your conference. Speaker A posts about it. 30 attendees who follow Speaker A see the post and think "I was there too" - some of them share their own experience.</span><span class="tip-exclude">Not your email list. Not people who watched the livestream from home. Cohort requires shared physical or experiential investment.</span></span></span> is large - when one person shares, others in the room recognize the experience.</div>
+    </div>
+    <div class="moment-check">
+      <div class="check-box" onclick="toggleCheck(this)" data-checked="false">&#10003;</div>
+      <div class="check-label">We have this</div>
+    </div>
+  </div>
+
+  <div class="moment-row" data-cat="events" data-intensity="low">
+    <div class="moment-dot low"></div>
+    <div class="moment-content">
+      <div class="moment-name">Attending a virtual session or webinar</div>
+      <div class="moment-desc">Low personal investment - they stayed seated, maybe multitasked. Narrow belief window. Only activates if you give them a tangible takeaway worth referencing (a framework, a tool, a benchmark they can cite).</div>
+    </div>
+    <div class="moment-check">
+      <div class="check-box" onclick="toggleCheck(this)" data-checked="false">&#10003;</div>
+      <div class="check-label">We have this</div>
+    </div>
+  </div>
+
+  <div class="add-moment" data-cat="events">
+    <input class="add-input" placeholder="Add a completion moment specific to your events..." onkeydown="if(event.key==='Enter')addMoment(this)">
+    <div class="intensity-picker">
+      <span class="ip-label">Intensity:</span>
+      <button class="ip-btn ip-high ip-selected" data-level="high" title="High" onclick="pickIntensity(this)"><div class="ip-dot"></div></button>
+      <button class="ip-btn ip-medium" data-level="medium" title="Medium" onclick="pickIntensity(this)"><div class="ip-dot"></div></button>
+      <button class="ip-btn ip-low" data-level="low" title="Low" onclick="pickIntensity(this)"><div class="ip-dot"></div></button>
+    </div>
+    <button class="add-btn" onclick="addMoment(this.closest('.add-moment').querySelector('.add-input'))">Add</button>
+  </div>
+
+  <div class="cat-count-badge" id="count-badge-events">0 moments identified</div>
+
+  <div class="q-nav">
+    <button class="nav-back" onclick="goBack(0)">&larr; Back</button>
+    <button class="nav-next" onclick="goNext(0)">Continue</button>
+  </div>
+</div>
+
+<!-- ============ SCREEN 2: PRODUCT ============ -->
+<div class="cat-screen" id="cat-screen-1">
+  <div class="q-progress">
+    <div class="progress-dots" id="progress-1"></div>
+    <div class="progress-text">2 of 4</div>
+  </div>
+
+  <div class="cat-section-label">Category 2</div>
+  <div class="cat-heading">Product</div>
+  <div class="cat-desc">
+    Onboarding milestones, certifications, deployments, usage milestones. Points in your product journey where someone crosses a finish line and has proof of what they accomplished. The strongest product <span class="tip tip-light" tabindex="0">completion moments<span class="tip-body"><span class="tip-title">Completion Moment</span>In product context: the user did something they can point to. Earned a certification. Shipped a deployment. Hit a usage milestone. Completed onboarding and got their first result.<span class="tip-exclude">Don't count: signing up for a free trial, logging in for the first time, clicking through a product tour. Those are steps toward a completion moment, not the moment itself.</span></span></span> combine personal accomplishment with professional credentialing.
+  </div>
+
+  <div class="example-callout">
+    <div class="ec-label">Real-world example</div>
+    <div class="ec-text">When someone earns an <strong>AWS Solutions Architect certification</strong>, 67% post it on LinkedIn within 24 hours. The certification badge IS the shareable artifact - it serves the holder's career and distributes AWS's credibility simultaneously. The <strong>share is the product</strong>, not a request bolted on afterward.</div>
+  </div>
+
+  <div class="consequence">Certifications that carry external credential value see 3-5x higher sharing rates than internal-only badges. The test: would they put it on their LinkedIn even if you didn't ask?</div>
+
+  <div class="intensity-legend">
+    <div class="il-chip"><div class="il-dot high"></div> High</div>
+    <div class="il-chip"><div class="il-dot medium"></div> Medium</div>
+    <div class="il-chip"><div class="il-dot low"></div> Low</div>
+  </div>
+
+  <div class="moment-row" data-cat="product" data-intensity="high">
+    <div class="moment-dot high"></div>
+    <div class="moment-content">
+      <div class="moment-name">Earning a product certification</div>
+      <div class="moment-desc">The certificate IS the share. They studied, took an exam, passed. Professional credentialing drives intrinsic <span class="tip tip-light" tabindex="0">motive alignment<span class="tip-body"><span class="tip-title">Motive Alignment</span>Why the participant wants to share, independent of your brand's goals. With certifications, their motive is career signaling - "I'm qualified in this technology." Your distribution benefit is a side effect of their self-interest.<span class="tip-example">An AWS Solutions Architect posts their certification badge on LinkedIn. Their motive: career advancement. AWS's benefit: credibility distribution to their entire network.</span><span class="tip-exclude">Not referral rewards, not "share for a chance to win." Those are your motives imposed on them, not their own.</span></span></span> - they share because the credential advances their career, not because you asked them to.</div>
+    </div>
+    <div class="moment-check">
+      <div class="check-box" onclick="toggleCheck(this)" data-checked="false">&#10003;</div>
+      <div class="check-label">We have this</div>
+    </div>
+  </div>
+
+  <div class="moment-row" data-cat="product" data-intensity="high">
+    <div class="moment-dot high"></div>
+    <div class="moment-content">
+      <div class="moment-name">Completing a deployment or go-live</div>
+      <div class="moment-desc">A real business outcome. The team that delivered it has months of effort invested. They'll share the milestone because it reflects on their professional competence - "We shipped this."</div>
+    </div>
+    <div class="moment-check">
+      <div class="check-box" onclick="toggleCheck(this)" data-checked="false">&#10003;</div>
+      <div class="check-label">We have this</div>
+    </div>
+  </div>
+
+  <div class="moment-row" data-cat="product" data-intensity="medium">
+    <div class="moment-dot medium"></div>
+    <div class="moment-content">
+      <div class="moment-name">Finishing onboarding and getting first value</div>
+      <div class="moment-desc">The "aha moment" where the product clicks. Moderate intensity but high volume - every customer who activates goes through this. Best when the first result is concrete and screenshot-worthy.</div>
+    </div>
+    <div class="moment-check">
+      <div class="check-box" onclick="toggleCheck(this)" data-checked="false">&#10003;</div>
+      <div class="check-label">We have this</div>
+    </div>
+  </div>
+
+  <div class="moment-row" data-cat="product" data-intensity="medium">
+    <div class="moment-dot medium"></div>
+    <div class="moment-content">
+      <div class="moment-name">Hitting a usage milestone</div>
+      <div class="moment-desc">100th project created, 1,000th user onboarded, first-year anniversary. Meaningful markers that signal commitment and become sharing triggers - especially when you surface them visually.</div>
+    </div>
+    <div class="moment-check">
+      <div class="check-box" onclick="toggleCheck(this)" data-checked="false">&#10003;</div>
+      <div class="check-label">We have this</div>
+    </div>
+  </div>
+
+  <div class="add-moment" data-cat="product">
+    <input class="add-input" placeholder="Add a completion moment specific to your product..." onkeydown="if(event.key==='Enter')addMoment(this)">
+    <div class="intensity-picker">
+      <span class="ip-label">Intensity:</span>
+      <button class="ip-btn ip-high ip-selected" data-level="high" title="High" onclick="pickIntensity(this)"><div class="ip-dot"></div></button>
+      <button class="ip-btn ip-medium" data-level="medium" title="Medium" onclick="pickIntensity(this)"><div class="ip-dot"></div></button>
+      <button class="ip-btn ip-low" data-level="low" title="Low" onclick="pickIntensity(this)"><div class="ip-dot"></div></button>
+    </div>
+    <button class="add-btn" onclick="addMoment(this.closest('.add-moment').querySelector('.add-input'))">Add</button>
+  </div>
+
+  <div class="cat-count-badge" id="count-badge-product">0 moments identified</div>
+
+  <div class="q-nav">
+    <button class="nav-back" onclick="goBack(1)">&larr; Back</button>
+    <button class="nav-next" onclick="goNext(1)">Continue</button>
+  </div>
+</div>
+
+<!-- ============ SCREEN 3: COMMUNITY ============ -->
+<div class="cat-screen" id="cat-screen-2">
+  <div class="q-progress">
+    <div class="progress-dots" id="progress-2"></div>
+    <div class="progress-text">3 of 4</div>
+  </div>
+
+  <div class="cat-section-label">Category 3</div>
+  <div class="cat-heading">Community</div>
+  <div class="cat-desc">
+    Cohort programs, community challenges, recognition systems. Where the <span class="tip tip-light" tabindex="0">cohort effect<span class="tip-body"><span class="tip-title">Cohort Effect</span>When one person in a group shares, others who went through the same experience are more likely to share too. The mechanism: social proof within a shared identity. "If they're posting about graduating this program, I should too - I earned it."<span class="tip-example">A 12-week leadership cohort graduates 25 people. The first graduate posts on LinkedIn. Within 48 hours, 8 more follow - each tagging the program and each other.</span><span class="tip-exclude">Not viral loops. Not referral chains. The cohort effect requires shared investment in a common experience, not just seeing someone else's post.</span></span></span> is strongest - a group of people who finished the same thing together, each amplifying the other's sharing behavior.
+  </div>
+
+  <div class="example-callout">
+    <div class="ec-label">Real-world example</div>
+    <div class="ec-text"><strong>Reforge's</strong> cohort programs graduate 40-60 people per batch. The first graduate posts, 3 others see it and post within 24 hours, then 8 more follow by end of week. This is the <strong>cohort cascade</strong> in action - shared identity lowers the sharing threshold for everyone who went through it together.</div>
+  </div>
+
+  <div class="consequence">Cohort programs with graduation ceremonies see 40-60% higher activation than solo completion paths. The group identity multiplies individual sharing motivation through social proof.</div>
+
+  <div class="intensity-legend">
+    <div class="il-chip"><div class="il-dot high"></div> High</div>
+    <div class="il-chip"><div class="il-dot medium"></div> Medium</div>
+    <div class="il-chip"><div class="il-dot low"></div> Low</div>
+  </div>
+
+  <div class="moment-row" data-cat="community" data-intensity="high">
+    <div class="moment-dot high"></div>
+    <div class="moment-content">
+      <div class="moment-name">Graduating a cohort program</div>
+      <div class="moment-desc">Multi-week commitment with a defined finish line. The group went through it together - built relationships, struggled, succeeded. The <span class="tip tip-light" tabindex="0">belief window<span class="tip-body"><span class="tip-title">Belief Window</span>For cohort graduations, this window is exceptionally wide - often 1-2 weeks. The emotional intensity of finishing together, combined with the social bonds formed, means sharing feels like a natural celebration, not a marketing act.<span class="tip-exclude">The window narrows fast if you wait. A "congratulations" email sent 3 weeks after graduation will feel like a marketing campaign, not a celebration.</span></span></span> is wide because the emotional investment is high and the group identity is strong.</div>
+    </div>
+    <div class="moment-check">
+      <div class="check-box" onclick="toggleCheck(this)" data-checked="false">&#10003;</div>
+      <div class="check-label">We have this</div>
+    </div>
+  </div>
+
+  <div class="moment-row" data-cat="community" data-intensity="medium">
+    <div class="moment-dot medium"></div>
+    <div class="moment-content">
+      <div class="moment-name">Completing a community challenge</div>
+      <div class="moment-desc">Time-boxed, shared effort with a clear end point. "30-day challenge", "Build Week", "Ship It Friday." The cohort effect is strongest when everyone finishes together and results are visible.</div>
+    </div>
+    <div class="moment-check">
+      <div class="check-box" onclick="toggleCheck(this)" data-checked="false">&#10003;</div>
+      <div class="check-label">We have this</div>
+    </div>
+  </div>
+
+  <div class="moment-row" data-cat="community" data-intensity="medium">
+    <div class="moment-dot medium"></div>
+    <div class="moment-content">
+      <div class="moment-name">Earning community recognition or a badge</div>
+      <div class="moment-desc">Top contributor, mentor status, MVP award, helper of the month. Recognition with display value - the badge or title itself is the shareable artifact. Works when the recognition has external credibility, not just internal points.</div>
+    </div>
+    <div class="moment-check">
+      <div class="check-box" onclick="toggleCheck(this)" data-checked="false">&#10003;</div>
+      <div class="check-label">We have this</div>
+    </div>
+  </div>
+
+  <div class="moment-row" data-cat="community" data-intensity="low">
+    <div class="moment-dot low"></div>
+    <div class="moment-content">
+      <div class="moment-name">Reaching a contribution milestone</div>
+      <div class="moment-desc">100 forum posts, 50 answers given, first year in the community. Low individual intensity but can be surfaced visually. Works best when tied to a leaderboard or public profile.</div>
+    </div>
+    <div class="moment-check">
+      <div class="check-box" onclick="toggleCheck(this)" data-checked="false">&#10003;</div>
+      <div class="check-label">We have this</div>
+    </div>
+  </div>
+
+  <div class="add-moment" data-cat="community">
+    <input class="add-input" placeholder="Add a completion moment specific to your community..." onkeydown="if(event.key==='Enter')addMoment(this)">
+    <div class="intensity-picker">
+      <span class="ip-label">Intensity:</span>
+      <button class="ip-btn ip-high ip-selected" data-level="high" title="High" onclick="pickIntensity(this)"><div class="ip-dot"></div></button>
+      <button class="ip-btn ip-medium" data-level="medium" title="Medium" onclick="pickIntensity(this)"><div class="ip-dot"></div></button>
+      <button class="ip-btn ip-low" data-level="low" title="Low" onclick="pickIntensity(this)"><div class="ip-dot"></div></button>
+    </div>
+    <button class="add-btn" onclick="addMoment(this.closest('.add-moment').querySelector('.add-input'))">Add</button>
+  </div>
+
+  <div class="cat-count-badge" id="count-badge-community">0 moments identified</div>
+
+  <div class="q-nav">
+    <button class="nav-back" onclick="goBack(2)">&larr; Back</button>
+    <button class="nav-next" onclick="goNext(2)">Continue</button>
+  </div>
+</div>
+
+<!-- ============ SCREEN 4: ENABLEMENT & PARTNERS ============ -->
+<div class="cat-screen" id="cat-screen-3">
+  <div class="q-progress">
+    <div class="progress-dots" id="progress-3"></div>
+    <div class="progress-text">4 of 4</div>
+  </div>
+
+  <div class="cat-section-label">Category 4</div>
+  <div class="cat-heading">Enablement & Partners</div>
+  <div class="cat-desc">
+    Partner certifications, internal training, awards. Where <span class="tip tip-light" tabindex="0">motive alignment<span class="tip-body"><span class="tip-title">Motive Alignment</span>Why the participant wants to share, independent of what you want. Partner certifications have the strongest motive alignment in ALG because the credential unlocks revenue - the partner shares it to attract clients, and your brand travels with the share.<span class="tip-example">A Salesforce consulting partner earns their certification badge. They promote it on LinkedIn and their website because it attracts clients. Salesforce gets distribution as a side effect of the partner's self-interest.</span><span class="tip-exclude">Not "share this to stay in good standing." Not mandatory advocacy. If the sharing is required rather than motivated, it's employee advocacy dressed as partnership.</span></span></span> is often strongest - the credential or award directly advances the participant's business or career, making sharing a natural act of self-promotion.
+  </div>
+
+  <div class="example-callout">
+    <div class="ec-label">Real-world example</div>
+    <div class="ec-text"><strong>Salesforce Partner certifications</strong> generate the most reliable advocacy signal in B2B SaaS. Why? The partner NEEDS to display the badge - it's how they attract clients. Sharing isn't a favor to Salesforce, it's a <strong>business necessity</strong>. The brand rides along as infrastructure, not as the message.</div>
+  </div>
+
+  <div class="consequence">Partner certifications with economic access (they attract clients because of the credential) see 24-30% activation. Partner programs that only help your brand see 2-5%. The motive has to serve them first.</div>
+
+  <div class="intensity-legend">
+    <div class="il-chip"><div class="il-dot high"></div> High</div>
+    <div class="il-chip"><div class="il-dot medium"></div> Medium</div>
+    <div class="il-chip"><div class="il-dot low"></div> Low</div>
+  </div>
+
+  <div class="moment-row" data-cat="enablement" data-intensity="high">
+    <div class="moment-dot high"></div>
+    <div class="moment-content">
+      <div class="moment-name">Completing partner certification</div>
+      <div class="moment-desc">Economic access - the certification opens revenue opportunities. Partners share because the badge signals competence to their clients. Your brand rides along as infrastructure, not the message. Strongest <span class="tip tip-light" tabindex="0">value exchange<span class="tip-body"><span class="tip-title">Value Exchange</span>What the participant gains from sharing, beyond what you gain. In partner certification, the exchange is: they display your credential, and in return they get client trust, deal flow, and market positioning. Both sides win without either side asking the other to "promote."<span class="tip-exclude">Not: "Share our content and we'll give you co-marketing funds." That's a transaction, not a value exchange. True value exchange means both parties benefit from the same action.</span></span></span> in ALG.</div>
+    </div>
+    <div class="moment-check">
+      <div class="check-box" onclick="toggleCheck(this)" data-checked="false">&#10003;</div>
+      <div class="check-label">We have this</div>
+    </div>
+  </div>
+
+  <div class="moment-row" data-cat="enablement" data-intensity="medium">
+    <div class="moment-dot medium"></div>
+    <div class="moment-content">
+      <div class="moment-name">Finishing an internal training program</div>
+      <div class="moment-desc">Employee completion moments. Works when the training has external credential value - something they'd put on their LinkedIn profile or resume. Internal-only badges rarely trigger sharing outside the company.</div>
+    </div>
+    <div class="moment-check">
+      <div class="check-box" onclick="toggleCheck(this)" data-checked="false">&#10003;</div>
+      <div class="check-label">We have this</div>
+    </div>
+  </div>
+
+  <div class="moment-row" data-cat="enablement" data-intensity="medium">
+    <div class="moment-dot medium"></div>
+    <div class="moment-content">
+      <div class="moment-name">Winning a partner or customer award</div>
+      <div class="moment-desc">Public recognition with inherent share value. "Partner of the Year", "Customer Innovation Award." The award IS the content - they'll announce it because it positions their business, and your brand is embedded in the announcement.</div>
+    </div>
+    <div class="moment-check">
+      <div class="check-box" onclick="toggleCheck(this)" data-checked="false">&#10003;</div>
+      <div class="check-label">We have this</div>
+    </div>
+  </div>
+
+  <div class="add-moment" data-cat="enablement">
+    <input class="add-input" placeholder="Add a completion moment specific to your enablement..." onkeydown="if(event.key==='Enter')addMoment(this)">
+    <div class="intensity-picker">
+      <span class="ip-label">Intensity:</span>
+      <button class="ip-btn ip-high ip-selected" data-level="high" title="High" onclick="pickIntensity(this)"><div class="ip-dot"></div></button>
+      <button class="ip-btn ip-medium" data-level="medium" title="Medium" onclick="pickIntensity(this)"><div class="ip-dot"></div></button>
+      <button class="ip-btn ip-low" data-level="low" title="Low" onclick="pickIntensity(this)"><div class="ip-dot"></div></button>
+    </div>
+    <button class="add-btn" onclick="addMoment(this.closest('.add-moment').querySelector('.add-input'))">Add</button>
+  </div>
+
+  <div class="cat-count-badge" id="count-badge-enablement">0 moments identified</div>
+
+  <div class="q-nav">
+    <button class="nav-back" onclick="goBack(3)">&larr; Back</button>
+    <button class="nav-next final" onclick="showResults()">See your audit results</button>
+  </div>
+</div>
+
+<!-- ============ RESULTS SCREEN ============ -->
+<div class="results-screen" id="results-screen">
+  <div class="result-header">
+    <div class="rh-topline">Completion Moment Audit / Results</div>
+    <div class="score-row">
+      <div class="score-circle">
+        <div class="sc-num" id="r-score">0</div>
+        <div class="sc-label">ALG SURFACE</div>
+      </div>
+      <div class="score-meta">
+        <div class="score-verdict" id="r-verdict"></div>
+        <div class="score-profile-label" id="r-profile"></div>
+      </div>
+    </div>
+    <div class="cat-bars">
+      <div class="cat-bar">
+        <div class="cb-label">Events</div>
+        <div class="cb-meter"><div class="cb-fill" id="bar-events" style="width:0%"></div></div>
+        <div class="cb-val" id="val-events">0</div>
+      </div>
+      <div class="cat-bar">
+        <div class="cb-label">Product</div>
+        <div class="cb-meter"><div class="cb-fill" id="bar-product" style="width:0%"></div></div>
+        <div class="cb-val" id="val-product">0</div>
+      </div>
+      <div class="cat-bar">
+        <div class="cb-label">Community</div>
+        <div class="cb-meter"><div class="cb-fill" id="bar-community" style="width:0%"></div></div>
+        <div class="cb-val" id="val-community">0</div>
+      </div>
+      <div class="cat-bar">
+        <div class="cb-label">Enablement</div>
+        <div class="cb-meter"><div class="cb-fill" id="bar-enablement" style="width:0%"></div></div>
+        <div class="cb-val" id="val-enablement">0</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="result-body" id="result-body">
+    <!-- Populated by JS -->
+  </div>
+</div>
+
+<script>
+// ===== STATE =====
+const cats = ['events', 'product', 'community', 'enablement'];
+let currentScreen = -1; // -1 = intro
+
+// ===== NAVIGATION =====
+function startAudit() {
+  document.getElementById('intro-screen').classList.add('hidden');
+  currentScreen = 0;
+  showCatScreen(0);
+}
+
+function showCatScreen(idx) {
+  cats.forEach((_, i) => {
+    const el = document.getElementById(`cat-screen-${i}`);
+    el.classList.remove('active');
+  });
+  document.getElementById('results-screen').classList.remove('active');
+
+  const el = document.getElementById(`cat-screen-${idx}`);
+  el.classList.add('active');
+  currentScreen = idx;
+  updateProgress(idx);
+  window.scrollTo(0, 0);
+}
+
+function goNext(idx) {
+  if (idx < 3) {
+    showCatScreen(idx + 1);
+  }
+}
+
+function goBack(idx) {
+  if (idx === 0) {
+    document.getElementById('cat-screen-0').classList.remove('active');
+    document.getElementById('intro-screen').classList.remove('hidden');
+    currentScreen = -1;
+  } else {
+    showCatScreen(idx - 1);
+  }
+}
+
+function updateProgress(idx) {
+  for (let i = 0; i < 4; i++) {
+    const container = document.getElementById(`progress-${i}`);
+    container.innerHTML = '';
+    for (let d = 0; d < 4; d++) {
+      const dot = document.createElement('div');
+      dot.className = 'p-dot';
+      if (d < i) dot.classList.add('done');
+      if (d === i) dot.classList.add('current');
+      container.appendChild(dot);
+    }
+  }
+}
+
+// ===== CHECKBOX LOGIC =====
+function toggleCheck(el) {
+  const isChecked = el.dataset.checked === 'true';
+  el.dataset.checked = isChecked ? 'false' : 'true';
+
+  if (isChecked) {
+    el.classList.remove('checked');
+    el.closest('.moment-row').classList.remove('checked-row');
+  } else {
+    el.classList.add('checked');
+    el.closest('.moment-row').classList.add('checked-row');
+  }
+
+  updateCounts();
+}
+
+function updateCounts() {
+  cats.forEach(cat => {
+    const rows = document.querySelectorAll(`.moment-row[data-cat="${cat}"]`);
+    let count = 0;
+    rows.forEach(row => {
+      const cb = row.querySelector('.check-box');
+      if (cb && cb.dataset.checked === 'true') count++;
+    });
+
+    const badge = document.getElementById(`count-badge-${cat}`);
+    badge.textContent = `${count} moment${count !== 1 ? 's' : ''} identified`;
+    if (count > 0) {
+      badge.classList.add('has-moments');
+    } else {
+      badge.classList.remove('has-moments');
+    }
+  });
+}
+
+// ===== INTENSITY PICKER =====
+function pickIntensity(btn) {
+  const picker = btn.closest('.intensity-picker');
+  picker.querySelectorAll('.ip-btn').forEach(b => b.classList.remove('ip-selected'));
+  btn.classList.add('ip-selected');
+}
+
+// ===== ADD CUSTOM MOMENT =====
+function addMoment(input) {
+  const value = input.value.trim();
+  if (!value) return;
+
+  const addRow = input.closest('.add-moment');
+  const cat = addRow.dataset.cat;
+  const picker = addRow.querySelector('.ip-btn.ip-selected');
+  const intensity = picker ? picker.dataset.level : 'medium';
+
+  const row = document.createElement('div');
+  row.className = 'moment-row checked-row';
+  row.dataset.cat = cat;
+  row.dataset.intensity = intensity;
+  row.innerHTML = `
+    <div class="moment-dot ${intensity}"></div>
+    <div class="moment-content">
+      <div class="moment-name">${value}</div>
+      <div class="moment-desc" style="font-style: italic; color: var(--gray-light);">Custom moment added by you.</div>
+    </div>
+    <div class="moment-check">
+      <div class="check-box checked" onclick="toggleCheck(this)" data-checked="true">&#10003;</div>
+      <div class="check-label">We have this</div>
+    </div>
+  `;
+
+  addRow.parentNode.insertBefore(row, addRow);
+  input.value = '';
+  updateCounts();
+}
+
+// ===== RESULTS ENGINE =====
+function showResults() {
+  // Hide category screen
+  document.getElementById(`cat-screen-3`).classList.remove('active');
+
+  // Gather data
+  const data = {};
+  let totalMoments = 0;
+  let totalHigh = 0;
+  let totalMedium = 0;
+  let totalLow = 0;
+  let activeCats = 0;
+  let bestMoment = null;
+  let bestMomentCat = '';
+  let highestIntensityCat = '';
+  let highestCatScore = 0;
+
+  cats.forEach(cat => {
+    const rows = document.querySelectorAll(`.moment-row[data-cat="${cat}"]`);
+    let catHigh = 0, catMed = 0, catLow = 0, catTotal = 0;
+    let catBestName = '';
+
+    rows.forEach(row => {
+      const cb = row.querySelector('.check-box');
+      if (cb && cb.dataset.checked === 'true') {
+        const intensity = row.dataset.intensity;
+        catTotal++;
+        if (intensity === 'high') { catHigh++; totalHigh++; }
+        else if (intensity === 'medium') { catMed++; totalMedium++; }
+        else { catLow++; totalLow++; }
+
+        if (!catBestName && intensity === 'high') {
+          catBestName = row.querySelector('.moment-name').textContent;
+        }
+      }
+    });
+
+    totalMoments += catTotal;
+    if (catTotal > 0) activeCats++;
+
+    // Category score: weighted by intensity
+    const catScore = (catHigh * 3) + (catMed * 1.8) + (catLow * 0.7);
+
+    data[cat] = { total: catTotal, high: catHigh, medium: catMed, low: catLow, score: catScore, bestName: catBestName };
+
+    if (catScore > highestCatScore) {
+      highestCatScore = catScore;
+      highestIntensityCat = cat;
+    }
+
+    if (catBestName && !bestMoment) {
+      bestMoment = catBestName;
+      bestMomentCat = cat;
+    }
+  });
+
+  // ===== COMPOSITE SCORE =====
+  // Base: intensity-weighted moment count
+  const intensityBase = (totalHigh * 10) + (totalMedium * 5.5) + (totalLow * 2);
+
+  // Category diversity bonus (up to 20 points)
+  const diversityBonus = activeCats * 5;
+
+  // High-intensity density (proportion of high moments, up to 15 points)
+  const highDensity = totalMoments > 0 ? (totalHigh / totalMoments) * 15 : 0;
+
+  // Concentration penalty (if all moments in one category, reduce)
+  let concentrationPenalty = 0;
+  if (activeCats === 1 && totalMoments > 2) {
+    concentrationPenalty = 8;
+  }
+
+  // Cohort potential bonus (events + community have stronger cohort effects)
+  const cohortBonus = Math.min(((data.events.high + data.community.high) * 3), 10);
+
+  // Raw score
+  let rawScore = intensityBase + diversityBonus + highDensity + cohortBonus - concentrationPenalty;
+
+  // Normalize to 100 with diminishing returns curve
+  const score = Math.min(Math.round(100 * (1 - Math.exp(-rawScore / 55))), 99);
+
+  // ===== PROFILE DETECTION =====
+  let profile = 'Emerging';
+  let profileDesc = '';
+
+  if (data.events.score > data.product.score && data.events.score > data.community.score && data.events.high >= 1) {
+    profile = 'Event-Heavy';
+    profileDesc = 'Your strongest completion moments cluster around events. This is common for companies with active conference, workshop, or meetup programs. The advantage: event cohorts are time-compressed, creating burst activation patterns.';
+  } else if (data.product.score > data.events.score && data.product.score > data.community.score && data.product.high >= 1) {
+    profile = 'Product-Anchored';
+    profileDesc = 'Your product journey generates the strongest completion moments. Certifications, deployments, and milestones create ongoing activation opportunities that don\'t depend on event calendars. The advantage: always-on, not seasonal.';
+  } else if (data.community.score > data.events.score && data.community.score > data.product.score) {
+    profile = 'Community-Driven';
+    profileDesc = 'Your community programs generate the most activation potential. Cohort graduations, challenges, and recognition create strong peer-amplification effects. The advantage: the cohort effect is strongest here because shared identity runs deepest.';
+  } else if (data.enablement.score >= highestCatScore && data.enablement.high >= 1) {
+    profile = 'Partner-Led';
+    profileDesc = 'Your partner and enablement programs have the strongest motive alignment. Partner certifications and awards create sharing that\'s driven by business incentive, not brand loyalty. The advantage: sharing is self-sustaining because it serves the partner\'s goals.';
+  } else if (activeCats >= 3 && totalHigh >= 2) {
+    profile = 'Multi-Surface';
+    profileDesc = 'You have meaningful completion moments across multiple categories. This is the strongest ALG foundation because each surface compounds the others - event attendees become product users who join the community and earn certifications.';
+  } else if (totalMoments > 0) {
+    profile = 'Emerging';
+    profileDesc = 'You have completion moments to work with, but they\'re either concentrated in one area or mostly lower-intensity. The next step is identifying which moments can be elevated - adding credentials, tangible outputs, or public recognition to widen the belief window.';
+  } else {
+    profile = 'Pre-ALG';
+    profileDesc = 'You haven\'t identified completion moments yet, but that doesn\'t mean they don\'t exist. Most companies have latent moments that haven\'t been designed for activation. Start by looking for any point where someone invests effort and reaches a finish line.';
+  }
+
+  // ===== VERDICT =====
+  let verdict = '';
+  if (score >= 75) verdict = 'Strong ALG Surface';
+  else if (score >= 50) verdict = 'Solid Foundation';
+  else if (score >= 30) verdict = 'Building Blocks Present';
+  else if (score > 0) verdict = 'Early Stage';
+  else verdict = 'Unmapped Territory';
+
+  // ===== RENDER HEADER =====
+  document.getElementById('r-score').textContent = score;
+  document.getElementById('r-verdict').textContent = verdict;
+  document.getElementById('r-profile').textContent = `Profile: ${profile}`;
+
+  // Category bars
+  const maxCatScore = Math.max(...cats.map(c => data[c].score), 1);
+  setTimeout(() => {
+    cats.forEach(cat => {
+      const pct = Math.round((data[cat].score / maxCatScore) * 100);
+      document.getElementById(`bar-${cat}`).style.width = `${pct}%`;
+      document.getElementById(`val-${cat}`).textContent = `${data[cat].total} (${data[cat].high}H ${data[cat].medium}M ${data[cat].low}L)`;
+    });
+  }, 100);
+
+  // ===== RENDER BODY =====
+  let bodyHTML = '';
+
+  // Reading section
+  bodyHTML += `<div class="rb-section-head">Reading</div>`;
+  bodyHTML += `<p class="rb-text">${profileDesc}</p>`;
+
+  // Best entry point
+  if (bestMoment) {
+    const catLabel = bestMomentCat.charAt(0).toUpperCase() + bestMomentCat.slice(1);
+    bodyHTML += `
+      <div class="entry-path-card">
+        <div class="ep-label">Recommended Starting Moment</div>
+        <div class="ep-title">${bestMoment}</div>
+        <div class="ep-desc">This is your highest-intensity identified moment in ${catLabel}. Start here because the belief window is widest and participant motive alignment is strongest. Design the value exchange for this moment first, prove the activation loop works, then expand.</div>
+      </div>`;
+  }
+
+  // Gaps
+  bodyHTML += `<div class="rb-section-head">Gap Analysis</div>`;
+
+  const emptyCats = cats.filter(c => data[c].total === 0);
+  const lowOnlyCats = cats.filter(c => data[c].total > 0 && data[c].high === 0);
+
+  if (emptyCats.length > 0) {
+    const names = emptyCats.map(c => c === 'enablement' ? 'Enablement & Partners' : c.charAt(0).toUpperCase() + c.slice(1));
+    bodyHTML += `
+      <div class="bottleneck-card">
+        <div class="bn-label">Unmapped Categories</div>
+        <div class="bn-text"><strong>${names.join(', ')}</strong> ${emptyCats.length === 1 ? 'has' : 'have'} no identified completion moments. This doesn't mean they don't exist - it means they haven't been designed for activation yet. Ask: does anyone in our ${emptyCats.length === 1 ? 'this area' : 'these areas'} finish something they invested effort in?</div>
+      </div>`;
+  }
+
+  if (lowOnlyCats.length > 0) {
+    const names = lowOnlyCats.map(c => c === 'enablement' ? 'Enablement & Partners' : c.charAt(0).toUpperCase() + c.slice(1));
+    bodyHTML += `
+      <div class="bottleneck-card">
+        <div class="bn-label">Intensity Gap</div>
+        <div class="bn-text"><strong>${names.join(', ')}</strong> ${lowOnlyCats.length === 1 ? 'has' : 'have'} moments but none at high intensity. The belief window for medium and low moments is narrow. Consider: can you add a certification, a tangible deliverable, or public recognition to elevate these moments?</div>
+      </div>`;
+  }
+
+  if (activeCats === 1 && totalMoments > 2) {
+    bodyHTML += `
+      <div class="bottleneck-card">
+        <div class="bn-label">Concentration Risk</div>
+        <div class="bn-text">All your moments are in one category. Single-surface ALG works but doesn't compound. Each additional category you activate creates cross-pollination - event attendees become product users who join the community. Diversifying your surface area multiplies the effect.</div>
+      </div>`;
+  }
+
+  // Activation potential projection
+  if (totalMoments > 0) {
+    bodyHTML += `<div class="rb-section-head">Activation Potential</div>`;
+
+    // Calculate projections per category
+    bodyHTML += `<table class="projection-table">
+      <thead><tr><th>Category</th><th>Moments</th><th>Weighted Score</th><th>Est. Activation Rate</th><th>Belief Window</th></tr></thead><tbody>`;
+
+    cats.forEach(cat => {
+      if (data[cat].total > 0) {
+        const catLabel = cat === 'enablement' ? 'Enablement' : cat.charAt(0).toUpperCase() + cat.slice(1);
+        const actRate = data[cat].high > 0 ? '12-18%' : (data[cat].medium > 0 ? '5-9%' : '1-3%');
+        const window = data[cat].high > 0 ? '24-72 hrs' : (data[cat].medium > 0 ? '12-24 hrs' : '< 6 hrs');
+        const scoreStr = data[cat].score.toFixed(1);
+
+        bodyHTML += `<tr>
+          <td>${catLabel}</td>
+          <td>${data[cat].total}</td>
+          <td class="pt-highlight">${scoreStr}</td>
+          <td>${actRate}</td>
+          <td>${window}</td>
+        </tr>`;
+      }
+    });
+
+    bodyHTML += `</tbody></table>`;
+
+    bodyHTML += `<p class="rb-text" style="font-size: 11.5px; color: var(--gray);">Activation rates are based on ALG framework benchmarks. High-intensity moments with strong motive alignment and a designed value exchange typically see 12-18% organic sharing rates. These rates compound as cohort effects kick in.</p>`;
+  }
+
+  // CTA
+  bodyHTML += `
+    <div class="results-cta">
+      <a href="https://advocacyled.com" class="cta-btn">Design your value exchange</a>
+      <a href="https://advocacyled.com" class="toolkit-footer-link">advocacyled.com</a>
+    </div>`;
+
+  document.getElementById('result-body').innerHTML = bodyHTML;
+
+  // Show results
+  const rs = document.getElementById('results-screen');
+  rs.classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+// ===== INIT =====
+updateCounts();
+</script>
+
+</body>
+</html>

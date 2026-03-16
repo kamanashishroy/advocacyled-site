@@ -1,0 +1,1411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Belief Window Timing Guide - Orchestrate Your ALG Activation</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=DM+Sans:wght@300;400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --red: #c8401a;
+    --red-light: rgba(200, 64, 26, 0.08);
+    --red-mid: rgba(200, 64, 26, 0.15);
+    --ink: #0e0d0b;
+    --paper: #f5f0e8;
+    --gray: #6b6560;
+    --gray-light: #a09890;
+    --white: #ffffff;
+    --green: #2d7a4f;
+    --amber: #b8860b;
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    color: var(--ink);
+    background: var(--paper);
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ============ TOOLTIP SYSTEM ============ */
+  .tip {
+    position: relative;
+    border-bottom: 1.5px dotted var(--gray-light);
+    cursor: help;
+  }
+
+  .tip .tip-body {
+    display: none;
+    position: absolute;
+    bottom: calc(100% + 10px);
+    left: 50%;
+    transform: translateX(-50%);
+    width: 320px;
+    background: var(--ink);
+    color: var(--paper);
+    padding: 16px 18px;
+    border-radius: 8px;
+    font-size: 12.5px;
+    line-height: 1.55;
+    font-weight: 300;
+    z-index: 100;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    pointer-events: none;
+  }
+
+  .tip .tip-body::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 6px solid transparent;
+    border-top-color: var(--ink);
+  }
+
+  .tip:hover .tip-body,
+  .tip:focus .tip-body {
+    display: block;
+    animation: tipFade 0.2s ease;
+  }
+
+  @keyframes tipFade {
+    from { opacity: 0; transform: translateX(-50%) translateY(4px); }
+    to { opacity: 1; transform: translateX(-50%) translateY(0); }
+  }
+
+  .tip .tip-body .tip-title {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 6px;
+    font-weight: 500;
+  }
+
+  .tip .tip-body .tip-example {
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid rgba(245,240,232,0.1);
+    font-size: 11.5px;
+    color: var(--gray-light);
+  }
+
+  .tip .tip-body .tip-exclude {
+    margin-top: 6px;
+    font-size: 11px;
+    color: rgba(200, 64, 26, 0.8);
+  }
+
+  .tip-light .tip-body {
+    background: var(--paper);
+    color: var(--ink);
+    border: 1px solid rgba(0,0,0,0.08);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+  }
+  .tip-light .tip-body::after { border-top-color: var(--paper); }
+  .tip-light .tip-body .tip-example { border-top-color: rgba(0,0,0,0.06); color: var(--gray); }
+
+  /* ============ EXAMPLE CALLOUT ============ */
+  .example-callout {
+    background: var(--ink);
+    border-radius: 8px;
+    padding: 16px 18px;
+    margin-bottom: 24px;
+  }
+
+  .example-callout .ec-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 8px;
+    font-weight: 500;
+  }
+
+  .example-callout .ec-text {
+    font-size: 12.5px;
+    line-height: 1.55;
+    color: rgba(245,240,232,0.85);
+  }
+
+  .example-callout .ec-text strong {
+    color: var(--paper);
+    font-weight: 500;
+  }
+
+  /* ============ CONSEQUENCE LINE ============ */
+  .consequence {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--red);
+    letter-spacing: 0.03em;
+    padding: 10px 14px;
+    background: var(--red-light);
+    border-radius: 6px;
+    margin-bottom: 20px;
+    line-height: 1.5;
+  }
+
+  /* ============ SHARED SCREEN SYSTEM ============ */
+  .screen {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 60px 24px 80px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .screen.hidden { display: none; }
+
+  .topline {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 20px;
+  }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 36px;
+    line-height: 1.15;
+    color: var(--ink);
+    margin-bottom: 16px;
+  }
+
+  .intro-text {
+    font-size: 15px;
+    line-height: 1.65;
+    color: var(--gray);
+    margin-bottom: 20px;
+    max-width: 500px;
+  }
+
+  /* Decay curve visual */
+  .decay-visual {
+    background: var(--ink);
+    border-radius: 10px;
+    padding: 24px 24px 20px;
+    margin-bottom: 28px;
+  }
+
+  .decay-visual .dv-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 12px;
+  }
+
+  .decay-svg {
+    width: 100%;
+    height: 100px;
+  }
+
+  .decay-axis-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 6px;
+  }
+
+  .decay-axis-labels span {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    color: var(--gray-light);
+  }
+
+  .intro-meta {
+    display: flex;
+    gap: 24px;
+    margin-bottom: 36px;
+  }
+
+  .meta-item {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--gray-light);
+    letter-spacing: 0.03em;
+  }
+
+  .meta-item span {
+    color: var(--ink);
+    font-weight: 500;
+  }
+
+  .start-btn {
+    display: inline-block;
+    padding: 16px 36px;
+    background: var(--ink);
+    color: var(--paper);
+    border: none;
+    border-radius: 8px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+
+  .start-btn:hover { opacity: 0.85; }
+
+  /* ============ STEP SCREENS ============ */
+  .step-screen {
+    max-width: 660px;
+    margin: 0 auto;
+    padding: 48px 24px 80px;
+    min-height: 100vh;
+    display: none;
+    flex-direction: column;
+  }
+
+  .step-screen.active {
+    display: flex;
+    animation: slideIn 0.35s ease;
+  }
+
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateX(40px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  .q-progress {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 40px;
+  }
+
+  .progress-dots { display: flex; gap: 6px; }
+  .p-dot { width: 32px; height: 4px; border-radius: 2px; background: var(--red-mid); transition: background 0.3s; }
+  .p-dot.done { background: var(--red); }
+  .p-dot.current { background: var(--red); opacity: 0.6; }
+
+  .progress-text {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--gray-light);
+    letter-spacing: 0.05em;
+    margin-left: auto;
+  }
+
+  .step-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 12px;
+    font-weight: 500;
+  }
+
+  .step-heading {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--ink);
+    margin-bottom: 10px;
+  }
+
+  .step-desc {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--gray);
+    margin-bottom: 20px;
+    max-width: 560px;
+  }
+
+  /* ===== Moment selector cards ===== */
+  .moment-select-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .moment-select-card {
+    background: var(--white);
+    border: 1.5px solid rgba(0,0,0,0.06);
+    border-radius: 8px;
+    padding: 14px 16px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .moment-select-card:hover { border-color: var(--red); }
+  .moment-select-card.selected { border-color: var(--red); background: rgba(200,64,26,0.04); }
+
+  .msc-row { display: flex; align-items: center; gap: 10px; }
+  .msc-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+  .msc-dot.high { background: var(--red); }
+  .msc-dot.medium { background: var(--amber); }
+  .msc-dot.low { background: var(--gray-light); }
+
+  .msc-name { font-size: 13px; font-weight: 500; color: var(--ink); }
+  .msc-window { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--gray-light); margin-top: 4px; margin-left: 20px; }
+
+  .moment-select-card.selected .msc-name { color: var(--red); }
+
+  .select-count { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--gray-light); margin-top: 16px; }
+  .select-count span { color: var(--red); font-weight: 500; }
+
+  /* ===== Surface mapping ===== */
+  .surface-section {
+    margin-bottom: 20px;
+    background: var(--white);
+    border-radius: 10px;
+    padding: 18px 20px;
+    border: 1px solid rgba(0,0,0,0.04);
+  }
+
+  .surface-section .ss-moment {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--red);
+    font-weight: 500;
+    margin-bottom: 6px;
+  }
+
+  .surface-section .ss-rec {
+    font-size: 11px;
+    color: var(--gray);
+    margin-bottom: 10px;
+    font-style: italic;
+  }
+
+  .surface-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 6px;
+  }
+
+  .surface-btn {
+    padding: 10px 8px;
+    border: 1.5px solid rgba(0,0,0,0.06);
+    border-radius: 6px;
+    background: var(--paper);
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.15s;
+  }
+
+  .surface-btn:hover { border-color: var(--red); }
+  .surface-btn.selected { border-color: var(--red); background: var(--red); }
+
+  .surface-btn .sb-name { font-size: 11px; font-weight: 500; color: var(--ink); display: block; }
+  .surface-btn .sb-window { font-family: 'IBM Plex Mono', monospace; font-size: 9px; color: var(--gray); display: block; margin-top: 2px; }
+  .surface-btn.selected .sb-name, .surface-btn.selected .sb-window { color: white; }
+
+  /* ===== Trigger orchestration (simplified) ===== */
+  .trigger-section {
+    margin-bottom: 20px;
+    background: var(--white);
+    border-radius: 10px;
+    padding: 18px 20px;
+    border: 1px solid rgba(0,0,0,0.04);
+  }
+
+  .trigger-section .ts-moment {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--red);
+    font-weight: 500;
+    margin-bottom: 6px;
+  }
+
+  .ts-rec-text {
+    font-size: 12px;
+    color: var(--gray);
+    line-height: 1.5;
+    margin-bottom: 12px;
+    font-style: italic;
+  }
+
+  /* Sequence as a horizontal flow */
+  .seq-flow {
+    display: flex;
+    gap: 4px;
+    align-items: stretch;
+    overflow-x: auto;
+    padding-bottom: 4px;
+  }
+
+  .seq-step {
+    flex: 1;
+    min-width: 130px;
+    background: var(--paper);
+    border-radius: 8px;
+    padding: 12px 10px;
+    text-align: center;
+    border: 1.5px solid rgba(0,0,0,0.04);
+    position: relative;
+  }
+
+  .seq-step .ss-time {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    color: var(--red);
+    font-weight: 500;
+    margin-bottom: 4px;
+  }
+
+  .seq-step .ss-action {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 3px;
+  }
+
+  .seq-step .ss-how {
+    font-size: 10px;
+    color: var(--gray);
+    line-height: 1.3;
+  }
+
+  .seq-arrow {
+    display: flex;
+    align-items: center;
+    color: var(--gray-light);
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+
+  /* Adjust toggle for recommended sequence */
+  .seq-toggle {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+    align-items: center;
+  }
+
+  .seq-toggle-label {
+    font-size: 12px;
+    color: var(--gray);
+  }
+
+  .seq-toggle-btn {
+    padding: 6px 14px;
+    border: 1.5px solid rgba(0,0,0,0.06);
+    border-radius: 6px;
+    background: var(--paper);
+    cursor: pointer;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--ink);
+    transition: all 0.15s;
+  }
+
+  .seq-toggle-btn:hover { border-color: var(--gray); }
+  .seq-toggle-btn.active { border-color: var(--green); background: var(--green); color: white; }
+  .seq-toggle-btn.needs-work { border-color: var(--amber); background: var(--amber); color: white; }
+
+  /* ===== Anti-patterns ===== */
+  .ap-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .ap-card {
+    background: var(--white);
+    border: 1.5px solid rgba(0,0,0,0.06);
+    border-radius: 8px;
+    padding: 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .ap-card:hover { border-color: var(--red); }
+  .ap-card.selected { border-color: var(--red); background: rgba(200,64,26,0.04); border-left: 3px solid var(--red); }
+
+  .ap-card .apc-name { font-size: 12px; font-weight: 500; color: var(--ink); margin-bottom: 3px; }
+  .ap-card .apc-desc { font-size: 10.5px; color: var(--gray); line-height: 1.4; }
+  .ap-card .apc-impact { font-family: 'IBM Plex Mono', monospace; font-size: 9px; color: var(--red); margin-top: 6px; }
+
+  .antipattern-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 12px;
+    margin-top: 24px;
+    font-weight: 500;
+  }
+
+  /* ===== Window extenders ===== */
+  .extender-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .extender-card {
+    background: var(--white);
+    border: 1.5px solid rgba(0,0,0,0.06);
+    border-radius: 8px;
+    padding: 16px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .extender-card:hover { border-color: var(--green); }
+  .extender-card.selected { border-color: var(--green); background: rgba(45,122,79,0.04); }
+
+  .extender-card .exc-name { font-size: 13px; font-weight: 500; color: var(--ink); margin-bottom: 4px; }
+  .extender-card .exc-effect { font-family: 'IBM Plex Mono', monospace; font-size: 9px; color: var(--green); margin-bottom: 6px; font-weight: 500; }
+  .extender-card .exc-desc { font-size: 11px; color: var(--gray); line-height: 1.4; }
+  .extender-card.selected .exc-name { color: var(--green); }
+
+  .extender-note {
+    font-size: 12px;
+    color: var(--gray);
+    line-height: 1.5;
+    margin-top: 16px;
+    padding: 12px 16px;
+    background: rgba(45,122,79,0.04);
+    border-radius: 8px;
+    border-left: 3px solid var(--green);
+  }
+
+  /* ===== Navigation ===== */
+  .q-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
+    padding-top: 32px;
+  }
+
+  .nav-back { font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--gray); cursor: pointer; border: none; background: none; padding: 8px 0; letter-spacing: 0.03em; transition: color 0.2s; }
+  .nav-back:hover { color: var(--red); }
+
+  .nav-next { padding: 14px 32px; border: none; background: var(--ink); color: var(--paper); border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500; cursor: pointer; transition: all 0.2s; }
+  .nav-next:hover { opacity: 0.85; }
+  .nav-next.final { background: var(--red); }
+
+  /* ============ RESULTS ============ */
+  .results-screen {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 48px 24px 80px;
+    display: none;
+  }
+
+  .results-screen.active { display: block; animation: fadeUp 0.5s ease; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .result-header { background: var(--ink); border-radius: 12px 12px 0 0; padding: 32px 28px 28px; }
+  .rh-topline { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--red); margin-bottom: 16px; font-weight: 500; }
+
+  .score-row { display: flex; gap: 20px; margin-bottom: 20px; align-items: center; }
+  .score-circle { width: 96px; height: 96px; border-radius: 50%; border: 3px solid var(--red); display: flex; flex-direction: column; align-items: center; justify-content: center; flex-shrink: 0; }
+  .score-circle .sc-num { font-family: 'Playfair Display', serif; font-size: 36px; font-weight: 700; color: var(--paper); line-height: 1; }
+  .score-circle .sc-label { font-family: 'IBM Plex Mono', monospace; font-size: 8px; color: var(--gray-light); letter-spacing: 0.05em; margin-top: 2px; }
+  .score-meta { display: flex; flex-direction: column; gap: 6px; }
+  .score-verdict { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; line-height: 1.2; color: var(--paper); }
+  .score-profile-label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--red); letter-spacing: 0.06em; text-transform: uppercase; }
+
+  .timing-bars { display: flex; flex-direction: column; gap: 8px; margin-top: 20px; }
+  .timing-bar-row { display: grid; grid-template-columns: 120px 1fr 60px; gap: 10px; align-items: center; }
+  .tbr-name { font-family: 'IBM Plex Mono', monospace; font-size: 9px; color: var(--gray-light); letter-spacing: 0.04em; text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .tbr-track { height: 6px; background: rgba(245,240,232,0.08); border-radius: 3px; overflow: hidden; position: relative; }
+  .tbr-fill { height: 100%; border-radius: 3px; transition: width 1s ease; position: absolute; left: 0; top: 0; }
+  .tbr-fill.peak { background: var(--red); }
+  .tbr-fill.extended { background: var(--green); opacity: 0.5; }
+  .tbr-val { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--paper); text-align: right; }
+
+  .result-body { background: var(--white); border-radius: 0 0 12px 12px; padding: 28px; border: 1px solid rgba(0,0,0,0.04); border-top: none; }
+  .rb-section-head { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--red); margin-bottom: 10px; margin-top: 24px; font-weight: 500; }
+  .rb-section-head:first-child { margin-top: 0; }
+  .rb-text { font-size: 13.5px; line-height: 1.6; color: var(--ink); margin-bottom: 12px; }
+  .rb-text strong { font-weight: 500; }
+
+  .entry-path-card { background: var(--paper); border-radius: 8px; padding: 18px 20px; margin-bottom: 12px; border: 1px solid rgba(0,0,0,0.04); }
+  .ep-label { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--red); margin-bottom: 6px; font-weight: 500; }
+  .ep-title { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700; color: var(--ink); margin-bottom: 6px; }
+  .ep-desc { font-size: 12.5px; line-height: 1.5; color: var(--gray); }
+
+  .bottleneck-card { background: rgba(200, 64, 26, 0.04); border-radius: 8px; padding: 18px 20px; margin-bottom: 12px; border-left: 3px solid var(--red); }
+  .bn-label { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--red); margin-bottom: 6px; font-weight: 500; }
+  .bn-text { font-size: 13px; line-height: 1.55; color: var(--ink); }
+
+  .timing-table { width: 100%; border-collapse: collapse; margin: 12px 0 16px; font-size: 12px; }
+  .timing-table th { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gray); font-weight: 500; padding: 8px 8px; text-align: left; border-bottom: 1px solid rgba(0,0,0,0.06); }
+  .timing-table td { padding: 10px 8px; border-bottom: 1px solid rgba(0,0,0,0.03); color: var(--ink); font-size: 12px; }
+  .timing-table .tt-red { color: var(--red); font-weight: 500; }
+  .timing-table .tt-green { color: var(--green); font-weight: 500; }
+  .timing-table .tt-amber { color: var(--amber); font-weight: 500; }
+
+  .results-cta { margin-top: 24px; padding-top: 20px; border-top: 1px solid rgba(0,0,0,0.06); display: flex; justify-content: space-between; align-items: center; }
+  .cta-btn { display: inline-block; padding: 14px 24px; background: var(--red); color: white; border-radius: 8px; text-decoration: none; font-size: 13px; font-weight: 500; transition: opacity 0.2s; }
+  .cta-btn:hover { opacity: 0.9; }
+  .toolkit-footer-link { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--gray-light); text-decoration: none; }
+  .toolkit-footer-link:hover { color: var(--red); }
+
+  @media (max-width: 600px) {
+    h1 { font-size: 28px; }
+    .step-heading { font-size: 24px; }
+    .moment-select-grid { grid-template-columns: 1fr; }
+    .surface-grid { grid-template-columns: 1fr 1fr; }
+    .seq-flow { flex-direction: column; }
+    .seq-arrow { transform: rotate(90deg); justify-content: center; }
+    .ap-grid { grid-template-columns: 1fr; }
+    .extender-grid { grid-template-columns: 1fr; }
+    .timing-bar-row { grid-template-columns: 80px 1fr 50px; }
+    .score-row { flex-direction: column; text-align: center; }
+    .score-meta { align-items: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ SCREEN 0: INTRO ============ -->
+<div class="screen" id="intro-screen">
+  <div class="topline">ALG Toolkit / Belief Window Timing Guide</div>
+
+  <h1>Timing is the difference between natural sharing and awkward asks</h1>
+
+  <p class="intro-text">
+    After someone finishes something real - a certification earned, a keynote delivered, a deployment completed - there's a brief window where sharing feels natural and effortless. This is the <span class="tip" tabindex="0">belief window<span class="tip-body"><span class="tip-title">Belief Window</span>The period from a completion moment through its decay. It starts at peak belief - the highest point of emotional investment - and diminishes. After hours, the experience normalizes. After days, it's a memory. After a week, it's a line on a resume.<span class="tip-example">A speaker finishes their keynote. For the next 24-48 hours, sharing feels effortless - they'll post slides, tag the event, reflect publicly. By next week, the energy has dissipated.</span><span class="tip-exclude">Not a CRM automation window. Not "send follow-up on day 7." The belief window is tied to the participant's emotional arc, not your marketing calendar.</span></span></span>.
+  </p>
+
+  <p class="intro-text">
+    Miss it by a day and you're sending a marketing email. Hit it at the right moment and sharing happens without being asked.
+  </p>
+
+  <div class="decay-visual">
+    <div class="dv-label">The Belief Window Decay Curve</div>
+    <svg class="decay-svg" viewBox="0 0 500 100" preserveAspectRatio="none">
+      <defs>
+        <linearGradient id="decayGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" style="stop-color:#c8401a;stop-opacity:0.5" />
+          <stop offset="100%" style="stop-color:#c8401a;stop-opacity:0.02" />
+        </linearGradient>
+      </defs>
+      <path d="M 0 95 Q 20 10, 60 20 Q 100 30, 180 55 Q 280 75, 400 88 Q 450 92, 500 95" fill="url(#decayGrad)" stroke="none" />
+      <path d="M 0 95 Q 20 10, 60 20 Q 100 30, 180 55 Q 280 75, 400 88 Q 450 92, 500 95" fill="none" stroke="#c8401a" stroke-width="2" />
+      <line x1="60" y1="20" x2="60" y2="98" stroke="#c8401a" stroke-width="1" stroke-dasharray="3,3" opacity="0.4" />
+      <text x="62" y="15" font-family="IBM Plex Mono" font-size="8" fill="#c8401a">PEAK</text>
+      <text x="175" y="50" font-family="IBM Plex Mono" font-size="7" fill="#a09890">still natural</text>
+      <text x="350" y="82" font-family="IBM Plex Mono" font-size="7" fill="#a09890">feels forced</text>
+      <rect x="0" y="96" width="500" height="1" fill="rgba(245,240,232,0.15)" />
+    </svg>
+    <div class="decay-axis-labels">
+      <span>Completion</span>
+      <span>Hours</span>
+      <span>Days</span>
+      <span>Week+</span>
+    </div>
+  </div>
+
+  <p class="intro-text" style="margin-bottom: 28px;">
+    This tool maps the timing architecture for your completion moments: which sharing surfaces to activate, what sequence to fire triggers in, and what extends or kills the window. You'll get a recommended plan for each moment you select.
+  </p>
+
+  <div class="intro-meta">
+    <div class="meta-item">Screens: <span>5</span></div>
+    <div class="meta-item">Time: <span>~8 minutes</span></div>
+    <div class="meta-item">Output: <span>Timing Architecture + Trigger Sequence</span></div>
+  </div>
+
+  <button class="start-btn" onclick="startGuide()">Map your timing</button>
+</div>
+
+<!-- ============ SCREEN 1: MOMENT SELECTOR ============ -->
+<div class="step-screen" id="step-0">
+  <div class="q-progress">
+    <div class="progress-dots" id="progress-0"></div>
+    <div class="progress-text">1 of 4</div>
+  </div>
+
+  <div class="step-label">Step 1</div>
+  <div class="step-heading">Which completion moments do you want to time?</div>
+  <div class="step-desc">
+    Select the moments you're planning to activate. Each one has a different window shape - a keynote speaker's window peaks and closes fast, while a deployment team's window is wider because the accomplishment took months to build.
+  </div>
+
+  <div class="consequence">The higher the intensity, the wider the window. High-intensity moments give you days. Low-intensity moments give you hours. Choose accordingly.</div>
+
+  <div class="moment-select-grid">
+    <div class="moment-select-card" onclick="toggleMoment(this)" data-moment="keynote" data-intensity="high" data-peak="2" data-close="72">
+      <div class="msc-row"><div class="msc-dot high"></div><div class="msc-name">Delivering a keynote or talk</div></div>
+      <div class="msc-window">Peak: 0-2 hrs | Closes: ~3 days</div>
+    </div>
+    <div class="moment-select-card" onclick="toggleMoment(this)" data-moment="workshop" data-intensity="high" data-peak="1" data-close="48">
+      <div class="msc-row"><div class="msc-dot high"></div><div class="msc-name">Completing a hands-on workshop</div></div>
+      <div class="msc-window">Peak: 0-1 hr | Closes: ~2 days</div>
+    </div>
+    <div class="moment-select-card" onclick="toggleMoment(this)" data-moment="certification" data-intensity="high" data-peak="4" data-close="168">
+      <div class="msc-row"><div class="msc-dot high"></div><div class="msc-name">Passing a certification exam</div></div>
+      <div class="msc-window">Peak: 0-4 hrs | Closes: ~7 days</div>
+    </div>
+    <div class="moment-select-card" onclick="toggleMoment(this)" data-moment="deployment" data-intensity="high" data-peak="24" data-close="336">
+      <div class="msc-row"><div class="msc-dot high"></div><div class="msc-name">Going live with a deployment</div></div>
+      <div class="msc-window">Peak: 0-24 hrs | Closes: ~14 days</div>
+    </div>
+    <div class="moment-select-card" onclick="toggleMoment(this)" data-moment="cohort-grad" data-intensity="high" data-peak="12" data-close="240">
+      <div class="msc-row"><div class="msc-dot high"></div><div class="msc-name">Graduating a cohort program</div></div>
+      <div class="msc-window">Peak: 0-12 hrs | Closes: ~10 days</div>
+    </div>
+    <div class="moment-select-card" onclick="toggleMoment(this)" data-moment="event-attend" data-intensity="medium" data-peak="4" data-close="48">
+      <div class="msc-row"><div class="msc-dot medium"></div><div class="msc-name">Attending a conference in person</div></div>
+      <div class="msc-window">Peak: 0-4 hrs | Closes: ~2 days</div>
+    </div>
+    <div class="moment-select-card" onclick="toggleMoment(this)" data-moment="onboarding" data-intensity="medium" data-peak="2" data-close="24">
+      <div class="msc-row"><div class="msc-dot medium"></div><div class="msc-name">Completing product onboarding</div></div>
+      <div class="msc-window">Peak: 0-2 hrs | Closes: ~1 day</div>
+    </div>
+    <div class="moment-select-card" onclick="toggleMoment(this)" data-moment="milestone" data-intensity="medium" data-peak="4" data-close="72">
+      <div class="msc-row"><div class="msc-dot medium"></div><div class="msc-name">Hitting a usage milestone</div></div>
+      <div class="msc-window">Peak: 0-4 hrs | Closes: ~3 days</div>
+    </div>
+    <div class="moment-select-card" onclick="toggleMoment(this)" data-moment="award" data-intensity="medium" data-peak="1" data-close="168">
+      <div class="msc-row"><div class="msc-dot medium"></div><div class="msc-name">Winning a partner/customer award</div></div>
+      <div class="msc-window">Peak: 0-1 hr | Closes: ~7 days</div>
+    </div>
+    <div class="moment-select-card" onclick="toggleMoment(this)" data-moment="challenge" data-intensity="medium" data-peak="2" data-close="48">
+      <div class="msc-row"><div class="msc-dot medium"></div><div class="msc-name">Completing a community challenge</div></div>
+      <div class="msc-window">Peak: 0-2 hrs | Closes: ~2 days</div>
+    </div>
+    <div class="moment-select-card" onclick="toggleMoment(this)" data-moment="webinar" data-intensity="low" data-peak="1" data-close="6">
+      <div class="msc-row"><div class="msc-dot low"></div><div class="msc-name">Attending a virtual session</div></div>
+      <div class="msc-window">Peak: 0-1 hr | Closes: ~6 hrs</div>
+    </div>
+    <div class="moment-select-card" onclick="toggleMoment(this)" data-moment="badge" data-intensity="low" data-peak="2" data-close="24">
+      <div class="msc-row"><div class="msc-dot low"></div><div class="msc-name">Earning a community badge</div></div>
+      <div class="msc-window">Peak: 0-2 hrs | Closes: ~1 day</div>
+    </div>
+  </div>
+
+  <div class="select-count"><span id="moment-count">0</span> moments selected</div>
+
+  <div class="q-nav">
+    <button class="nav-back" onclick="goBack(0)">&larr; Back</button>
+    <button class="nav-next" onclick="goNext(0)">Continue</button>
+  </div>
+</div>
+
+<!-- ============ SCREEN 2: SURFACE MAPPING ============ -->
+<div class="step-screen" id="step-1">
+  <div class="q-progress">
+    <div class="progress-dots" id="progress-1"></div>
+    <div class="progress-text">2 of 4</div>
+  </div>
+
+  <div class="step-label">Step 2</div>
+  <div class="step-heading">Where will each moment be shared?</div>
+  <div class="step-desc">
+    Different surfaces have different timing. A LinkedIn post peaks within hours, but a G2 review can happen days later. We've pre-selected the most common surfaces for each moment type - adjust if your audience behaves differently.
+  </div>
+
+  <div class="consequence">Each surface has its own window. LinkedIn sharing peaks within 48 hours. Review sites stay open for weeks. Internal channels are same-day or never.</div>
+
+  <div class="example-callout">
+    <div class="ec-label">Example: Certification Exam</div>
+    <div class="ec-text">A professional passes your certification at 2pm. By 4pm, they've posted the badge on <strong>LinkedIn</strong>. The next morning, they mention it in their company's <strong>internal Slack</strong>. On Saturday, they update their <strong>personal blog</strong>. A week later, when your email reminds them, they leave a <strong>G2 review</strong>. Same moment, four surfaces, four different timing windows.</div>
+  </div>
+
+  <div id="surface-sections">
+    <!-- Populated dynamically -->
+  </div>
+
+  <div class="q-nav">
+    <button class="nav-back" onclick="goBack(1)">&larr; Back</button>
+    <button class="nav-next" onclick="goNext(1)">Continue</button>
+  </div>
+</div>
+
+<!-- ============ SCREEN 3: TRIGGERS & ANTI-PATTERNS ============ -->
+<div class="step-screen" id="step-2">
+  <div class="q-progress">
+    <div class="progress-dots" id="progress-2"></div>
+    <div class="progress-text">3 of 4</div>
+  </div>
+
+  <div class="step-label">Step 3</div>
+  <div class="step-heading">Review the recommended trigger sequence</div>
+  <div class="step-desc">
+    For each moment, we've mapped the ideal 4-step trigger sequence. Review whether you can execute each step today, or if there are gaps to close. Then flag any anti-patterns active in your organization.
+  </div>
+
+  <div class="consequence">Every step in the sequence matters. If the artifact isn't ready at T+0, the rest of the sequence collapses - there's nothing for the participant to share.</div>
+
+  <div class="example-callout">
+    <div class="ec-label">Example: Annual Conference Speaker</div>
+    <div class="ec-text"><strong>T+0:</strong> Speaker card (branded image with their photo, talk title, event name) delivered via event app the moment their session ends. <strong>T+2 hrs:</strong> Email with LinkedIn share link and pre-written caption they can edit. <strong>T+24 hrs:</strong> "12 of your fellow speakers have already shared" notification. <strong>T+5 days:</strong> Recap blog published, tagging all speakers - triggers a second sharing wave.</div>
+  </div>
+
+  <div id="trigger-sections">
+    <!-- Populated dynamically -->
+  </div>
+
+  <div class="antipattern-label">Anti-patterns active in your organization</div>
+  <p style="font-size: 13px; color: var(--gray); margin-bottom: 12px;">These are the most common ways enterprises accidentally kill the belief window. Select every one that applies to you today - the results will show how to fix each one.</p>
+
+  <div class="ap-grid">
+    <div class="ap-card" onclick="toggleAP(this)" data-ap="survey-first">
+      <div class="apc-name">Survey before share</div>
+      <div class="apc-desc">Sending a satisfaction survey during the belief window instead of a sharing prompt. The survey consumes the activation energy.</div>
+      <div class="apc-impact">Impact: wastes the peak window on measurement instead of activation</div>
+    </div>
+    <div class="ap-card" onclick="toggleAP(this)" data-ap="legal-delay">
+      <div class="apc-name">Legal approval per share</div>
+      <div class="apc-desc">Every customer mention needs legal review. Review cycle takes weeks. Window closes on day 2.</div>
+      <div class="apc-impact">Impact: makes real-time activation impossible</div>
+    </div>
+    <div class="ap-card" onclick="toggleAP(this)" data-ap="batch-comms">
+      <div class="apc-name">Batched communications</div>
+      <div class="apc-desc">Certification passes on Tuesday, but congratulations goes out in Friday's weekly digest. Three days wasted.</div>
+      <div class="apc-impact">Impact: delays artifact delivery past the peak window</div>
+    </div>
+    <div class="ap-card" onclick="toggleAP(this)" data-ap="no-artifact-ready">
+      <div class="apc-name">Artifact not ready at completion</div>
+      <div class="apc-desc">The badge hasn't been designed yet. The speaker card template isn't ready. They want to share NOW but have nothing to share.</div>
+      <div class="apc-impact">Impact: entire sequence fails at step one</div>
+    </div>
+    <div class="ap-card" onclick="toggleAP(this)" data-ap="wrong-channel">
+      <div class="apc-name">Wrong channel for the moment</div>
+      <div class="apc-desc">Sending an email to trigger a LinkedIn share. They read it on mobile, can't easily get to LinkedIn, give up.</div>
+      <div class="apc-impact">Impact: adds friction that halves conversion</div>
+    </div>
+    <div class="ap-card" onclick="toggleAP(this)" data-ap="generic-prompt">
+      <div class="apc-name">Generic "share your experience" ask</div>
+      <div class="apc-desc">No artifact, no pre-written caption, no visual. Just "we'd love it if you shared!" Puts all the work on them.</div>
+      <div class="apc-impact">Impact: activation rate drops below 2%</div>
+    </div>
+  </div>
+
+  <div class="q-nav">
+    <button class="nav-back" onclick="goBack(2)">&larr; Back</button>
+    <button class="nav-next" onclick="goNext(2)">Continue</button>
+  </div>
+</div>
+
+<!-- ============ SCREEN 4: WINDOW EXTENDERS ============ -->
+<div class="step-screen" id="step-3">
+  <div class="q-progress">
+    <div class="progress-dots" id="progress-3"></div>
+    <div class="progress-text">4 of 4</div>
+  </div>
+
+  <div class="step-label">Step 4</div>
+  <div class="step-heading">What can widen a narrow window?</div>
+  <div class="step-desc">
+    Low and medium intensity moments have narrow belief windows. But you can extend them with design choices that keep the accomplishment alive longer. Select the ones you can deploy.
+  </div>
+
+  <div class="consequence">Extenders work best when layered. A ceremony at the moment + a gallery 2 days later + a peer notification on day 4 = three activation opportunities from one completion moment.</div>
+
+  <div class="example-callout">
+    <div class="ec-label">Example: Cohort Graduation with Layered Extenders</div>
+    <div class="ec-text"><strong>Day 0:</strong> Group ceremony with physical certificates handed on stage (window opens wide). <strong>Day 1:</strong> Digital badges delivered via email (second sharing trigger). <strong>Day 3:</strong> Cohort gallery published on your site, tagging all graduates (third trigger as they tag themselves). <strong>Day 5:</strong> "8 of your cohort members have shared their graduation" notification (fourth trigger via social proof).</div>
+  </div>
+
+  <div class="extender-grid">
+    <div class="extender-card" onclick="toggleExtender(this)" data-ext="physical-artifact">
+      <div class="exc-name">Physical artifact at the moment</div>
+      <div class="exc-effect">Extends window by +12-24 hrs</div>
+      <div class="exc-desc">A printed certificate handed on stage. A physical badge pinned at graduation. The physical object triggers a second sharing wave when they photograph it.</div>
+    </div>
+    <div class="extender-card" onclick="toggleExtender(this)" data-ext="ceremony">
+      <div class="exc-name">Group ceremony or ritual</div>
+      <div class="exc-effect">Extends window by +24-48 hrs</div>
+      <div class="exc-desc">A graduation moment, a bell-ringing, a group photo, a public shout-out. Ceremonies create emotional anchors that extend the peak and trigger the cohort cascade faster.</div>
+    </div>
+    <div class="extender-card" onclick="toggleExtender(this)" data-ext="delayed-credential">
+      <div class="exc-name">Staggered credential delivery</div>
+      <div class="exc-effect">Creates a second window entirely</div>
+      <div class="exc-desc">Pass the exam Tuesday, receive the digital badge Wednesday, get the physical certificate Friday. Each delivery opens a new micro-window. Three sharing triggers instead of one.</div>
+    </div>
+    <div class="extender-card" onclick="toggleExtender(this)" data-ext="cohort-gallery">
+      <div class="exc-name">Cohort gallery or showcase page</div>
+      <div class="exc-effect">Extends window by +48-72 hrs</div>
+      <div class="exc-desc">A public page listing all graduates, speakers, or award winners. When the gallery goes live (even days later), it reopens the window as participants see themselves in the lineup.</div>
+    </div>
+    <div class="extender-card" onclick="toggleExtender(this)" data-ext="social-proof-notif">
+      <div class="exc-name">Peer-sharing notification</div>
+      <div class="exc-effect">Reactivates closed windows</div>
+      <div class="exc-desc">"3 of your cohort members have shared their certification." Social proof notification that triggers competitive sharing. Works even 3-5 days after the original moment.</div>
+    </div>
+    <div class="extender-card" onclick="toggleExtender(this)" data-ext="tangible-takeaway">
+      <div class="exc-name">Tangible session takeaway</div>
+      <div class="exc-effect">Extends low-intensity windows by +6-12 hrs</div>
+      <div class="exc-desc">A framework PDF, a filled-out canvas, a benchmark comparison from the session. Turns "I attended a webinar" into "I have this framework from..." - gives them something worth referencing.</div>
+    </div>
+    <div class="extender-card" onclick="toggleExtender(this)" data-ext="milestone-visual">
+      <div class="exc-name">Auto-generated milestone visual</div>
+      <div class="exc-effect">Extends product moments by +24 hrs</div>
+      <div class="exc-desc">A personalized card: "You've processed 10,000 transactions with [Product]." Screenshot-ready. Appears in-app at the milestone moment, not in a weekly email.</div>
+    </div>
+    <div class="extender-card" onclick="toggleExtender(this)" data-ext="recap-content">
+      <div class="exc-name">Post-event recap content</div>
+      <div class="exc-effect">Creates second window at +2-4 days</div>
+      <div class="exc-desc">A highlight reel, photo gallery, or recap blog that names participants. Published 2-3 days after the event, it creates a second sharing wave as participants tag themselves.</div>
+    </div>
+  </div>
+
+  <div class="extender-note">
+    Not every moment needs every extender. High-intensity moments (keynotes, certifications, deployments) already have wide windows. Extenders are most valuable for medium and low-intensity moments where the natural window is narrow and needs design help.
+  </div>
+
+  <div class="q-nav">
+    <button class="nav-back" onclick="goBack(3)">&larr; Back</button>
+    <button class="nav-next final" onclick="showResults()">See your timing architecture</button>
+  </div>
+</div>
+
+<!-- ============ RESULTS ============ -->
+<div class="results-screen" id="results-screen">
+  <div class="result-header">
+    <div class="rh-topline">Belief Window Timing Guide / Results</div>
+    <div class="score-row">
+      <div class="score-circle">
+        <div class="sc-num" id="r-score">0</div>
+        <div class="sc-label">TIMING<br>HEALTH</div>
+      </div>
+      <div class="score-meta">
+        <div class="score-verdict" id="r-verdict"></div>
+        <div class="score-profile-label" id="r-profile"></div>
+      </div>
+    </div>
+    <div class="timing-bars" id="timing-bars"></div>
+  </div>
+  <div class="result-body" id="result-body"></div>
+</div>
+
+<script>
+// ===== STATE =====
+const totalSteps = 4;
+let currentStep = -1;
+const selectedMoments = new Map();
+const surfaceMap = {};
+const triggerConfirmed = {}; // moment-id -> { step -> 'ready' | 'gap' }
+const antiPatterns = new Set();
+const extenders = new Set();
+
+const momentNames = {
+  'keynote': 'Delivering a keynote',
+  'workshop': 'Hands-on workshop',
+  'certification': 'Certification exam',
+  'deployment': 'Go-live deployment',
+  'cohort-grad': 'Cohort graduation',
+  'event-attend': 'Conference attendance',
+  'onboarding': 'Product onboarding',
+  'milestone': 'Usage milestone',
+  'award': 'Partner/customer award',
+  'challenge': 'Community challenge',
+  'webinar': 'Virtual session',
+  'badge': 'Community badge'
+};
+
+const surfaces = [
+  { id: 'linkedin', name: 'LinkedIn', window: '0-48 hrs' },
+  { id: 'twitter', name: 'X / Twitter', window: '0-24 hrs' },
+  { id: 'reviews', name: 'Review Sites', window: '2-14 days' },
+  { id: 'internal', name: 'Internal Channels', window: '0-4 hrs' },
+  { id: 'community', name: 'Community Forum', window: '0-72 hrs' },
+  { id: 'blog', name: 'Personal Blog', window: '2-7 days' }
+];
+
+// Pre-selected surfaces per moment type
+const defaultSurfaces = {
+  'keynote': ['linkedin', 'twitter'],
+  'workshop': ['linkedin', 'internal'],
+  'certification': ['linkedin', 'community'],
+  'deployment': ['linkedin', 'internal', 'reviews'],
+  'cohort-grad': ['linkedin', 'community'],
+  'event-attend': ['linkedin', 'twitter'],
+  'onboarding': ['internal', 'community'],
+  'milestone': ['linkedin', 'internal'],
+  'award': ['linkedin', 'twitter', 'blog'],
+  'challenge': ['community', 'linkedin'],
+  'webinar': ['linkedin'],
+  'badge': ['community']
+};
+
+// Recommended trigger sequences per moment type
+const recommendedSequences = {
+  'keynote': [
+    { time: 'T+0', action: 'Speaker card delivered', how: 'Event app or handed physically as they step off stage' },
+    { time: 'T+2 hrs', action: 'Share prompt sent', how: 'Email with LinkedIn share link + pre-written caption to edit' },
+    { time: 'T+24 hrs', action: 'Cohort cascade', how: '"12 of your fellow speakers have shared" notification' },
+    { time: 'T+3-5 days', action: 'Recap content', how: 'Event recap blog published, tagging all speakers by name' }
+  ],
+  'workshop': [
+    { time: 'T+0', action: 'Completion certificate delivered', how: 'In-app or email with downloadable visual certificate' },
+    { time: 'T+1 hr', action: 'Share prompt', how: 'Push notification or email: "Share what you built today"' },
+    { time: 'T+12 hrs', action: 'Cohort highlight', how: 'Community post featuring workshop outcomes + participant names' },
+    { time: 'T+3 days', action: 'Gallery publish', how: 'Project showcase page with all workshop outputs' }
+  ],
+  'certification': [
+    { time: 'T+0', action: 'Digital badge delivered', how: 'Auto-email with Credly/badge image + LinkedIn share button' },
+    { time: 'T+4 hrs', action: 'LinkedIn prompt', how: 'Follow-up email with pre-filled LinkedIn post template' },
+    { time: 'T+24 hrs', action: 'Peer notification', how: '"5 professionals earned this badge this week" community post' },
+    { time: 'T+5-7 days', action: 'Review prompt', how: 'Email asking to review the certification program on G2/directory' }
+  ],
+  'deployment': [
+    { time: 'T+0', action: 'Go-live milestone card', how: 'In-app celebration with screenshot-ready milestone visual' },
+    { time: 'T+24 hrs', action: 'Case study invitation', how: 'CS manager sends personalized "tell your story" invitation' },
+    { time: 'T+48 hrs', action: 'Internal share prompt', how: 'Suggest the team share the milestone in their company Slack' },
+    { time: 'T+7 days', action: 'Review request', how: 'Automated email requesting G2/Capterra review' }
+  ],
+  'cohort-grad': [
+    { time: 'T+0', action: 'Graduation ceremony + certificate', how: 'Physical or virtual ceremony with credential delivery' },
+    { time: 'T+2 hrs', action: 'Share prompt', how: 'Email with digital badge + pre-written LinkedIn caption' },
+    { time: 'T+24-48 hrs', action: 'Cohort gallery live', how: 'Public graduation page listing all cohort members' },
+    { time: 'T+4-5 days', action: 'Peer cascade notification', how: '"8 of your cohort members have shared" trigger email' }
+  ],
+  'event-attend': [
+    { time: 'T+0', action: 'Attendee badge/card', how: 'Event app push with branded "I attended" visual card' },
+    { time: 'T+2 hrs', action: 'Photo gallery published', how: 'Event photos live on site + social, attendees tag themselves' },
+    { time: 'T+24 hrs', action: 'Social proof notification', how: '"200+ attendees have shared their experience" email' },
+    { time: 'T+3 days', action: 'Recap content', how: 'Event recap video/blog with attendee highlights' }
+  ],
+  'onboarding': [
+    { time: 'T+0', action: 'First-value celebration', how: 'In-app popup: "You just did X! Here\'s your milestone card"' },
+    { time: 'T+1 hr', action: 'Internal share prompt', how: '"Share this milestone with your team" button in-app' },
+    { time: 'T+24 hrs', action: 'Community welcome', how: 'Community post welcoming new members who completed onboarding' },
+    { time: 'T+5 days', action: 'Review prompt', how: 'Email requesting first impressions on G2 or product directory' }
+  ],
+  'milestone': [
+    { time: 'T+0', action: 'Milestone visual generated', how: 'In-app: personalized card "10,000 transactions processed"' },
+    { time: 'T+2 hrs', action: 'Share prompt', how: 'In-app: "Share this milestone on LinkedIn" with pre-built post' },
+    { time: 'T+48 hrs', action: 'Leaderboard update', how: 'Community leaderboard refreshes, user sees their new ranking' },
+    { time: 'T+7 days', action: 'Case study invitation', how: 'CS reaches out: "Your usage tells a great story - want to share it?"' }
+  ],
+  'award': [
+    { time: 'T+0', action: 'Award announcement', how: 'Public announcement + branded award visual delivered to winner' },
+    { time: 'T+1 hr', action: 'Share kit', how: 'Email with social media kit: images, captions, hashtags' },
+    { time: 'T+24 hrs', action: 'PR amplification', how: 'Joint press release or blog post featuring the winner' },
+    { time: 'T+3-5 days', action: 'Community spotlight', how: 'Winner spotlight in community newsletter or forum' }
+  ],
+  'challenge': [
+    { time: 'T+0', action: 'Challenge completion badge', how: 'In-community badge + notification of completion' },
+    { time: 'T+1 hr', action: 'Share prompt', how: '"Share your challenge results" with pre-built visual' },
+    { time: 'T+12 hrs', action: 'Cohort results published', how: 'Leaderboard or results page showing all completers' },
+    { time: 'T+48 hrs', action: 'Recap + next challenge', how: 'Challenge wrap-up post + invitation to next one' }
+  ],
+  'webinar': [
+    { time: 'T+0', action: 'Takeaway delivered', how: 'Email with framework PDF or key slides from the session' },
+    { time: 'T+30 min', action: 'Share prompt', how: '"Found this useful? Share the key takeaway" with template' },
+    { time: 'T+4 hrs', action: 'Recording available', how: 'Recording + summary email: "Share with your team"' },
+    { time: 'T+48 hrs', action: 'Blog post from session', how: 'Written version of key insights, attributed to presenter' }
+  ],
+  'badge': [
+    { time: 'T+0', action: 'Badge awarded', how: 'In-community notification + badge visual on profile' },
+    { time: 'T+1 hr', action: 'Share prompt', how: '"You earned [Badge Name] - share it" with LinkedIn link' },
+    { time: 'T+12 hrs', action: 'Community recognition', how: 'Public congratulations in community feed/channel' },
+    { time: 'T+3 days', action: 'Leaderboard update', how: 'Profile rank change visible to community' }
+  ]
+};
+
+// ===== NAVIGATION =====
+function startGuide() {
+  document.getElementById('intro-screen').classList.add('hidden');
+  currentStep = 0;
+  showStep(0);
+}
+
+function showStep(idx) {
+  for (let i = 0; i < totalSteps; i++) document.getElementById(`step-${i}`).classList.remove('active');
+  document.getElementById('results-screen').classList.remove('active');
+  document.getElementById(`step-${idx}`).classList.add('active');
+  currentStep = idx;
+  updateProgress(idx);
+  window.scrollTo(0, 0);
+  if (idx === 1) buildSurfaceSections();
+  if (idx === 2) buildTriggerSections();
+}
+
+function goNext(idx) { if (idx < totalSteps - 1) showStep(idx + 1); }
+
+function goBack(idx) {
+  if (idx === 0) {
+    document.getElementById('step-0').classList.remove('active');
+    document.getElementById('intro-screen').classList.remove('hidden');
+    currentStep = -1;
+  } else showStep(idx - 1);
+}
+
+function updateProgress(idx) {
+  for (let i = 0; i < totalSteps; i++) {
+    const c = document.getElementById(`progress-${i}`);
+    c.innerHTML = '';
+    for (let d = 0; d < totalSteps; d++) {
+      const dot = document.createElement('div');
+      dot.className = 'p-dot' + (d < idx ? ' done' : '') + (d === idx ? ' current' : '');
+      c.appendChild(dot);
+    }
+  }
+}
+
+// ===== MOMENT SELECTOR =====
+function toggleMoment(el) {
+  const id = el.dataset.moment;
+  if (selectedMoments.has(id)) { selectedMoments.delete(id); el.classList.remove('selected'); }
+  else {
+    selectedMoments.set(id, { intensity: el.dataset.intensity, peak: parseInt(el.dataset.peak), close: parseInt(el.dataset.close), name: momentNames[id] });
+    el.classList.add('selected');
+  }
+  document.getElementById('moment-count').textContent = selectedMoments.size;
+}
+
+// ===== SURFACE MAPPING (with pre-selection) =====
+function buildSurfaceSections() {
+  const container = document.getElementById('surface-sections');
+  container.innerHTML = '';
+  if (selectedMoments.size === 0) { container.innerHTML = '<p style="color:var(--gray);font-size:14px;">Go back and select at least one completion moment.</p>'; return; }
+
+  selectedMoments.forEach((data, id) => {
+    if (!surfaceMap[id]) surfaceMap[id] = new Set(defaultSurfaces[id] || []);
+
+    const section = document.createElement('div');
+    section.className = 'surface-section';
+
+    const defaults = defaultSurfaces[id] || [];
+    const recText = defaults.length > 0 ? `Recommended: ${defaults.map(s => surfaces.find(x => x.id === s).name).join(', ')}` : '';
+
+    let gridHTML = '';
+    surfaces.forEach(s => {
+      const sel = surfaceMap[id].has(s.id) ? ' selected' : '';
+      gridHTML += `<div class="surface-btn${sel}" onclick="toggleSurface('${id}','${s.id}',this)">
+        <span class="sb-name">${s.name}</span><span class="sb-window">${s.window}</span></div>`;
+    });
+
+    section.innerHTML = `<div class="ss-moment">${data.name}</div><div class="ss-rec">${recText}</div><div class="surface-grid">${gridHTML}</div>`;
+    container.appendChild(section);
+  });
+}
+
+function toggleSurface(momentId, surfaceId, el) {
+  if (!surfaceMap[momentId]) surfaceMap[momentId] = new Set();
+  if (surfaceMap[momentId].has(surfaceId)) { surfaceMap[momentId].delete(surfaceId); el.classList.remove('selected'); }
+  else { surfaceMap[momentId].add(surfaceId); el.classList.add('selected'); }
+}
+
+// ===== TRIGGER ORCHESTRATION (recommended sequences) =====
+function buildTriggerSections() {
+  const container = document.getElementById('trigger-sections');
+  container.innerHTML = '';
+  if (selectedMoments.size === 0) return;
+
+  selectedMoments.forEach((data, id) => {
+    if (!triggerConfirmed[id]) triggerConfirmed[id] = {};
+    const seq = recommendedSequences[id] || [];
+    const section = document.createElement('div');
+    section.className = 'trigger-section';
+
+    let flowHTML = '';
+    seq.forEach((step, i) => {
+      if (i > 0) flowHTML += '<div class="seq-arrow">&rarr;</div>';
+      flowHTML += `<div class="seq-step">
+        <div class="ss-time">${step.time}</div>
+        <div class="ss-action">${step.action}</div>
+        <div class="ss-how">${step.how}</div>
+      </div>`;
+    });
+
+    const readyStatus = triggerConfirmed[id].status || '';
+    const readyClass = readyStatus === 'ready' ? ' active' : '';
+    const gapClass = readyStatus === 'gap' ? ' needs-work' : '';
+
+    section.innerHTML = `
+      <div class="ts-moment">${data.name}</div>
+      <div class="ts-rec-text">Here's the recommended trigger sequence for this moment. Can you execute it today?</div>
+      <div class="seq-flow">${flowHTML}</div>
+      <div class="seq-toggle">
+        <span class="seq-toggle-label">Can you run this sequence?</span>
+        <button class="seq-toggle-btn${readyClass}" onclick="setTriggerStatus('${id}','ready',this)">Yes, we can do this</button>
+        <button class="seq-toggle-btn${gapClass}" onclick="setTriggerStatus('${id}','gap',this)">Gaps to close</button>
+      </div>`;
+    container.appendChild(section);
+  });
+}
+
+function setTriggerStatus(momentId, status, el) {
+  const toggle = el.closest('.seq-toggle');
+  toggle.querySelectorAll('.seq-toggle-btn').forEach(b => { b.classList.remove('active'); b.classList.remove('needs-work'); });
+  el.classList.add(status === 'ready' ? 'active' : 'needs-work');
+  triggerConfirmed[momentId] = { status };
+}
+
+// ===== ANTI-PATTERNS =====
+function toggleAP(el) {
+  const ap = el.dataset.ap;
+  if (antiPatterns.has(ap)) { antiPatterns.delete(ap); el.classList.remove('selected'); }
+  else { antiPatterns.add(ap); el.classList.add('selected'); }
+}
+
+// ===== EXTENDERS =====
+function toggleExtender(el) {
+  const ext = el.dataset.ext;
+  if (extenders.has(ext)) { extenders.delete(ext); el.classList.remove('selected'); }
+  else { extenders.add(ext); el.classList.add('selected'); }
+}
+
+// ===== RESULTS =====
+function showResults() {
+  document.getElementById('step-3').classList.remove('active');
+
+  const momentCount = selectedMoments.size;
+
+  // Surface coverage
+  let totalSurfaces = 0;
+  selectedMoments.forEach((_, id) => { totalSurfaces += (surfaceMap[id] ? surfaceMap[id].size : 0); });
+  const avgSurfaces = momentCount > 0 ? totalSurfaces / momentCount : 0;
+  const surfaceScore = Math.min(avgSurfaces * 5, 25);
+
+  // Trigger readiness
+  let readyCount = 0, gapCount = 0;
+  selectedMoments.forEach((_, id) => {
+    if (triggerConfirmed[id] && triggerConfirmed[id].status === 'ready') readyCount++;
+    else gapCount++;
+  });
+  const triggerScore = momentCount > 0 ? (readyCount / momentCount) * 30 : 0;
+
+  // Extender bonus
+  const extenderScore = Math.min(extenders.size * 3, 20);
+
+  // Anti-pattern penalty
+  const apPenalty = Math.min(antiPatterns.size * 4.5, 25);
+
+  // Moment diversity
+  let hasHigh = false, hasMedium = false, hasLow = false;
+  selectedMoments.forEach(d => { if (d.intensity==='high') hasHigh=true; if (d.intensity==='medium') hasMedium=true; if (d.intensity==='low') hasLow=true; });
+  const diversityScore = (hasHigh?6:0) + (hasMedium?5:0) + (hasLow?4:0);
+
+  let rawScore = Math.max(surfaceScore + triggerScore + extenderScore + diversityScore - apPenalty, 0);
+  const score = Math.min(Math.round(100 * (1 - Math.exp(-rawScore / 48))), 99);
+
+  let verdict = score >= 70 ? 'Well-Orchestrated Timing' : score >= 50 ? 'Timing Framework in Place' : score >= 30 ? 'Partial Coverage' : score > 0 ? 'Timing Gaps to Resolve' : 'No Timing Architecture';
+
+  let profile = '';
+  if (antiPatterns.size >= 4) profile = 'Anti-Pattern Heavy';
+  else if (readyCount === momentCount && extenders.size >= 3) profile = 'Orchestration-Ready';
+  else if (avgSurfaces >= 3) profile = 'Multi-Surface';
+  else if (extenders.size >= 4 && gapCount > readyCount) profile = 'Extender-Rich, Trigger-Poor';
+  else if (momentCount >= 4 && readyCount === 0) profile = 'Mapped but Untriggered';
+  else profile = 'Building';
+
+  document.getElementById('r-score').textContent = score;
+  document.getElementById('r-verdict').textContent = verdict;
+  document.getElementById('r-profile').textContent = `Profile: ${profile}`;
+
+  // Timing bars
+  const barsContainer = document.getElementById('timing-bars');
+  barsContainer.innerHTML = '';
+  const maxWindow = 336;
+
+  selectedMoments.forEach((data, id) => {
+    const closePct = Math.min((data.close / maxWindow) * 100, 100);
+    let extHrs = 0;
+    if (extenders.has('physical-artifact')) extHrs += 18;
+    if (extenders.has('ceremony')) extHrs += 36;
+    if (extenders.has('cohort-gallery')) extHrs += 60;
+    if (extenders.has('social-proof-notif')) extHrs += 48;
+    if (extenders.has('tangible-takeaway') && data.intensity === 'low') extHrs += 9;
+    if (extenders.has('milestone-visual') && (id === 'milestone' || id === 'onboarding')) extHrs += 24;
+    if (extenders.has('recap-content')) extHrs += 72;
+    if (extenders.has('delayed-credential') && (id === 'certification' || id === 'cohort-grad')) extHrs += 48;
+
+    const extPct = Math.min(((data.close + extHrs) / maxWindow) * 100, 100);
+    const wLabel = data.close < 24 ? `${data.close}h` : `${Math.round(data.close/24)}d`;
+    const eLabel = extHrs > 0 ? ` (+${extHrs < 24 ? extHrs+'h' : Math.round(extHrs/24)+'d'})` : '';
+
+    const row = document.createElement('div');
+    row.className = 'timing-bar-row';
+    row.innerHTML = `<div class="tbr-name">${data.name}</div>
+      <div class="tbr-track"><div class="tbr-fill extended" style="width:0%" data-target="${extPct}"></div><div class="tbr-fill peak" style="width:0%" data-target="${closePct}"></div></div>
+      <div class="tbr-val">${wLabel}${eLabel}</div>`;
+    barsContainer.appendChild(row);
+  });
+
+  setTimeout(() => { document.querySelectorAll('.tbr-fill').forEach(f => { f.style.width = f.dataset.target + '%'; }); }, 100);
+
+  // Body
+  let b = '';
+
+  // Trigger readiness overview
+  b += `<div class="rb-section-head">Trigger Readiness</div>`;
+
+  selectedMoments.forEach((data, id) => {
+    const status = triggerConfirmed[id] ? triggerConfirmed[id].status : '';
+    const seq = recommendedSequences[id] || [];
+    const seqStr = seq.map(s => `<strong>${s.time}:</strong> ${s.action}`).join(' &rarr; ');
+
+    if (status === 'ready') {
+      b += `<div class="entry-path-card"><div class="ep-label">${data.name} - Ready</div><div class="ep-desc">${seqStr}</div></div>`;
+    } else {
+      b += `<div class="bottleneck-card"><div class="bn-label">${data.name} - Gaps to Close</div><div class="bn-text">Recommended sequence: ${seqStr}<br><br>Review each step and identify which ones you can't execute today. The most common gap is Step 1 (artifact delivery) - if the artifact doesn't exist or isn't automated, the rest of the sequence can't fire.</div></div>`;
+    }
+  });
+
+  // Anti-pattern fixes
+  if (antiPatterns.size > 0) {
+    b += `<div class="rb-section-head">Anti-Patterns to Eliminate</div>`;
+    const fixes = {
+      'survey-first': { l: 'Survey Before Share', f: 'Move the satisfaction survey to AFTER the belief window closes (day 5-7). Use the peak window for activation, not measurement. You can measure satisfaction anytime. The sharing window is finite.' },
+      'legal-delay': { l: 'Legal Approval Per Share', f: 'Pre-approve templates, not instances. Get legal to sign off on the certificate design, the speaker card format, the case study template. Individual instances auto-clear through pre-approved formats.' },
+      'batch-comms': { l: 'Batched Communications', f: 'Break completion notifications out of the weekly digest. Certification passes, event completions, and milestone hits need real-time or same-day triggers. Everything else can stay in the digest.' },
+      'no-artifact-ready': { l: 'Artifact Not Ready', f: 'Design the artifact BEFORE the moment happens. If 200 people will pass your certification next quarter, the badge template must be production-ready today. The artifact is infrastructure, not a nice-to-have.' },
+      'wrong-channel': { l: 'Wrong Channel', f: 'Match the trigger channel to the sharing surface. If you want LinkedIn shares, the prompt should open LinkedIn directly with the post pre-filled. Every additional click between the prompt and the share halves your activation rate.' },
+      'generic-prompt': { l: 'Generic Sharing Ask', f: 'Pre-build the share: a visual they can post as-is, a caption they can edit (not write from scratch), a one-click share button. The participant should go from prompt to published in under 30 seconds.' }
+    };
+    antiPatterns.forEach(ap => {
+      const fix = fixes[ap];
+      if (fix) b += `<div class="bottleneck-card"><div class="bn-label">${fix.l}</div><div class="bn-text">${fix.f}</div></div>`;
+    });
+  }
+
+  // Window extension strategy
+  if (extenders.size > 0) {
+    b += `<div class="rb-section-head">Window Extension Strategy</div>`;
+    const extNames = { 'physical-artifact':'Physical artifact', 'ceremony':'Group ceremony', 'delayed-credential':'Staggered delivery', 'cohort-gallery':'Cohort gallery', 'social-proof-notif':'Peer notification', 'tangible-takeaway':'Tangible takeaway', 'milestone-visual':'Milestone visual', 'recap-content':'Recap content' };
+    const ordered = ['ceremony','physical-artifact','delayed-credential','cohort-gallery','social-proof-notif','tangible-takeaway','milestone-visual','recap-content'];
+    const active = ordered.filter(e => extenders.has(e)).map(e => extNames[e]);
+    b += `<p class="rb-text">Your layered activation sequence: <strong>${active.join(' &rarr; ')}</strong>. Each layer reopens or extends the belief window, creating multiple sharing opportunities from a single completion moment.</p>`;
+  }
+
+  // TTFS benchmarks
+  b += `<div class="rb-section-head">Key Metric: Time-to-First-Share</div>`;
+  b += `<p class="rb-text">Track the gap between each completion moment and the first organic share from the cohort. This is your leading indicator of timing health.</p>`;
+  b += `<table class="timing-table"><thead><tr><th>Moment</th><th>Target</th><th>Healthy</th><th>Danger Zone</th></tr></thead><tbody>`;
+  selectedMoments.forEach((data, id) => {
+    const target = data.peak < 4 ? '< 2 hrs' : (data.peak < 24 ? '< 12 hrs' : '< 24 hrs');
+    const healthy = data.close < 48 ? '< 12 hrs' : (data.close < 168 ? '< 48 hrs' : '< 72 hrs');
+    const danger = data.close < 48 ? '> 24 hrs' : (data.close < 168 ? '> 72 hrs' : '> 7 days');
+    b += `<tr><td>${data.name}</td><td class="tt-green">${target}</td><td class="tt-amber">${healthy}</td><td class="tt-red">${danger}</td></tr>`;
+  });
+  b += `</tbody></table>`;
+  b += `<p class="rb-text" style="font-size:11.5px;color:var(--gray);">If Time-to-First-Share consistently exceeds the healthy range, check three things: (1) Is the artifact delivered at the moment? (2) Is the sharing prompt reaching them in the right channel? (3) Are any anti-patterns eating the window?</p>`;
+
+  b += `<div class="results-cta"><a href="https://advocacyled.com" class="cta-btn">Build your first campaign</a><a href="https://advocacyled.com" class="toolkit-footer-link">advocacyled.com</a></div>`;
+
+  document.getElementById('result-body').innerHTML = b;
+  document.getElementById('results-screen').classList.add('active');
+  window.scrollTo(0, 0);
+}
+</script>
+
+</body>
+</html>

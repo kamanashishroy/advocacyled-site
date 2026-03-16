@@ -1,0 +1,1800 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>First Campaign Brief - Plan Your First ALG Activation</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=DM+Sans:wght@300;400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --red: #c8401a;
+    --red-light: rgba(200, 64, 26, 0.08);
+    --red-mid: rgba(200, 64, 26, 0.15);
+    --ink: #0e0d0b;
+    --paper: #f5f0e8;
+    --gray: #6b6560;
+    --gray-light: #a09890;
+    --white: #ffffff;
+    --green: #2d7a4f;
+    --green-light: rgba(45, 122, 79, 0.08);
+    --amber: #b8860b;
+    --amber-light: rgba(184, 134, 11, 0.08);
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    color: var(--ink);
+    background: var(--paper);
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ============ TOOLTIP SYSTEM ============ */
+  .tip {
+    position: relative;
+    border-bottom: 1.5px dotted var(--gray-light);
+    cursor: help;
+  }
+
+  .tip .tip-body {
+    display: none;
+    position: absolute;
+    bottom: calc(100% + 10px);
+    left: 50%;
+    transform: translateX(-50%);
+    width: 320px;
+    background: var(--ink);
+    color: var(--paper);
+    padding: 16px 18px;
+    border-radius: 8px;
+    font-size: 12.5px;
+    line-height: 1.55;
+    font-weight: 300;
+    z-index: 100;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    pointer-events: none;
+  }
+
+  .tip .tip-body::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 6px solid transparent;
+    border-top-color: var(--ink);
+  }
+
+  .tip:hover .tip-body,
+  .tip:focus .tip-body {
+    display: block;
+    animation: tipFade 0.2s ease;
+  }
+
+  @keyframes tipFade {
+    from { opacity: 0; transform: translateX(-50%) translateY(4px); }
+    to { opacity: 1; transform: translateX(-50%) translateY(0); }
+  }
+
+  .tip .tip-body .tip-title {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 6px;
+    font-weight: 500;
+  }
+
+  .tip .tip-body .tip-example {
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid rgba(245,240,232,0.1);
+    font-size: 11.5px;
+    color: var(--gray-light);
+  }
+
+  .tip-light .tip-body {
+    background: var(--paper) !important;
+    color: var(--ink) !important;
+    border: 1px solid rgba(14,13,11,0.1);
+  }
+  .tip-light .tip-body::after { border-top-color: var(--paper) !important; }
+  .tip-light .tip-body .tip-example { color: var(--gray) !important; border-top-color: rgba(14,13,11,0.08) !important; }
+
+  /* ============ SCREENS ============ */
+  .screen {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 60px 24px 80px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .screen.hidden { display: none; }
+
+  .step-screen {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 40px 24px 100px;
+    min-height: 100vh;
+  }
+  .step-screen.hidden { display: none; }
+
+  .results-screen {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 40px 24px 100px;
+    min-height: 100vh;
+  }
+  .results-screen.hidden { display: none; }
+
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateX(40px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  .screen:not(.hidden),
+  .step-screen:not(.hidden),
+  .results-screen:not(.hidden) {
+    animation: slideIn 0.4s ease;
+  }
+
+  /* ============ TYPOGRAPHY ============ */
+  .topline {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 20px;
+  }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 36px;
+    line-height: 1.15;
+    color: var(--ink);
+    margin-bottom: 16px;
+  }
+
+  .intro-text {
+    font-size: 15px;
+    line-height: 1.65;
+    color: var(--gray);
+    margin-bottom: 32px;
+    max-width: 480px;
+  }
+
+  .intro-meta {
+    display: flex;
+    gap: 24px;
+    margin-bottom: 36px;
+  }
+
+  .meta-item {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--gray-light);
+  }
+  .meta-item span { color: var(--ink); font-weight: 500; }
+
+  .step-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 8px;
+  }
+
+  .step-title {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 1.25;
+    color: var(--ink);
+    margin-bottom: 8px;
+  }
+
+  .step-subtitle {
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--gray);
+    margin-bottom: 24px;
+  }
+
+  /* ============ BUTTONS ============ */
+  .btn-start {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--ink);
+    color: var(--paper);
+    border: none;
+    padding: 14px 32px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-start:hover { background: var(--red); }
+
+  /* ============ PROGRESS BAR ============ */
+  .progress-bar {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 32px;
+    padding-top: 24px;
+  }
+  .progress-dot {
+    height: 3px;
+    flex: 1;
+    background: rgba(14,13,11,0.1);
+    border-radius: 2px;
+    transition: background 0.3s;
+  }
+  .progress-dot.active { background: var(--red); }
+  .progress-dot.done { background: var(--ink); }
+
+  /* ============ EXAMPLE CALLOUTS ============ */
+  .example-callout {
+    background: var(--ink);
+    color: var(--paper);
+    border-radius: 10px;
+    padding: 16px 18px;
+    margin-bottom: 20px;
+  }
+  .ec-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 6px;
+    font-weight: 500;
+  }
+  .ec-text {
+    font-size: 13px;
+    line-height: 1.55;
+    font-weight: 300;
+  }
+  .ec-text b { font-weight: 500; }
+
+  /* ============ CONSEQUENCE LINES ============ */
+  .consequence {
+    background: var(--red-light);
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-top: 16px;
+    margin-bottom: 16px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11.5px;
+    line-height: 1.5;
+    color: var(--ink);
+  }
+
+  /* ============ OPTION CARDS ============ */
+  .option-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+  .option-card {
+    background: var(--white);
+    border: 1.5px solid rgba(14,13,11,0.08);
+    border-radius: 10px;
+    padding: 16px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .option-card:hover { border-color: rgba(14,13,11,0.2); }
+  .option-card.selected { border-color: var(--red); background: var(--red-light); }
+  .oc-name { font-weight: 500; font-size: 13.5px; margin-bottom: 4px; color: var(--ink); }
+  .oc-desc { font-size: 11.5px; line-height: 1.45; color: var(--gray); }
+  .oc-meta { margin-top: 8px; font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; color: var(--gray-light); }
+
+  /* ============ OPTION LIST ============ */
+  .option-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+  .option-row {
+    background: var(--white);
+    border: 1.5px solid rgba(14,13,11,0.08);
+    border-radius: 10px;
+    padding: 14px 16px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .option-row:hover { border-color: rgba(14,13,11,0.2); }
+  .option-row.selected { border-color: var(--red); background: var(--red-light); }
+  .or-dot {
+    width: 18px; height: 18px; border-radius: 50%;
+    border: 1.5px solid var(--gray-light); flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+  }
+  .option-row.selected .or-dot { border-color: var(--red); background: var(--red); }
+  .option-row.selected .or-dot::after { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--white); }
+  .or-content { flex: 1; }
+  .or-name { font-weight: 500; font-size: 13.5px; color: var(--ink); margin-bottom: 2px; }
+  .or-desc { font-size: 11.5px; color: var(--gray); line-height: 1.45; }
+
+  /* ============ CHIPS ============ */
+  .chip-group { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+  .chip {
+    background: var(--white); border: 1.5px solid rgba(14,13,11,0.08);
+    border-radius: 20px; padding: 8px 16px; font-size: 13px;
+    cursor: pointer; transition: all 0.2s; font-family: 'DM Sans', sans-serif; color: var(--ink);
+  }
+  .chip:hover { border-color: rgba(14,13,11,0.2); }
+  .chip.selected { border-color: var(--red); background: var(--red-light); color: var(--red); font-weight: 500; }
+
+  /* ============ FIELDS ============ */
+  .field-group { margin-bottom: 20px; }
+  .field-label {
+    font-family: 'IBM Plex Mono', monospace; font-size: 10px;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--gray); margin-bottom: 6px; font-weight: 500;
+  }
+  .field-input {
+    width: 100%; padding: 12px 16px; background: var(--white);
+    border: 1.5px solid rgba(14,13,11,0.1); border-radius: 8px;
+    font-family: 'DM Sans', sans-serif; font-size: 14px; color: var(--ink);
+    transition: border-color 0.2s;
+  }
+  .field-input:focus { outline: none; border-color: var(--red); }
+  .field-input::placeholder { color: var(--gray-light); }
+  .field-hint { font-size: 11.5px; color: var(--gray-light); margin-top: 4px; }
+  .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+  /* ============ RANGE ============ */
+  .range-group { margin-bottom: 20px; }
+  .range-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+  .range-value { font-family: 'IBM Plex Mono', monospace; font-size: 14px; font-weight: 500; color: var(--red); }
+  input[type="range"] {
+    -webkit-appearance: none; width: 100%; height: 4px;
+    border-radius: 2px; background: rgba(14,13,11,0.1); outline: none;
+  }
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none; width: 20px; height: 20px; border-radius: 50%;
+    background: var(--red); cursor: pointer; border: 3px solid var(--white);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  }
+  .range-labels {
+    display: flex; justify-content: space-between; margin-top: 6px;
+    font-size: 10px; color: var(--gray-light); font-family: 'IBM Plex Mono', monospace;
+  }
+  .range-rec {
+    font-family: 'IBM Plex Mono', monospace; font-size: 10px;
+    color: var(--green); margin-top: 4px;
+  }
+
+  /* ============ CHECKLIST ============ */
+  .checklist { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+  .check-item {
+    display: flex; align-items: flex-start; gap: 10px;
+    padding: 10px 14px; background: var(--white);
+    border: 1.5px solid rgba(14,13,11,0.08); border-radius: 8px;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .check-item:hover { border-color: rgba(14,13,11,0.15); }
+  .check-item.checked { border-color: var(--green); background: var(--green-light); }
+  .check-box {
+    width: 18px; height: 18px; border: 1.5px solid var(--gray-light);
+    border-radius: 4px; flex-shrink: 0; margin-top: 1px;
+    display: flex; align-items: center; justify-content: center; transition: all 0.2s;
+  }
+  .check-item.checked .check-box { background: var(--green); border-color: var(--green); }
+  .check-item.checked .check-box::after {
+    content: ''; width: 5px; height: 9px;
+    border: 2px solid var(--white); border-top: none; border-left: none;
+    transform: rotate(45deg); margin-top: -2px;
+  }
+  .check-text { font-size: 13px; color: var(--ink); line-height: 1.45; }
+  .check-text small { display: block; font-size: 11px; color: var(--gray); margin-top: 2px; }
+
+  /* ============ NAV ============ */
+  .nav-bar {
+    position: fixed; bottom: 0; left: 0; right: 0;
+    background: var(--white); border-top: 1px solid rgba(14,13,11,0.06);
+    padding: 16px 24px; display: flex; justify-content: space-between;
+    align-items: center; z-index: 50;
+  }
+  .nav-bar.hidden { display: none; }
+  .btn-back {
+    background: none; border: 1.5px solid rgba(14,13,11,0.12);
+    padding: 10px 20px; border-radius: 8px; font-family: 'DM Sans', sans-serif;
+    font-size: 13px; color: var(--gray); cursor: pointer; transition: all 0.2s;
+  }
+  .btn-back:hover { border-color: var(--ink); color: var(--ink); }
+  .btn-next {
+    background: var(--ink); color: var(--paper); border: none;
+    padding: 10px 24px; border-radius: 8px; font-family: 'DM Sans', sans-serif;
+    font-size: 13px; font-weight: 500; cursor: pointer; transition: all 0.2s;
+  }
+  .btn-next:hover { background: var(--red); }
+
+  .section-divider {
+    font-family: 'IBM Plex Mono', monospace; font-size: 9px;
+    letter-spacing: 0.1em; text-transform: uppercase; color: var(--gray-light);
+    margin: 24px 0 12px; padding-top: 16px; border-top: 1px solid rgba(14,13,11,0.06);
+  }
+
+  /* ============ GOOD/BAD COMPARISON ============ */
+  .compare-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+  .compare-card {
+    border-radius: 10px;
+    padding: 14px 16px;
+    font-size: 12.5px;
+    line-height: 1.5;
+  }
+  .compare-good {
+    background: var(--green-light);
+    border: 1.5px solid rgba(45, 122, 79, 0.2);
+  }
+  .compare-bad {
+    background: var(--red-light);
+    border: 1.5px solid rgba(200, 64, 26, 0.15);
+  }
+  .compare-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    font-weight: 500;
+  }
+  .compare-good .compare-label { color: var(--green); }
+  .compare-bad .compare-label { color: var(--red); }
+  .compare-card b { font-weight: 500; }
+
+  /* ============ ANTI-PATTERN CARDS ============ */
+  .anti-card {
+    background: var(--white);
+    border: 1.5px solid rgba(200, 64, 26, 0.15);
+    border-left: 3px solid var(--red);
+    border-radius: 0 8px 8px 0;
+    padding: 14px 16px;
+    margin-bottom: 10px;
+  }
+  .anti-name {
+    font-weight: 500;
+    font-size: 13.5px;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+  .anti-desc {
+    font-size: 12px;
+    color: var(--gray);
+    line-height: 1.5;
+    margin-bottom: 6px;
+  }
+  .anti-impact {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10.5px;
+    color: var(--red);
+    line-height: 1.4;
+  }
+
+  /* ============ TIMELINE ============ */
+  .timeline { margin: 16px 0; }
+  .tl-item { display: flex; gap: 14px; padding-bottom: 16px; position: relative; }
+  .tl-item:not(:last-child)::after {
+    content: ''; position: absolute; top: 24px; left: 9px;
+    width: 1.5px; bottom: 0; background: rgba(14,13,11,0.08);
+  }
+  .tl-dot {
+    width: 20px; height: 20px; border-radius: 50%;
+    background: var(--red-light); border: 1.5px solid var(--red);
+    flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+  }
+  .tl-dot-inner { width: 6px; height: 6px; border-radius: 50%; background: var(--red); }
+  .tl-content { flex: 1; }
+  .tl-time {
+    font-family: 'IBM Plex Mono', monospace; font-size: 10px;
+    color: var(--red); font-weight: 500; letter-spacing: 0.04em; margin-bottom: 2px;
+  }
+  .tl-action { font-size: 13.5px; font-weight: 500; color: var(--ink); margin-bottom: 2px; }
+  .tl-detail { font-size: 12px; color: var(--gray); line-height: 1.45; }
+
+  /* ============ PRODUCTION CALENDAR ============ */
+  .prod-item {
+    display: flex; gap: 16px; padding: 12px 0;
+    border-bottom: 1px solid rgba(14,13,11,0.06);
+  }
+  .prod-item:last-child { border-bottom: none; }
+  .prod-week {
+    font-family: 'IBM Plex Mono', monospace; font-size: 11px;
+    font-weight: 500; color: var(--red); min-width: 80px; padding-top: 2px;
+  }
+  .prod-tasks { flex: 1; }
+  .prod-task {
+    font-size: 13px; color: var(--ink); margin-bottom: 4px; line-height: 1.45;
+  }
+  .prod-task small { font-size: 11px; color: var(--gray); }
+  .prod-owner {
+    display: inline-block; font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px; padding: 2px 6px; border-radius: 3px;
+    background: rgba(14,13,11,0.04); color: var(--gray); margin-left: 4px;
+  }
+
+  /* ============ RESULTS ============ */
+  .results-header { text-align: center; margin-bottom: 32px; }
+  .score-circle {
+    width: 120px; height: 120px; border-radius: 50%;
+    margin: 0 auto 16px; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; position: relative;
+  }
+  .score-circle::before {
+    content: ''; position: absolute; inset: 0; border-radius: 50%;
+    border: 3px solid rgba(14,13,11,0.08);
+  }
+  .score-circle::after {
+    content: ''; position: absolute; inset: 0; border-radius: 50%;
+    border: 3px solid var(--red);
+  }
+  .score-number { font-family: 'Playfair Display', serif; font-size: 36px; font-weight: 700; color: var(--ink); line-height: 1; }
+  .score-label { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gray-light); margin-top: 4px; }
+  .score-grade { font-family: 'IBM Plex Mono', monospace; font-size: 12px; font-weight: 500; margin-top: 8px; padding: 4px 12px; border-radius: 12px; display: inline-block; }
+  .grade-high { background: var(--green-light); color: var(--green); }
+  .grade-mid { background: var(--amber-light); color: var(--amber); }
+  .grade-low { background: var(--red-light); color: var(--red); }
+
+  .result-card {
+    background: var(--white); border: 1.5px solid rgba(14,13,11,0.06);
+    border-radius: 12px; padding: 20px; margin-bottom: 16px;
+  }
+  .rc-header {
+    font-family: 'IBM Plex Mono', monospace; font-size: 10px;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--red); margin-bottom: 12px; font-weight: 500;
+  }
+  .rc-text { font-size: 13.5px; line-height: 1.55; color: var(--gray); }
+
+  .brief-table { width: 100%; border-collapse: collapse; }
+  .brief-table tr { border-bottom: 1px solid rgba(14,13,11,0.06); }
+  .brief-table tr:last-child { border-bottom: none; }
+  .brief-table td { padding: 10px 0; vertical-align: top; font-size: 13px; }
+  .brief-table td:first-child {
+    font-family: 'IBM Plex Mono', monospace; font-size: 10.5px;
+    letter-spacing: 0.04em; color: var(--gray); width: 140px;
+    font-weight: 500; padding-right: 16px;
+  }
+
+  .proj-table { width: 100%; border-collapse: collapse; margin-top: 12px; }
+  .proj-table th {
+    font-family: 'IBM Plex Mono', monospace; font-size: 9px;
+    letter-spacing: 0.06em; text-transform: uppercase; color: var(--gray-light);
+    text-align: left; padding: 8px 8px 8px 0;
+    border-bottom: 1.5px solid rgba(14,13,11,0.1); font-weight: 500;
+  }
+  .proj-table td { padding: 10px 8px 10px 0; font-size: 13px; border-bottom: 1px solid rgba(14,13,11,0.04); }
+  .proj-table td:first-child { font-weight: 500; }
+  .proj-highlight { font-family: 'IBM Plex Mono', monospace; font-weight: 500; color: var(--red); }
+
+  .readiness-item { display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid rgba(14,13,11,0.04); }
+  .readiness-item:last-child { border-bottom: none; }
+  .ri-status { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .ri-ready { background: var(--green); }
+  .ri-gap { background: var(--amber); }
+  .ri-missing { background: var(--red); }
+  .ri-label { flex: 1; font-size: 13px; }
+  .ri-note { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--gray-light); }
+
+  @media (max-width: 480px) {
+    .option-grid { grid-template-columns: 1fr; }
+    .field-row { grid-template-columns: 1fr; }
+    .compare-row { grid-template-columns: 1fr; }
+    h1 { font-size: 28px; }
+    .step-title { font-size: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ SCREEN 0: INTRO ============ -->
+<div class="screen" id="screen-intro">
+  <div class="topline">ALG Toolkit / Stage 2: Build</div>
+  <h1>First Campaign Brief</h1>
+  <p class="intro-text">
+    You've evaluated your ALG readiness, mapped your completion moments, and designed your value exchange.
+    Now: plan the campaign that proves the loop works.
+    <br><br>
+    This tool walks you through the seven decisions every first ALG campaign needs - from choosing your
+    <span class="tip">completion moment<span class="tip-body"><span class="tip-title">Completion Moment</span>The point where a participant finishes something real - a certification earned, an event attended, a challenge completed. This is where the Belief Window opens and advocacy becomes natural.<span class="tip-example">e.g., A developer passes your platform certification. That moment - not a random Tuesday - is when they want to share.</span></span></span>
+    to projecting your first
+    <span class="tip">AQLs<span class="tip-body"><span class="tip-title">Advocacy Qualified Lead (AQL)</span>A person whose voluntary advocacy generates measurable downstream activity. Three tiers: AQL-1 (share + click), AQL-2 (share + new participant), AQL-3 (share + pipeline entry).<span class="tip-example">e.g., A certified partner posts their badge. Three connections click through. One books a demo. That's an AQL-3.</span></span></span>.
+    It also shows you the five mistakes that kill first campaigns before they start.
+  </p>
+  <div class="intro-meta">
+    <div class="meta-item"><span>10 min</span> to complete</div>
+    <div class="meta-item">Produces <span>executable brief</span></div>
+  </div>
+  <button class="btn-start" onclick="goTo(1)">Plan your first campaign <span style="font-size:16px">&#8594;</span></button>
+</div>
+
+
+<!-- ============ SCREEN 1: CAMPAIGN ANCHOR ============ -->
+<div class="step-screen hidden" id="screen-1">
+  <div class="progress-bar" id="progress-1"></div>
+  <div class="step-label">Step 1 of 7</div>
+  <div class="step-title">Choose Your Campaign Anchor</div>
+  <div class="step-subtitle">
+    Your first ALG campaign should anchor to a single, high-intensity
+    <span class="tip tip-light">completion moment<span class="tip-body"><span class="tip-title">Why just one?</span>First campaigns need a clear signal. If you activate across multiple moments simultaneously, you won't know what's working. Start with one, measure it, then expand.<span class="tip-example">Most successful first campaigns pick their highest-energy event or their most established certification program.</span></span></span>.
+    Pick the one where participants are most likely to share without being asked.
+  </div>
+
+  <div class="example-callout">
+    <div class="ec-label">Real pattern</div>
+    <div class="ec-text">
+      MongoDB's first ALG activation anchored to <b>certification completion</b>. Not all their events. Not product onboarding.
+      One moment, one cohort, one value exchange. Activation rate: <b>23%</b>. They expanded to events only after proving the loop.
+    </div>
+  </div>
+
+  <div class="field-label" style="margin-bottom: 8px;">What type of moment will you activate?</div>
+  <div class="option-grid" id="moment-grid">
+    <div class="option-card" onclick="selectMoment(this, 'event')">
+      <div class="oc-name">Event Completion</div>
+      <div class="oc-desc">Conference, summit, workshop, or meetup that participants just attended</div>
+      <div class="oc-meta">Window: 2-6 hrs | Typical activation: 12-18%</div>
+    </div>
+    <div class="option-card" onclick="selectMoment(this, 'certification')">
+      <div class="oc-name">Certification Earned</div>
+      <div class="oc-desc">Professional credential, course completion, or skill verification</div>
+      <div class="oc-meta">Window: 12-48 hrs | Typical activation: 20-30%</div>
+    </div>
+    <div class="option-card" onclick="selectMoment(this, 'deployment')">
+      <div class="oc-name">Product Milestone</div>
+      <div class="oc-desc">Go-live, successful deployment, key feature adoption, or usage threshold</div>
+      <div class="oc-meta">Window: 24-72 hrs | Typical activation: 8-15%</div>
+    </div>
+    <div class="option-card" onclick="selectMoment(this, 'community')">
+      <div class="oc-name">Community Achievement</div>
+      <div class="oc-desc">Challenge completed, contribution milestone, or recognition earned in community</div>
+      <div class="oc-meta">Window: 4-24 hrs | Typical activation: 15-22%</div>
+    </div>
+    <div class="option-card" onclick="selectMoment(this, 'onboarding')">
+      <div class="oc-name">Onboarding Complete</div>
+      <div class="oc-desc">New user finishes setup, first project, or initial success milestone</div>
+      <div class="oc-meta">Window: 2-12 hrs | Typical activation: 5-10%</div>
+    </div>
+    <div class="option-card" onclick="selectMoment(this, 'partner')">
+      <div class="oc-name">Partner Milestone</div>
+      <div class="oc-desc">Partner tier achieved, co-selling win, or ecosystem recognition</div>
+      <div class="oc-meta">Window: 24-72 hrs | Typical activation: 18-28%</div>
+    </div>
+  </div>
+
+  <div class="consequence">
+    The moment type determines your entire campaign structure - activation timing, content format, recommended targets, and which team owns it. All downstream screens adapt to your choice here.
+  </div>
+
+  <div class="section-divider">Campaign details</div>
+
+  <div class="field-group">
+    <div class="field-label">Name this campaign</div>
+    <input class="field-input" id="campaign-name" type="text" placeholder="e.g., Q2 Certification Activation, Summit 2026 Amplification">
+    <div class="field-hint">Internal name - helps you track this campaign against future ones</div>
+  </div>
+
+  <div class="field-row">
+    <div class="field-group">
+      <div class="field-label">Expected cohort size</div>
+      <input class="field-input" id="cohort-size" type="number" placeholder="e.g., 150" min="5" max="50000">
+      <div class="field-hint">How many people will hit this completion moment?</div>
+    </div>
+    <div class="field-group">
+      <div class="field-label">Campaign date</div>
+      <input class="field-input" id="campaign-date" type="date">
+      <div class="field-hint">When does the completion moment happen?</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ============ SCREEN 2: VALUE EXCHANGE + ARTIFACT EXAMPLES ============ -->
+<div class="step-screen hidden" id="screen-2">
+  <div class="progress-bar" id="progress-2"></div>
+  <div class="step-label">Step 2 of 7</div>
+  <div class="step-title">Design the Value Exchange</div>
+  <div class="step-subtitle">
+    The
+    <span class="tip tip-light">diagnostic question<span class="tip-body"><span class="tip-title">The ALG Diagnostic</span>"If we removed our name from the share, would the participant still want to post it?" If yes - the value exchange works. If no - you're running employee advocacy, not ALG.</span></span>:
+    "If we removed our name from the share, would the participant still want to post it?"
+  </div>
+
+  <div class="field-label" style="margin-bottom: 8px;">What will the participant receive at the completion moment?</div>
+  <div class="field-hint" style="margin-bottom: 12px;">Select all artifacts you'll create. Hover the good/bad examples to see what works vs. what gets ignored.</div>
+
+  <div class="checklist" id="artifact-checklist">
+    <div class="check-item" onclick="toggleCheck(this)" data-artifact="badge">
+      <div class="check-box"></div>
+      <div class="check-text">
+        Share-ready credential badge or certificate
+        <small>Personalized image with participant's name, achievement, and date. Sized for LinkedIn (1200x627).</small>
+      </div>
+    </div>
+  </div>
+
+  <div class="compare-row">
+    <div class="compare-card compare-good">
+      <div class="compare-label">Works</div>
+      <b>"Jane Chen - Certified Cloud Architect"</b> with score, date, and skill breakdown. Her name is the headline. She shares because it's <b>her credential</b>.
+    </div>
+    <div class="compare-card compare-bad">
+      <div class="compare-label">Doesn't work</div>
+      <b>"Thanks for attending Acme Conference!"</b> with company logo as the dominant element. Her name in 8pt at the bottom. Nobody shares a thank-you card.
+    </div>
+  </div>
+
+  <div class="checklist">
+    <div class="check-item" onclick="toggleCheck(this)" data-artifact="stats">
+      <div class="check-box"></div>
+      <div class="check-text">
+        Personal stats or achievement summary
+        <small>Dashboard with their specific results - score, ranking, session count, contribution metrics.</small>
+      </div>
+    </div>
+  </div>
+
+  <div class="compare-row">
+    <div class="compare-card compare-good">
+      <div class="compare-label">Works</div>
+      <b>"Your event in numbers"</b> - 14 sessions, 23 connections, top 8% engagement. Feels like a year-in-review from Spotify. Personal, data-driven, <b>shareable as self-expression</b>.
+    </div>
+    <div class="compare-card compare-bad">
+      <div class="compare-label">Doesn't work</div>
+      <b>"Event Highlights"</b> - generic stats about total attendees, keynote views, and sponsor logos. It's the company's stats, not theirs. No motive to share.
+    </div>
+  </div>
+
+  <div class="checklist">
+    <div class="check-item" onclick="toggleCheck(this)" data-artifact="quote">
+      <div class="check-box"></div>
+      <div class="check-text">
+        Pre-drafted share text (editable, not locked)
+        <small>2-3 post variants written in first person. They edit and own it. Never corporate voice.</small>
+      </div>
+    </div>
+  </div>
+
+  <div class="compare-row">
+    <div class="compare-card compare-good">
+      <div class="compare-label">Works</div>
+      <b>"Just earned my [credential]. Three takeaways from the process..."</b> - first person, editable, positioned as their reflection. Sounds like something <b>they would actually write</b>.
+    </div>
+    <div class="compare-card compare-bad">
+      <div class="compare-label">Doesn't work</div>
+      <b>"Excited to share that @AcmeCorp is leading the future of cloud!"</b> - third person, locked text, corporate slogans. Reads like a press release wearing a human mask.
+    </div>
+  </div>
+
+  <div class="checklist">
+    <div class="check-item" onclick="toggleCheck(this)" data-artifact="highlight">
+      <div class="check-box"></div>
+      <div class="check-text">
+        Highlight reel or moment recap
+        <small>Video clip, photo gallery, or visual summary of their specific experience. Not a generic event recap.</small>
+      </div>
+    </div>
+    <div class="check-item" onclick="toggleCheck(this)" data-artifact="profile">
+      <div class="check-box"></div>
+      <div class="check-text">
+        Profile or portfolio addition
+        <small>LinkedIn-compatible credential, Credly/Accredible badge, or portfolio piece they can add permanently.</small>
+      </div>
+    </div>
+    <div class="check-item" onclick="toggleCheck(this)" data-artifact="leaderboard">
+      <div class="check-box"></div>
+      <div class="check-text">
+        Leaderboard or peer comparison
+        <small>Where they rank relative to their cohort. Competitive framing drives sharing in achievement-oriented populations.</small>
+      </div>
+    </div>
+  </div>
+
+  <div class="consequence">
+    The number and quality of artifacts directly affects your activation rate. One generic social tile: expect 5-8%. A personalized badge + stats + editable text: expect 18-25%. The good/bad examples above are the difference.
+  </div>
+
+  <div class="section-divider">Primary motive</div>
+  <div class="field-hint" style="margin-bottom: 12px;">Which motive drives this population to share? This shapes which artifacts matter most.</div>
+
+  <div class="option-list" id="motive-list">
+    <div class="option-row" onclick="selectMotive(this, 'career')">
+      <div class="or-dot"></div>
+      <div class="or-content">
+        <div class="or-name">Career Signaling</div>
+        <div class="or-desc">They share to show professional growth, new skills, or career progression</div>
+      </div>
+    </div>
+    <div class="option-row" onclick="selectMotive(this, 'credibility')">
+      <div class="or-dot"></div>
+      <div class="or-content">
+        <div class="or-name">Professional Credibility</div>
+        <div class="or-desc">They share to establish or reinforce domain expertise</div>
+      </div>
+    </div>
+    <div class="option-row" onclick="selectMotive(this, 'recognition')">
+      <div class="or-dot"></div>
+      <div class="or-content">
+        <div class="or-name">Peer Recognition</div>
+        <div class="or-desc">They share because being recognized by peers validates their contributions</div>
+      </div>
+    </div>
+    <div class="option-row" onclick="selectMotive(this, 'economic')">
+      <div class="or-dot"></div>
+      <div class="or-content">
+        <div class="or-name">Economic Access</div>
+        <div class="or-desc">Visibility drives their business - partners, consultants, agencies</div>
+      </div>
+    </div>
+    <div class="option-row" onclick="selectMotive(this, 'belonging')">
+      <div class="or-dot"></div>
+      <div class="or-content">
+        <div class="or-name">Identity and Belonging</div>
+        <div class="or-desc">Being part of this community is part of their professional identity</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ============ SCREEN 3: SURFACES ============ -->
+<div class="step-screen hidden" id="screen-3">
+  <div class="progress-bar" id="progress-3"></div>
+  <div class="step-label">Step 3 of 7</div>
+  <div class="step-title">Map Your Activation Surfaces</div>
+  <div class="step-subtitle">
+    Where will participants share? For your first campaign, focus on 1-2
+    <span class="tip tip-light">signal surfaces<span class="tip-body"><span class="tip-title">Signal Surfaces</span>Network signals (LinkedIn, X) give immediate reach but decay in days. Authority signals (G2, reviews) give persistent discoverability. Your first campaign should prioritize immediate reach - you need proof the loop works, not a long-term signal strategy.<span class="tip-example">Developers share on Twitter and Reddit. Executives share on LinkedIn. Partners share wherever their clients are.</span></span></span>.
+    Don't spread thin.
+  </div>
+
+  <div class="example-callout" id="surface-example">
+    <div class="ec-label">First campaign pattern</div>
+    <div class="ec-text">
+      Start where your participants already post. If your cohort is <b>enterprise professionals</b>, that's LinkedIn.
+      If <b>developers</b>, that's Twitter and Reddit. If <b>partners</b>, that's LinkedIn plus their own client-facing channels.
+      <br><br>
+      Adding review sites (G2, TrustRadius) as a <b>secondary surface</b> creates persistent authority signals - but don't make it the primary ask for a first campaign. Prove activation first.
+    </div>
+  </div>
+
+  <div class="field-label" style="margin-bottom: 8px;">Primary surface</div>
+  <div class="option-list" id="primary-surface">
+    <div class="option-row" onclick="selectSurface(this, 'linkedin')">
+      <div class="or-dot"></div>
+      <div class="or-content">
+        <div class="or-name">LinkedIn</div>
+        <div class="or-desc">Highest B2B density. Professional identity signals. Strong cascade potential in industry clusters.</div>
+      </div>
+    </div>
+    <div class="option-row" onclick="selectSurface(this, 'twitter')">
+      <div class="or-dot"></div>
+      <div class="or-content">
+        <div class="or-name">X / Twitter</div>
+        <div class="or-desc">Fast spread in tech and developer communities. Lower conversion but broader discovery.</div>
+      </div>
+    </div>
+    <div class="option-row" onclick="selectSurface(this, 'community')">
+      <div class="or-dot"></div>
+      <div class="or-content">
+        <div class="or-name">Community Platform</div>
+        <div class="or-desc">Your own Slack, Discord, or forum. Highest intent, smallest reach.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider">Secondary surface (optional)</div>
+  <div class="chip-group" id="secondary-surfaces">
+    <div class="chip" onclick="toggleSecondary(this, 'g2')">G2 / Review Sites</div>
+    <div class="chip" onclick="toggleSecondary(this, 'reddit')">Reddit / Forums</div>
+    <div class="chip" onclick="toggleSecondary(this, 'blog')">Personal Blogs</div>
+    <div class="chip" onclick="toggleSecondary(this, 'internal')">Internal (Slack / Teams)</div>
+    <div class="chip" onclick="toggleSecondary(this, 'none')">None - single surface</div>
+  </div>
+
+  <div class="consequence">
+    Every additional surface doubles your content production effort. For your first campaign, one primary + one secondary is the sweet spot.
+  </div>
+</div>
+
+
+<!-- ============ SCREEN 4: ACTIVATION SEQUENCE ============ -->
+<div class="step-screen hidden" id="screen-4">
+  <div class="progress-bar" id="progress-4"></div>
+  <div class="step-label">Step 4 of 7</div>
+  <div class="step-title">Plan the Activation Sequence</div>
+  <div class="step-subtitle">
+    Your activation sequence starts inside the
+    <span class="tip tip-light">Belief Window<span class="tip-body"><span class="tip-title">Belief Window</span>The period of peak emotional investment after a completion moment. Activate inside the window, not after it closes.<span class="tip-example">Ask someone to share their certification 10 minutes after they pass? 23% say yes. Ask them a week later? 3% say yes. Same person - the window closed.</span></span></span>
+    and uses the
+    <span class="tip tip-light">Cohort Cascade<span class="tip-body"><span class="tip-title">Cohort Cascade</span>When one person in a cohort shares, it creates social permission for others. The first shares are hardest. Design your sequence to make early shares visible.<span class="tip-example">At a 200-person event, 8 share in the first hour. 34 more over the next 4 hours - most saw a colleague's post and followed.</span></span></span>
+    to multiply after the first shares.
+  </div>
+
+  <div class="example-callout">
+    <div class="ec-label">Recommended sequence</div>
+    <div class="ec-text" id="sequence-example">Loading...</div>
+  </div>
+
+  <div class="field-label" style="margin-bottom: 12px;">Check each step you can execute on launch day.</div>
+
+  <div class="checklist" id="sequence-checklist"></div>
+
+  <div class="consequence">
+    Every unchecked step is a gap. You don't need all five - but the first two (immediate delivery + cascade trigger) are non-negotiable.
+  </div>
+
+  <div class="section-divider">Cascade amplifier</div>
+  <div class="field-hint" style="margin-bottom: 12px;">How will you make early shares visible to the rest of the cohort?</div>
+
+  <div class="option-list" id="cascade-method">
+    <div class="option-row" onclick="selectCascade(this, 'feed')">
+      <div class="or-dot"></div>
+      <div class="or-content">
+        <div class="or-name">Live feed or wall</div>
+        <div class="or-desc">Show incoming shares on a screen, dashboard, or event page in real time</div>
+      </div>
+    </div>
+    <div class="option-row" onclick="selectCascade(this, 'notify')">
+      <div class="or-dot"></div>
+      <div class="or-content">
+        <div class="or-name">Peer notification</div>
+        <div class="or-desc">Email or in-app: "12 of your cohort already shared their experience"</div>
+      </div>
+    </div>
+    <div class="option-row" onclick="selectCascade(this, 'highlight')">
+      <div class="or-dot"></div>
+      <div class="or-content">
+        <div class="or-name">Highlight + amplify</div>
+        <div class="or-desc">Feature early shares from your company account. Others see it and want the same visibility.</div>
+      </div>
+    </div>
+    <div class="option-row" onclick="selectCascade(this, 'none')">
+      <div class="or-dot"></div>
+      <div class="or-content">
+        <div class="or-name">No cascade mechanism yet</div>
+        <div class="or-desc">Organic cascade only. Lower activation rate but simpler to execute.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ============ SCREEN 5: ANTI-PATTERNS ============ -->
+<div class="step-screen hidden" id="screen-5">
+  <div class="progress-bar" id="progress-5"></div>
+  <div class="step-label">Step 5 of 7</div>
+  <div class="step-title">Avoid the Five Campaign Killers</div>
+  <div class="step-subtitle">
+    These are the patterns that kill first ALG campaigns. Each one is common, predictable, and avoidable.
+    Review them now so you don't learn them the expensive way.
+  </div>
+
+  <div class="anti-card">
+    <div class="anti-name">1. The Obligation Ask</div>
+    <div class="anti-desc">
+      Framing the share as a favor to the company: "Help us spread the word!" or "Share this to support the brand."
+      This turns advocacy into obligation. The participant feels used, not valued. Even people who would have
+      shared voluntarily now feel the ask is transactional.
+    </div>
+    <div class="anti-impact">Impact: Activation rate drops 60-70%. Repeat advocacy drops to near zero. You've trained people that sharing = doing your marketing team's job for free.</div>
+  </div>
+
+  <div class="anti-card">
+    <div class="anti-name">2. The Closed Window</div>
+    <div class="anti-desc">
+      Activating after the Belief Window closes. Sending the "share your experience" email a week after the event.
+      By then, the experience has normalized into a memory. The emotional peak that makes sharing feel natural is gone.
+      You're asking someone to revisit an emotion they've already moved past.
+    </div>
+    <div class="anti-impact">Impact: Every 24 hours of delay costs roughly 40-60% of potential activation. A campaign triggered at T+7 days gets 3-5% activation vs. 15-25% at T+0.</div>
+  </div>
+
+  <div class="anti-card">
+    <div class="anti-name">3. The Generic Tile</div>
+    <div class="anti-desc">
+      Creating one branded social tile for everyone: "I attended Acme Summit 2026!" with the company logo dominant
+      and the participant's name nowhere in sight. There is no personal stake in sharing a company ad.
+      It's the digital equivalent of a branded tote bag - they'll take it but never display it.
+    </div>
+    <div class="anti-impact">Impact: Generic tiles get 5-8% activation vs. 18-25% for personalized artifacts. The people who do share feel like billboards, not advocates. They won't share again.</div>
+  </div>
+
+  <div class="anti-card">
+    <div class="anti-name">4. The Locked Message</div>
+    <div class="anti-desc">
+      Pre-written share text that can't be edited, or worse, that reads like corporate communications.
+      "We're thrilled to announce..." in a participant's voice sounds like a hostage video.
+      People need to make the message their own, or it violates their personal brand.
+    </div>
+    <div class="anti-impact">Impact: Locked messages feel inauthentic. LinkedIn's algorithm deprioritizes copy-paste content. Peers in the advocate's network can tell it's not their voice - trust transfer fails.</div>
+  </div>
+
+  <div class="anti-card">
+    <div class="anti-name">5. The Measurement Afterthought</div>
+    <div class="anti-desc">
+      Launching the campaign and then scrambling to figure out how to measure it. No UTM parameters on links.
+      No tracking on share buttons. No landing page for downstream traffic. You end up with anecdotes
+      ("I think people shared a lot!") instead of data ("47 shares generated 892 clicks and 3 demo requests").
+    </div>
+    <div class="anti-impact">Impact: Without data, you can't prove ROI. Without ROI, there's no budget for campaign two. The campaign might succeed but you'll never know - or be able to replicate it.</div>
+  </div>
+
+  <div class="consequence">
+    These five patterns account for 80% of first-campaign failures. If you can avoid all five, your campaign is already in the top quartile.
+  </div>
+</div>
+
+
+<!-- ============ SCREEN 6: OWNERSHIP + COMPLIANCE + PRODUCTION ============ -->
+<div class="step-screen hidden" id="screen-6">
+  <div class="progress-bar" id="progress-6"></div>
+  <div class="step-label">Step 6 of 7</div>
+  <div class="step-title">Ownership, Approvals, and Production</div>
+  <div class="step-subtitle">
+    ALG campaigns cross team boundaries. Unclear ownership is the number one reason first campaigns stall.
+    Three roles must be named. Approvals must be mapped. And everything must be ready <b>before</b> the completion moment fires.
+  </div>
+
+  <div class="example-callout">
+    <div class="ec-label">Ownership pattern</div>
+    <div class="ec-text">
+      <b>Who owns the moment</b> controls when the participant receives their artifact - they're the trigger.
+      <b>Who owns content</b> produces the artifacts (badges, stats, copy).
+      <b>Who owns measurement</b> sets up tracking before launch.
+      The common mistake: marketing assumes events will handle it. Events assumes marketing will handle it. Nobody handles it.
+    </div>
+  </div>
+
+  <div class="field-group">
+    <div class="field-label">Who owns the completion moment?</div>
+    <input class="field-input" id="owner-moment" type="text" placeholder="e.g., Events Team, Product Team, Community Manager">
+    <div class="field-hint">The person or team who controls when this moment happens and has access to participants</div>
+  </div>
+
+  <div class="field-group">
+    <div class="field-label">Who produces the share-ready artifacts?</div>
+    <input class="field-input" id="owner-content" type="text" placeholder="e.g., Brand Design, Marketing Ops, Growth Team">
+    <div class="field-hint">These must be ready BEFORE the completion moment - not scrambled together the morning of</div>
+  </div>
+
+  <div class="field-group">
+    <div class="field-label">Who owns measurement and tracking?</div>
+    <input class="field-input" id="owner-measurement" type="text" placeholder="e.g., Marketing Ops, Growth Analytics, Demand Gen">
+    <div class="field-hint">UTM parameters, share tracking, AQL attribution - this needs to be wired before launch</div>
+  </div>
+
+  <div class="section-divider">Approval chain</div>
+  <div class="field-hint" style="margin-bottom: 12px;">ALG campaigns use participant content and personal data. Check who needs to sign off.</div>
+
+  <div class="checklist" id="approval-checklist">
+    <div class="check-item" onclick="toggleCheck(this)" data-approval="brand">
+      <div class="check-box"></div>
+      <div class="check-text">
+        Brand / Creative review
+        <small>Badge designs, certificate templates, and co-branded assets meet brand guidelines</small>
+      </div>
+    </div>
+    <div class="check-item" onclick="toggleCheck(this)" data-approval="legal">
+      <div class="check-box"></div>
+      <div class="check-text">
+        Legal review
+        <small>Participant data usage, photo/likeness rights, user-generated content terms</small>
+      </div>
+    </div>
+    <div class="check-item" onclick="toggleCheck(this)" data-approval="privacy">
+      <div class="check-box"></div>
+      <div class="check-text">
+        Privacy / Compliance
+        <small>GDPR consent for personalization, data retention for tracking, opt-out mechanisms</small>
+      </div>
+    </div>
+    <div class="check-item" onclick="toggleCheck(this)" data-approval="exec">
+      <div class="check-box"></div>
+      <div class="check-text">
+        Executive sponsor sign-off
+        <small>VP/Director who can defend the budget and approach if questions arise</small>
+      </div>
+    </div>
+    <div class="check-item" onclick="toggleCheck(this)" data-approval="na">
+      <div class="check-box"></div>
+      <div class="check-text">
+        Not applicable - we have autonomy to launch
+        <small>Small team or startup where approval chains don't apply</small>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider">Production calendar</div>
+  <div class="field-hint" style="margin-bottom: 12px;">Working backward from your campaign date, here's when each piece needs to be ready.</div>
+
+  <div id="production-calendar">
+    <!-- Populated dynamically based on campaign date -->
+  </div>
+
+  <div class="consequence">
+    If any production milestone lands in the past, you either need to move your campaign date or accept that item won't be ready. Launching without artifacts and tracking is worse than launching late.
+  </div>
+</div>
+
+
+<!-- ============ SCREEN 7: TARGETS ============ -->
+<div class="step-screen hidden" id="screen-7">
+  <div class="progress-bar" id="progress-7"></div>
+  <div class="step-label">Step 7 of 7</div>
+  <div class="step-title">Set Your Targets</div>
+  <div class="step-subtitle">
+    ALG measurement uses three variables. Based on your <b id="moment-name-display">selected moment</b>,
+    we've pre-set recommended starting targets. Adjust if you have reason to - but these are calibrated for first campaigns.
+  </div>
+
+  <div class="example-callout" id="target-recommendation">
+    <div class="ec-label">Recommended for your moment type</div>
+    <div class="ec-text" id="target-rec-text">Select a moment type on Screen 1 to see recommendations.</div>
+  </div>
+
+  <div class="range-group">
+    <div class="range-header">
+      <div class="field-label" style="margin-bottom:0">
+        <span class="tip tip-light">Activation Rate (A)<span class="tip-body"><span class="tip-title">Activation Rate</span>What percentage of a cohort shares at the completion moment? This is the core ALG operating variable. It's equivalent to email open rates or PLG activation rates.<span class="tip-example">200 people attend your event. 30 share on LinkedIn within 48 hours. Activation rate: 15%.</span></span></span>
+      </div>
+      <div class="range-value" id="a-value">15%</div>
+    </div>
+    <input type="range" id="a-rate" min="3" max="35" value="15" step="1" oninput="updateRange('a')">
+    <div class="range-labels"><span>3% (no artifacts)</span><span>35% (optimized)</span></div>
+    <div class="range-rec" id="a-rec"></div>
+  </div>
+
+  <div class="range-group">
+    <div class="range-header">
+      <div class="field-label" style="margin-bottom:0">
+        <span class="tip tip-light">Average Reach per Share (R)<span class="tip-body"><span class="tip-title">Reach Multiplier</span>How many unique people does each share reach? This is your advocate's network, not your company's followers. That's the whole point of 1:1:N.<span class="tip-example">A mid-career professional's LinkedIn post reaches ~1,200 unique views. A senior executive's reaches ~3,500.</span></span></span>
+      </div>
+      <div class="range-value" id="r-value">1,200</div>
+    </div>
+    <input type="range" id="r-reach" min="200" max="5000" value="1200" step="100" oninput="updateRange('r')">
+    <div class="range-labels"><span>200 (junior ICs)</span><span>5,000 (executives)</span></div>
+    <div class="range-rec" id="r-rec"></div>
+  </div>
+
+  <div class="range-group">
+    <div class="range-header">
+      <div class="field-label" style="margin-bottom:0">
+        <span class="tip tip-light">Click-Through Rate (C)<span class="tip-body"><span class="tip-title">Conversion Rate</span>What percentage of reached people click? Trust-based distribution converts 2-3x higher than paid because the referral comes from a known contact.<span class="tip-example">1,200 people see the share. 36 click (3% CTR). 4 fill a form (0.3%). That's the 1:1:N funnel.</span></span></span>
+      </div>
+      <div class="range-value" id="c-value">2.5%</div>
+    </div>
+    <input type="range" id="c-rate" min="0.5" max="6" value="2.5" step="0.1" oninput="updateRange('c')">
+    <div class="range-labels"><span>0.5% (cold)</span><span>6% (high intent)</span></div>
+    <div class="range-rec" id="c-rec"></div>
+  </div>
+
+  <div class="example-callout">
+    <div class="ec-label">Your projection</div>
+    <div class="ec-text" id="live-projection">Enter your cohort size on Screen 1 to see projections.</div>
+  </div>
+
+  <div class="section-divider">Success criteria</div>
+  <div class="field-hint" style="margin-bottom: 12px;">What makes this first campaign a success? The real win is data for campaign two.</div>
+
+  <div class="checklist" id="success-checklist">
+    <div class="check-item" onclick="toggleCheck(this)" data-success="activation">
+      <div class="check-box"></div>
+      <div class="check-text">Hit target activation rate<small>The core ALG metric. Did the cohort share at the rate you projected?</small></div>
+    </div>
+    <div class="check-item" onclick="toggleCheck(this)" data-success="aql1">
+      <div class="check-box"></div>
+      <div class="check-text">Generate AQL-1s (shares with downstream clicks)<small>Proves the 1:1:N chain works - advocates' shares reach and engage new people.</small></div>
+    </div>
+    <div class="check-item" onclick="toggleCheck(this)" data-success="aql3">
+      <div class="check-box"></div>
+      <div class="check-text">Generate AQL-3s (shares that drive pipeline)<small>Ambitious for campaign one. Track it even if numbers are small.</small></div>
+    </div>
+    <div class="check-item" onclick="toggleCheck(this)" data-success="emv">
+      <div class="check-box"></div>
+      <div class="check-text">EMV exceeds campaign cost<small>Total impressions x $50 CPM. Shows ALG's economic advantage vs. paid.</small></div>
+    </div>
+    <div class="check-item" onclick="toggleCheck(this)" data-success="repeat">
+      <div class="check-box"></div>
+      <div class="check-text">Identify repeat advocate candidates<small>The 5-10% who shared most. These seed your cascade in campaign two.</small></div>
+    </div>
+    <div class="check-item" onclick="toggleCheck(this)" data-success="baseline">
+      <div class="check-box"></div>
+      <div class="check-text">Establish real A/R/C baselines<small>The biggest win: real numbers to forecast from, not assumptions.</small></div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ============ RESULTS ============ -->
+<div class="results-screen hidden" id="screen-results">
+  <div class="results-header">
+    <div class="step-label">Your First Campaign Brief</div>
+    <div class="score-circle">
+      <div class="score-number" id="readiness-score">--</div>
+      <div class="score-label">Launch Readiness</div>
+    </div>
+    <div class="score-grade" id="readiness-grade">--</div>
+  </div>
+
+  <div class="result-card">
+    <div class="rc-header">Campaign Summary</div>
+    <table class="brief-table" id="brief-summary"></table>
+  </div>
+
+  <div class="result-card">
+    <div class="rc-header">Activation Timeline</div>
+    <div class="timeline" id="results-timeline"></div>
+  </div>
+
+  <div class="result-card">
+    <div class="rc-header">Campaign Projections</div>
+    <div class="rc-text" id="projection-narrative" style="margin-bottom: 12px;"></div>
+    <table class="proj-table" id="projection-table"></table>
+  </div>
+
+  <div class="result-card">
+    <div class="rc-header">Production Calendar</div>
+    <div id="results-production"></div>
+  </div>
+
+  <div class="result-card">
+    <div class="rc-header">Launch Readiness</div>
+    <div id="readiness-list"></div>
+  </div>
+
+  <div class="result-card" id="gaps-card" style="display:none;">
+    <div class="rc-header">Gaps to Close Before Launch</div>
+    <div id="gaps-list"></div>
+  </div>
+
+  <div class="result-card">
+    <div class="rc-header">After Your First Campaign</div>
+    <div class="rc-text" id="next-steps"></div>
+  </div>
+</div>
+
+
+<!-- ============ NAV BAR ============ -->
+<div class="nav-bar hidden" id="nav-bar">
+  <button class="btn-back" onclick="goBack()">&#8592; Back</button>
+  <button class="btn-next" onclick="goNext()">Continue &#8594;</button>
+</div>
+
+
+<script>
+// ============ STATE ============
+let currentScreen = 0;
+const totalSteps = 7;
+let state = {
+  moment: null, campaignName: '', cohortSize: 0, campaignDate: '',
+  artifacts: [], motive: null, primarySurface: null, secondarySurfaces: [],
+  sequenceChecks: [], cascadeMethod: null,
+  ownerMoment: '', ownerContent: '', ownerMeasurement: '',
+  approvals: [], readiness: [],
+  aRate: 15, rReach: 1200, cRate: 2.5,
+  successCriteria: []
+};
+
+// ============ MOMENT DEFAULTS & DATA ============
+const momentDefaults = {
+  event:         { a: 15, r: 1500, c: 2.8, aLabel: '12-18% typical for events with personalized artifacts', rLabel: '~1,500 for mixed-seniority B2B event cohorts', cLabel: '2.5-3% for trust-based event shares' },
+  certification: { a: 22, r: 1200, c: 3.2, aLabel: '20-30% typical - certifications have the strongest share impulse', rLabel: '~1,200 for professional/technical populations', cLabel: '3-3.5% - credential shares carry high trust' },
+  deployment:    { a: 10, r: 2200, c: 2.0, aLabel: '8-15% typical - deployment shares need internal champion buy-in', rLabel: '~2,200 for decision-maker / manager cohorts', cLabel: '1.5-2.5% - technical audience, lower casual clicks' },
+  community:     { a: 18, r: 900,  c: 3.5, aLabel: '15-22% typical for engaged community members', rLabel: '~900 for niche community populations', cLabel: '3-4% - high relevance within professional niche' },
+  onboarding:    { a: 7,  r: 1400, c: 2.0, aLabel: '5-10% typical - onboarding has the narrowest Belief Window', rLabel: '~1,400 for new-user populations', cLabel: '1.5-2.5% - audience may not be pre-qualified' },
+  partner:       { a: 24, r: 2800, c: 2.5, aLabel: '18-28% typical - partners have economic motive to share', rLabel: '~2,800 for partner/agency decision-makers', cLabel: '2-3% - partner networks are curated but large' }
+};
+
+const momentLabels = {
+  event: 'Event Completion', certification: 'Certification Earned', deployment: 'Product Milestone',
+  community: 'Community Achievement', onboarding: 'Onboarding Complete', partner: 'Partner Milestone'
+};
+
+const momentWindows = {
+  event: '2-6 hours', certification: '12-48 hours', deployment: '24-72 hours',
+  community: '4-24 hours', onboarding: '2-12 hours', partner: '24-72 hours'
+};
+
+const momentSequences = {
+  event: {
+    example: 'A 200-person conference ends at 5pm. At <b>5:05pm</b>, every attendee receives a personalized stats card: sessions attended, connections made, top moment. By <b>5:30pm</b>, 12 people have shared on LinkedIn. A live wall at the after-party shows these posts. By <b>9pm</b>, 34 total shares. The Belief Window closes overnight - but 17% activation is already locked in.',
+    steps: [
+      { time: 'T+0 (event ends)', action: 'Deliver share-ready artifacts', detail: 'Badge, stats card, or highlight reel appears in the event app or post-session email. Not a separate ask - it arrives automatically at the moment of completion.' },
+      { time: 'T+30 min', action: 'Trigger cascade visibility', detail: 'Show early shares on the event screen, in the app, or via community channel. Others see peers sharing and join.' },
+      { time: 'T+2 hrs', action: 'Send personal follow-up', detail: 'Email with their personalized recap, photos, and share-ready content. Subject line references their specific sessions.' },
+      { time: 'T+24 hrs', action: 'Social proof nudge', detail: '"47 of your fellow attendees shared their experience" - peer pressure with exact numbers, not vague asks.' },
+      { time: 'T+3 days', action: 'Recognition amplification', detail: 'Feature top shares from your brand account. Public recognition feeds willingness in the next campaign.' }
+    ]
+  },
+  certification: {
+    example: 'A developer passes certification at <b>2:14pm</b>. The results page shows their score, a personalized badge, and a "Share on LinkedIn" button with pre-written text. They click, edit slightly, post. Their badge shows up in <b>43 feeds</b> of other developers. By <b>6pm</b>, 8 of the 35-person cohort have shared. By the <b>next morning</b>, 12 total - a 34% activation rate.',
+    steps: [
+      { time: 'T+0 (pass)', action: 'Instant credential delivery', detail: 'Badge and certificate appear on the results screen. Share buttons embedded in the congratulations flow, not in a follow-up email.' },
+      { time: 'T+5 min', action: 'LinkedIn-ready badge + draft post', detail: 'One-click flow to LinkedIn with editable first-person text and badge image attached.' },
+      { time: 'T+2 hrs', action: 'Cohort notification', detail: 'If others in the batch passed, notify: "You and 23 others earned this today." Cohort identity drives cascade.' },
+      { time: 'T+24 hrs', action: 'Profile integration prompt', detail: 'Credly/Accredible badge ready to add to LinkedIn profile permanently.' },
+      { time: 'T+48 hrs', action: 'Manager visibility', detail: 'Optional: notify their manager with a congratulations template. Managers often amplify by resharing.' }
+    ]
+  },
+  deployment: {
+    example: 'An enterprise team goes live <b>Monday morning</b>. At <b>11am</b>, the project lead sees: deployed in 6 weeks, 340 users onboarded, 98.7% uptime. A "Share your team\'s achievement" button generates a LinkedIn card. They post it. Their CTO reshares. <b>Two project leads</b> in the CTO\'s network ask for demos. That\'s an AQL-3.',
+    steps: [
+      { time: 'T+0 (go-live)', action: 'Milestone achievement notification', detail: 'In-app celebration with shareable stats: deployment time, team size, features activated. Their specific numbers.' },
+      { time: 'T+1 hr', action: 'Share-ready case snapshot', detail: 'Auto-generated social card: "We deployed [Product] in [X days] across [Y users]." Positioned as their team\'s win.' },
+      { time: 'T+24 hrs', action: 'Success story prompt', detail: 'Email from CS: "Your deployment is live! Here\'s a shareable summary of what your team accomplished."' },
+      { time: 'T+48 hrs', action: 'Review site nudge', detail: 'Prompt to leave a G2/TrustRadius review while the deployment experience is fresh. Authority signal layer.' },
+      { time: 'T+7 days', action: 'First-week impact report', detail: 'Quantified results: uptime, adoption, engagement. Gives the champion data for internal visibility and external sharing.' }
+    ]
+  },
+  community: {
+    example: 'A community member completes a 30-day challenge and <b>finishes in the top 10%</b>. They get a badge and stats card: contributions, streak length, peer ranking. They post to LinkedIn. <b>Three people</b> in their network ask about the community. One joins the next challenge cohort. The loop begins again.',
+    steps: [
+      { time: 'T+0 (achievement)', action: 'Achievement unlocked notification', detail: 'In-community celebration: badge earned, challenge completed, milestone hit. Visual, personal, shareable.' },
+      { time: 'T+10 min', action: 'Share-ready artifact delivery', detail: 'Auto-generated social card with their achievement, community stats, and peer ranking.' },
+      { time: 'T+2 hrs', action: 'Leaderboard update', detail: 'Community leaderboard refreshes with their name. Creates organic sharing motivation.' },
+      { time: 'T+12 hrs', action: 'Cohort recognition', detail: '"This week\'s top contributors" post. Public recognition within community fuels external sharing.' },
+      { time: 'T+24 hrs', action: 'External sharing prompt', detail: 'For challenge completions: "Your results are ready to share." Timed for the morning after, when people post to LinkedIn.' }
+    ]
+  },
+  onboarding: {
+    example: 'A new customer finishes onboarding at <b>10am Tuesday</b>. Completion screen shows: setup time (3 days faster than average), 12 team members active, first workflow running. A "Share your launch" button generates a LinkedIn card. The project manager posts it. Their VP of Ops sees it and sends it to a peer. That\'s a warm introduction sales never had to make.',
+    steps: [
+      { time: 'T+0 (complete)', action: 'First success celebration', detail: 'Completion screen with their specific stats: time to first value, features activated, initial results.' },
+      { time: 'T+15 min', action: 'Share-ready "We\'re live" card', detail: 'Social template: "We just went live with [Product]." Positioned as their team\'s win, not your product launch.' },
+      { time: 'T+4 hrs', action: 'Quick win highlight', detail: 'Email showing first measurable result: "Your first 4 hours: [X] processed, [Y] saved."' },
+      { time: 'T+24 hrs', action: 'New user cohort visibility', detail: 'Show others who onboarded this week. Weaker cohort identity but still helps.' },
+      { time: 'T+7 days', action: 'First-week impact report', detail: 'Quantified results email. If numbers are strong, sharing becomes a team celebration.' }
+    ]
+  },
+  partner: {
+    example: 'A consulting firm achieves Gold Partner status. Within an hour, they receive <b>a co-branded announcement kit</b>: social tiles, press release template, badge. Their CEO posts on LinkedIn - not because you asked, but because Gold status means <b>more credibility with prospects</b>. The post reaches 4,200 connections. Three decision-makers click through.',
+    steps: [
+      { time: 'T+0 (milestone)', action: 'Tier achievement notification', detail: 'Partner portal congratulations with new badge, co-branded assets, and updated profile.' },
+      { time: 'T+1 hr', action: 'Co-branded announcement kit', detail: 'Press-release template, social cards, email announcement for their client base. All co-branded.' },
+      { time: 'T+24 hrs', action: 'Joint visibility', detail: 'Feature them in your partner directory, newsletter, or social channels. Reciprocal visibility drives sharing.' },
+      { time: 'T+48 hrs', action: 'Client-facing share prompt', detail: 'Template for their client newsletter: "We\'ve achieved [tier], which means [benefit to clients]."' },
+      { time: 'T+7 days', action: 'Co-marketing activation', detail: 'Joint webinar, case study, or blog post opportunity. Creates another completion moment.' }
+    ]
+  }
+};
+
+
+// ============ NAVIGATION ============
+function goTo(screen) {
+  document.querySelectorAll('.screen, .step-screen, .results-screen').forEach(s => s.classList.add('hidden'));
+  currentScreen = screen;
+
+  if (screen === 0) {
+    document.getElementById('screen-intro').classList.remove('hidden');
+    document.getElementById('nav-bar').classList.add('hidden');
+  } else if (screen <= totalSteps) {
+    document.getElementById('screen-' + screen).classList.remove('hidden');
+    document.getElementById('nav-bar').classList.remove('hidden');
+    updateProgress(screen);
+    if (screen === 4) populateSequence();
+    if (screen === 6) populateProductionCalendar();
+    if (screen === 7) applySmartDefaults();
+  } else {
+    document.getElementById('screen-results').classList.remove('hidden');
+    document.getElementById('nav-bar').classList.add('hidden');
+    generateResults();
+  }
+  window.scrollTo(0, 0);
+}
+
+function goBack() { saveScreenState(); goTo(currentScreen > 1 ? currentScreen - 1 : 0); }
+function goNext() { saveScreenState(); goTo(currentScreen + 1); }
+
+function updateProgress(step) {
+  for (let i = 1; i <= totalSteps; i++) {
+    const bar = document.getElementById('progress-' + i);
+    if (bar) {
+      let html = '';
+      for (let j = 1; j <= totalSteps; j++) {
+        let cls = 'progress-dot';
+        if (j < step) cls += ' done';
+        else if (j === step) cls += ' active';
+        html += `<div class="${cls}"></div>`;
+      }
+      bar.innerHTML = html;
+    }
+  }
+}
+
+function saveScreenState() {
+  state.campaignName = document.getElementById('campaign-name')?.value || state.campaignName;
+  state.cohortSize = parseInt(document.getElementById('cohort-size')?.value) || state.cohortSize;
+  state.campaignDate = document.getElementById('campaign-date')?.value || state.campaignDate;
+  state.ownerMoment = document.getElementById('owner-moment')?.value || state.ownerMoment;
+  state.ownerContent = document.getElementById('owner-content')?.value || state.ownerContent;
+  state.ownerMeasurement = document.getElementById('owner-measurement')?.value || state.ownerMeasurement;
+  state.aRate = parseInt(document.getElementById('a-rate')?.value) || state.aRate;
+  state.rReach = parseInt(document.getElementById('r-reach')?.value) || state.rReach;
+  state.cRate = parseFloat(document.getElementById('c-rate')?.value) || state.cRate;
+
+  state.artifacts = []; document.querySelectorAll('.check-item.checked[data-artifact]').forEach(el => state.artifacts.push(el.dataset.artifact));
+  state.approvals = []; document.querySelectorAll('.check-item.checked[data-approval]').forEach(el => state.approvals.push(el.dataset.approval));
+  state.sequenceChecks = []; document.querySelectorAll('#sequence-checklist .check-item.checked').forEach(el => state.sequenceChecks.push(el.dataset.step));
+  state.successCriteria = []; document.querySelectorAll('#success-checklist .check-item.checked').forEach(el => state.successCriteria.push(el.dataset.success));
+}
+
+// ============ INTERACTIONS ============
+function selectMoment(el, moment) {
+  document.querySelectorAll('#moment-grid .option-card').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  state.moment = moment;
+}
+
+function selectMotive(el, motive) {
+  document.querySelectorAll('#motive-list .option-row').forEach(r => r.classList.remove('selected'));
+  el.classList.add('selected');
+  state.motive = motive;
+}
+
+function selectSurface(el, surface) {
+  document.querySelectorAll('#primary-surface .option-row').forEach(r => r.classList.remove('selected'));
+  el.classList.add('selected');
+  state.primarySurface = surface;
+}
+
+function toggleSecondary(el, surface) {
+  if (surface === 'none') {
+    document.querySelectorAll('#secondary-surfaces .chip').forEach(c => c.classList.remove('selected'));
+    el.classList.add('selected');
+    state.secondarySurfaces = ['none'];
+    return;
+  }
+  document.querySelectorAll('#secondary-surfaces .chip').forEach(c => { if (c.textContent.includes('None')) c.classList.remove('selected'); });
+  state.secondarySurfaces = state.secondarySurfaces.filter(s => s !== 'none');
+  el.classList.toggle('selected');
+  if (el.classList.contains('selected')) state.secondarySurfaces.push(surface);
+  else state.secondarySurfaces = state.secondarySurfaces.filter(s => s !== surface);
+}
+
+function selectCascade(el, method) {
+  document.querySelectorAll('#cascade-method .option-row').forEach(r => r.classList.remove('selected'));
+  el.classList.add('selected');
+  state.cascadeMethod = method;
+}
+
+function toggleCheck(el) { el.classList.toggle('checked'); }
+
+function updateRange(type) {
+  if (type === 'a') { const v = document.getElementById('a-rate').value; document.getElementById('a-value').textContent = v + '%'; state.aRate = parseInt(v); }
+  else if (type === 'r') { const v = document.getElementById('r-reach').value; document.getElementById('r-value').textContent = parseInt(v).toLocaleString(); state.rReach = parseInt(v); }
+  else if (type === 'c') { const v = document.getElementById('c-rate').value; document.getElementById('c-value').textContent = parseFloat(v).toFixed(1) + '%'; state.cRate = parseFloat(v); }
+  updateLiveProjection();
+}
+
+// ============ SMART DEFAULTS ============
+let defaultsApplied = false;
+
+function applySmartDefaults() {
+  const m = state.moment || 'event';
+  const d = momentDefaults[m];
+
+  document.getElementById('moment-name-display').textContent = momentLabels[m] || 'selected moment';
+
+  document.getElementById('target-rec-text').innerHTML =
+    `For <b>${momentLabels[m]}</b> campaigns: expect <b>${d.a}%</b> activation with good artifacts,
+     <b>${d.r.toLocaleString()}</b> average reach per share, and <b>${d.c}%</b> click-through rate.
+     These are first-campaign conservative targets. Your second campaign will use real data from this one.`;
+
+  // Only auto-set sliders if defaults haven't been manually overridden
+  if (!defaultsApplied) {
+    document.getElementById('a-rate').value = d.a;
+    document.getElementById('a-value').textContent = d.a + '%';
+    state.aRate = d.a;
+
+    document.getElementById('r-reach').value = d.r;
+    document.getElementById('r-value').textContent = d.r.toLocaleString();
+    state.rReach = d.r;
+
+    document.getElementById('c-rate').value = d.c;
+    document.getElementById('c-value').textContent = d.c.toFixed(1) + '%';
+    state.cRate = d.c;
+
+    defaultsApplied = true;
+  }
+
+  document.getElementById('a-rec').textContent = d.aLabel;
+  document.getElementById('r-rec').textContent = d.rLabel;
+  document.getElementById('c-rec').textContent = d.cLabel;
+
+  updateLiveProjection();
+}
+
+// ============ DYNAMIC CONTENT ============
+function populateSequence() {
+  const m = state.moment || 'event';
+  const data = momentSequences[m];
+  document.getElementById('sequence-example').innerHTML = data.example;
+
+  const container = document.getElementById('sequence-checklist');
+  container.innerHTML = '';
+  data.steps.forEach((step, i) => {
+    const checked = state.sequenceChecks.includes('step-' + i) ? ' checked' : '';
+    container.innerHTML += `
+      <div class="check-item${checked}" onclick="toggleCheck(this)" data-step="step-${i}">
+        <div class="check-box"></div>
+        <div class="check-text"><b>${step.time}:</b> ${step.action}<small>${step.detail}</small></div>
+      </div>`;
+  });
+}
+
+function populateProductionCalendar() {
+  const container = document.getElementById('production-calendar');
+  const dateStr = state.campaignDate;
+  let campaignDate = dateStr ? new Date(dateStr) : null;
+  const today = new Date();
+
+  if (!campaignDate || isNaN(campaignDate.getTime())) {
+    container.innerHTML = '<div style="color:var(--gray);font-size:13px;padding:12px 0;">Set your campaign date on Screen 1 to see the production calendar.</div>';
+    return;
+  }
+
+  const fmt = (d) => d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+  const addDays = (d, n) => { const r = new Date(d); r.setDate(r.getDate() + n); return r; };
+
+  const milestones = [
+    { offset: -28, label: 'W-4', tasks: [
+      { text: 'Brief all three owners (moment, content, measurement)', owner: 'Campaign Lead' },
+      { text: 'Get approval chain started (brand, legal, privacy)', owner: 'Campaign Lead' },
+      { text: 'Define tracking requirements and UTM structure', owner: 'Measurement' }
+    ]},
+    { offset: -21, label: 'W-3', tasks: [
+      { text: 'Begin artifact production (badge design, stats template)', owner: 'Content' },
+      { text: 'Set up share tracking and landing page', owner: 'Measurement' },
+      { text: 'Draft share text variants (2-3 options, first person)', owner: 'Content' }
+    ]},
+    { offset: -14, label: 'W-2', tasks: [
+      { text: 'Artifacts designed and in approval review', owner: 'Content + Brand' },
+      { text: 'Activation email/notification templates built', owner: 'Moment Owner' },
+      { text: 'Cascade mechanism configured (feed, notifications, etc.)', owner: 'Moment Owner' }
+    ]},
+    { offset: -7, label: 'W-1', tasks: [
+      { text: 'All approvals complete. Artifacts finalized.', owner: 'Campaign Lead' },
+      { text: 'End-to-end test: trigger > delivery > share > track', owner: 'All Owners' },
+      { text: 'Brief customer-facing teams (CS, AM) on the campaign', owner: 'Campaign Lead' }
+    ]},
+    { offset: 0, label: 'LAUNCH', tasks: [
+      { text: 'Completion moment fires. Artifacts deliver automatically.', owner: 'Moment Owner' },
+      { text: 'Monitor shares and activate cascade mechanism', owner: 'Content' },
+      { text: 'Track AQLs and downstream clicks in real time', owner: 'Measurement' }
+    ]},
+    { offset: 7, label: 'W+1', tasks: [
+      { text: 'Compile results: activation rate, reach, AQLs, EMV', owner: 'Measurement' },
+      { text: 'Identify top advocates for campaign two', owner: 'Campaign Lead' },
+      { text: 'Debrief with all owners: what worked, what didn\'t', owner: 'Campaign Lead' }
+    ]}
+  ];
+
+  let html = '';
+  milestones.forEach(ms => {
+    const msDate = addDays(campaignDate, ms.offset);
+    const isPast = msDate < today && ms.offset < 0;
+    const isLaunch = ms.offset === 0;
+    html += `<div class="prod-item" style="${isPast ? 'opacity:0.5;' : ''}${isLaunch ? 'background:var(--red-light);margin:0 -16px;padding:12px 16px;border-radius:8px;' : ''}">
+      <div class="prod-week" style="${isLaunch ? 'color:var(--red);font-weight:700;' : ''}">${ms.label}<br><span style="font-size:9px;color:var(--gray-light)">${fmt(msDate)}</span>${isPast ? '<br><span style="font-size:8px;color:var(--red)">PAST</span>' : ''}</div>
+      <div class="prod-tasks">`;
+    ms.tasks.forEach(t => {
+      html += `<div class="prod-task">${t.text} <span class="prod-owner">${t.owner}</span></div>`;
+    });
+    html += '</div></div>';
+  });
+
+  container.innerHTML = html;
+}
+
+function updateLiveProjection() {
+  const cohort = state.cohortSize || parseInt(document.getElementById('cohort-size')?.value) || 0;
+  const a = state.aRate / 100;
+  const r = state.rReach;
+  const c = state.cRate / 100;
+
+  if (cohort === 0) {
+    document.getElementById('live-projection').innerHTML = 'Enter your cohort size on Screen 1 to see projections here.';
+    return;
+  }
+
+  const advocates = Math.round(cohort * a);
+  const totalReach = advocates * r;
+  const clicks = Math.round(totalReach * c);
+  const emv = Math.round(totalReach / 1000 * 50);
+
+  document.getElementById('live-projection').innerHTML =
+    `<b>${cohort.toLocaleString()}</b> participants x <b>${state.aRate}%</b> activation = <b>${advocates.toLocaleString()}</b> advocates.<br>
+     ${advocates.toLocaleString()} advocates x <b>${r.toLocaleString()}</b> avg reach = <b>${totalReach.toLocaleString()}</b> impressions.<br>
+     ${totalReach.toLocaleString()} impressions x <b>${state.cRate}%</b> CTR = <b>${clicks.toLocaleString()}</b> click-throughs.<br><br>
+     Equivalent Media Value at $50 CPM: <b>$${emv.toLocaleString()}</b>.`;
+}
+
+
+// ============ RESULTS ============
+function generateResults() {
+  saveScreenState();
+  const m = state.moment || 'event';
+  const data = momentSequences[m];
+  const cohort = state.cohortSize || 100;
+  const a = state.aRate / 100;
+  const r = state.rReach;
+  const c = state.cRate / 100;
+
+  // Score
+  let score = 0;
+  if (state.moment) score += 10;
+  score += Math.min(state.artifacts.length * 4, 20);
+  if (state.motive) score += 8;
+  if (state.primarySurface) score += 8;
+  score += Math.min(state.sequenceChecks.length * 3, 15);
+  if (state.cascadeMethod && state.cascadeMethod !== 'none') score += 5;
+  if (state.ownerMoment) score += 4;
+  if (state.ownerContent) score += 4;
+  if (state.ownerMeasurement) score += 4;
+  score += Math.min(state.approvals.length * 2, 8);
+  if (state.campaignName) score += 2;
+  if (state.campaignDate) score += 2;
+  score += Math.min(state.successCriteria.length * 2, 10);
+  score = Math.min(Math.round(score), 100);
+
+  document.getElementById('readiness-score').textContent = score;
+  const gradeEl = document.getElementById('readiness-grade');
+  if (score >= 75) { gradeEl.textContent = 'Ready to launch'; gradeEl.className = 'score-grade grade-high'; }
+  else if (score >= 50) { gradeEl.textContent = 'Close - gaps to address'; gradeEl.className = 'score-grade grade-mid'; }
+  else { gradeEl.textContent = 'Needs more planning'; gradeEl.className = 'score-grade grade-low'; }
+
+  // Summary
+  const motiveLabels = { career: 'Career Signaling', credibility: 'Professional Credibility', recognition: 'Peer Recognition', economic: 'Economic Access', belonging: 'Identity & Belonging' };
+  const surfaceMap = { linkedin: 'LinkedIn', twitter: 'X / Twitter', community: 'Community Platform', g2: 'G2 / Review Sites', reddit: 'Reddit / Forums', blog: 'Personal Blogs', internal: 'Internal (Slack/Teams)', none: 'Single surface' };
+  const cascadeMap = { feed: 'Live feed / wall', notify: 'Peer notification', highlight: 'Highlight + amplify', none: 'Organic only' };
+  const secText = state.secondarySurfaces.length > 0 ? state.secondarySurfaces.map(s => surfaceMap[s] || s).join(', ') : 'None';
+
+  document.getElementById('brief-summary').innerHTML = `
+    <tr><td>Campaign</td><td>${state.campaignName || 'Unnamed'}</td></tr>
+    <tr><td>Date</td><td>${state.campaignDate || 'TBD'}</td></tr>
+    <tr><td>Moment Type</td><td>${momentLabels[m]}</td></tr>
+    <tr><td>Belief Window</td><td>${momentWindows[m]}</td></tr>
+    <tr><td>Cohort Size</td><td>${cohort.toLocaleString()}</td></tr>
+    <tr><td>Artifacts</td><td>${state.artifacts.length > 0 ? state.artifacts.length + ' designed' : 'None selected'}</td></tr>
+    <tr><td>Primary Motive</td><td>${motiveLabels[state.motive] || 'Not set'}</td></tr>
+    <tr><td>Primary Surface</td><td>${surfaceMap[state.primarySurface] || 'Not set'}</td></tr>
+    <tr><td>Secondary</td><td>${secText}</td></tr>
+    <tr><td>Cascade</td><td>${cascadeMap[state.cascadeMethod] || 'Not set'}</td></tr>
+    <tr><td>Moment Owner</td><td>${state.ownerMoment || 'Not assigned'}</td></tr>
+    <tr><td>Content Owner</td><td>${state.ownerContent || 'Not assigned'}</td></tr>
+    <tr><td>Measurement</td><td>${state.ownerMeasurement || 'Not assigned'}</td></tr>`;
+
+  // Timeline
+  const tl = document.getElementById('results-timeline');
+  tl.innerHTML = '';
+  data.steps.forEach((step, i) => {
+    const ok = state.sequenceChecks.includes('step-' + i);
+    tl.innerHTML += `<div class="tl-item">
+      <div class="tl-dot" style="${ok ? '' : 'opacity:0.4'}"><div class="tl-dot-inner"></div></div>
+      <div class="tl-content">
+        <div class="tl-time">${step.time}${ok ? '' : ' <span style="color:var(--amber);font-size:9px">(GAP)</span>'}</div>
+        <div class="tl-action">${step.action}</div>
+        <div class="tl-detail">${step.detail.substring(0, 140)}${step.detail.length > 140 ? '...' : ''}</div>
+      </div></div>`;
+  });
+
+  // Projections
+  const advocates = Math.round(cohort * a);
+  const totalReach = advocates * r;
+  const clicks = Math.round(totalReach * c);
+  const formFills = Math.round(clicks * 0.12);
+  const emv = Math.round(totalReach / 1000 * 50);
+
+  document.getElementById('projection-narrative').innerHTML =
+    `Based on <b>${momentLabels[m]}</b> benchmarks: <b>${state.aRate}%</b> activation, <b>${r.toLocaleString()}</b> reach, <b>${state.cRate}%</b> CTR.`;
+
+  document.getElementById('projection-table').innerHTML = `
+    <thead><tr><th>Metric</th><th>Conservative</th><th>Target</th><th>Optimistic</th></tr></thead>
+    <tbody>
+      <tr><td>Advocates</td><td>${Math.round(advocates*0.6).toLocaleString()}</td><td class="proj-highlight">${advocates.toLocaleString()}</td><td>${Math.round(advocates*1.4).toLocaleString()}</td></tr>
+      <tr><td>Total Reach</td><td>${Math.round(totalReach*0.5).toLocaleString()}</td><td class="proj-highlight">${totalReach.toLocaleString()}</td><td>${Math.round(totalReach*1.6).toLocaleString()}</td></tr>
+      <tr><td>Click-throughs</td><td>${Math.round(clicks*0.5).toLocaleString()}</td><td class="proj-highlight">${clicks.toLocaleString()}</td><td>${Math.round(clicks*1.7).toLocaleString()}</td></tr>
+      <tr><td>AQL-1s</td><td>${Math.round(advocates*0.6*0.7).toLocaleString()}</td><td class="proj-highlight">${Math.round(advocates*0.75).toLocaleString()}</td><td>${Math.round(advocates*1.4*0.85).toLocaleString()}</td></tr>
+      <tr><td>AQL-3s (pipeline)</td><td>${Math.max(1,Math.round(formFills*0.4)).toLocaleString()}</td><td class="proj-highlight">${Math.max(1,formFills).toLocaleString()}</td><td>${Math.max(2,Math.round(formFills*2)).toLocaleString()}</td></tr>
+      <tr><td>Equiv. Media Value</td><td>$${Math.round(emv*0.5).toLocaleString()}</td><td class="proj-highlight">$${emv.toLocaleString()}</td><td>$${Math.round(emv*1.6).toLocaleString()}</td></tr>
+    </tbody>`;
+
+  // Production calendar in results
+  const rpContainer = document.getElementById('results-production');
+  const dateStr = state.campaignDate;
+  let cDate = dateStr ? new Date(dateStr) : null;
+  if (cDate && !isNaN(cDate.getTime())) {
+    const fmt = (d) => d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+    const addDays = (d, n) => { const r = new Date(d); r.setDate(r.getDate() + n); return r; };
+    rpContainer.innerHTML = `
+      <div class="prod-item"><div class="prod-week">W-4<br><span style="font-size:9px;color:var(--gray-light)">${fmt(addDays(cDate,-28))}</span></div><div class="prod-tasks"><div class="prod-task">Brief owners, start approvals, define tracking</div></div></div>
+      <div class="prod-item"><div class="prod-week">W-3<br><span style="font-size:9px;color:var(--gray-light)">${fmt(addDays(cDate,-21))}</span></div><div class="prod-tasks"><div class="prod-task">Artifact production, landing page, share text drafts</div></div></div>
+      <div class="prod-item"><div class="prod-week">W-2<br><span style="font-size:9px;color:var(--gray-light)">${fmt(addDays(cDate,-14))}</span></div><div class="prod-tasks"><div class="prod-task">Approvals in review, email templates built, cascade configured</div></div></div>
+      <div class="prod-item"><div class="prod-week">W-1<br><span style="font-size:9px;color:var(--gray-light)">${fmt(addDays(cDate,-7))}</span></div><div class="prod-tasks"><div class="prod-task">Approvals complete, end-to-end test, brief customer-facing teams</div></div></div>
+      <div class="prod-item" style="background:var(--red-light);margin:0 -20px;padding:12px 20px;border-radius:8px;"><div class="prod-week" style="color:var(--red);font-weight:700">LAUNCH<br><span style="font-size:9px">${fmt(cDate)}</span></div><div class="prod-tasks"><div class="prod-task">Moment fires. Artifacts deliver. Monitor and track.</div></div></div>
+      <div class="prod-item"><div class="prod-week">W+1<br><span style="font-size:9px;color:var(--gray-light)">${fmt(addDays(cDate,7))}</span></div><div class="prod-tasks"><div class="prod-task">Compile results, identify top advocates, debrief</div></div></div>`;
+  } else {
+    rpContainer.innerHTML = '<div style="color:var(--gray);font-size:13px">Set campaign date to see production calendar.</div>';
+  }
+
+  // Readiness
+  const checks = [
+    { key: 'moment', label: 'Completion moment selected', ok: !!state.moment },
+    { key: 'artifacts', label: 'Share-ready artifacts designed (2+)', ok: state.artifacts.length >= 2 },
+    { key: 'motive', label: 'Primary motive identified', ok: !!state.motive },
+    { key: 'surface', label: 'Activation surfaces mapped', ok: !!state.primarySurface },
+    { key: 'sequence', label: 'Activation sequence planned (2+ steps)', ok: state.sequenceChecks.length >= 2 },
+    { key: 'cascade', label: 'Cascade mechanism chosen', ok: state.cascadeMethod && state.cascadeMethod !== 'none' },
+    { key: 'owners', label: 'All three owners assigned', ok: state.ownerMoment && state.ownerContent && state.ownerMeasurement },
+    { key: 'approvals', label: 'Approval chain mapped', ok: state.approvals.length >= 1 },
+    { key: 'targets', label: 'Targets and success criteria set', ok: state.successCriteria.length >= 2 },
+    { key: 'date', label: 'Campaign date set with production lead time', ok: !!state.campaignDate }
+  ];
+
+  const rl = document.getElementById('readiness-list');
+  rl.innerHTML = '';
+  checks.forEach(c => {
+    rl.innerHTML += `<div class="readiness-item"><div class="ri-status ${c.ok ? 'ri-ready' : 'ri-gap'}"></div><div class="ri-label">${c.label}</div><div class="ri-note">${c.ok ? 'Ready' : 'Gap'}</div></div>`;
+  });
+
+  // Gaps
+  const gaps = checks.filter(c => !c.ok);
+  const gc = document.getElementById('gaps-card');
+  const gl = document.getElementById('gaps-list');
+  const advice = {
+    moment: 'Choose a single high-intensity completion moment. Events and certifications are the easiest starting points.',
+    artifacts: 'Design at least 2 share-ready artifacts. Personalized badge + editable post text is the minimum viable set.',
+    motive: 'Identify what drives your population to share. Career Signaling works for most professional cohorts.',
+    surface: 'Pick one primary surface. LinkedIn for B2B professionals, Twitter for developers.',
+    sequence: 'Plan at least the first two steps: immediate delivery and cascade trigger.',
+    cascade: 'Choose how early shares become visible. Even a "X peers shared" email works.',
+    owners: 'Assign all three owners. Shared ownership means no ownership.',
+    approvals: 'Map your approval chain - even if it\'s just "not applicable." Know before you launch.',
+    targets: 'Set at least two success criteria so you know whether to expand or adjust.',
+    date: 'Set a campaign date. The production calendar needs 4 weeks of lead time.'
+  };
+
+  if (gaps.length > 0) {
+    gc.style.display = 'block';
+    gl.innerHTML = '';
+    gaps.forEach(g => {
+      gl.innerHTML += `<div class="readiness-item"><div class="ri-status ri-gap"></div><div class="ri-label">${g.label}<br><small style="color:var(--gray);font-size:11.5px">${advice[g.key]}</small></div></div>`;
+    });
+  } else { gc.style.display = 'none'; }
+
+  // Next Steps
+  document.getElementById('next-steps').innerHTML = `
+    <p style="margin-bottom: 12px;">Your first campaign produces three things beyond its direct results:</p>
+    <p style="margin-bottom: 8px;"><b>1. Real A/R/C baselines.</b> Your assumed ${state.aRate}% activation becomes a measured number. Every future forecast improves.</p>
+    <p style="margin-bottom: 8px;"><b>2. Repeat advocate candidates.</b> The ${Math.max(1,Math.round(advocates * 0.1))}-${Math.round(advocates * 0.15)} people who shared enthusiastically become seed advocates for campaign two.</p>
+    <p style="margin-bottom: 8px;"><b>3. Organizational proof.</b> A single campaign with real numbers moves ALG from "interesting idea" to "funded initiative." Present: this generated $${emv.toLocaleString()} EMV through ${advocates} advocates.</p>
+    <p style="margin-top: 16px; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: var(--gray);">
+      Campaign two: same moment, improved artifacts from learnings, add a second surface, activate repeat advocates first to seed the cascade faster.
+    </p>`;
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ALG vs Employee Advocacy - What's the Difference?</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=DM+Sans:wght@300;400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --red: #c8401a;
+    --red-light: rgba(200, 64, 26, 0.08);
+    --ink: #0e0d0b;
+    --paper: #f5f0e8;
+    --gray: #6b6560;
+    --gray-light: #a09890;
+    --white: #ffffff;
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    color: var(--ink);
+    background: var(--paper);
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+
+  .container {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 48px 24px 80px;
+  }
+
+  .topline {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 16px;
+  }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 1.15;
+    color: var(--ink);
+    margin-bottom: 12px;
+  }
+
+  .intro {
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--gray);
+    margin-bottom: 16px;
+    max-width: 600px;
+  }
+
+  .intro-note {
+    font-size: 13px;
+    line-height: 1.55;
+    color: var(--gray-light);
+    margin-bottom: 40px;
+    max-width: 600px;
+  }
+
+  /* Toggle */
+  .view-toggle {
+    display: flex;
+    background: var(--white);
+    border-radius: 8px;
+    padding: 4px;
+    margin-bottom: 32px;
+    border: 1px solid rgba(0,0,0,0.04);
+    max-width: 320px;
+  }
+
+  .toggle-btn {
+    flex: 1;
+    padding: 10px 16px;
+    border: none;
+    background: transparent;
+    border-radius: 6px;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--gray);
+    transition: all 0.2s ease;
+  }
+
+  .toggle-btn.active {
+    background: var(--ink);
+    color: var(--paper);
+    font-weight: 500;
+  }
+
+  /* Comparison rows */
+  .compare-section {
+    margin-bottom: 8px;
+  }
+
+  .compare-row {
+    display: grid;
+    grid-template-columns: 140px 1fr 1fr;
+    gap: 0;
+    border-bottom: 1px solid rgba(0,0,0,0.04);
+    transition: all 0.2s ease;
+  }
+
+  .compare-row:hover {
+    background: rgba(255,255,255,0.5);
+  }
+
+  .compare-row.header-row {
+    border-bottom: 2px solid rgba(0,0,0,0.08);
+    position: sticky;
+    top: 0;
+    background: var(--paper);
+    z-index: 2;
+  }
+
+  .compare-row.header-row:hover {
+    background: var(--paper);
+  }
+
+  .dim-label {
+    padding: 16px 12px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--gray-light);
+    font-weight: 500;
+    display: flex;
+    align-items: flex-start;
+    padding-top: 18px;
+  }
+
+  .col-header {
+    padding: 14px 16px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  .col-header.ea {
+    color: var(--gray);
+  }
+
+  .col-header.alg {
+    color: var(--red);
+  }
+
+  .col-ea, .col-alg {
+    padding: 16px;
+  }
+
+  .col-ea {
+    background: rgba(255,255,255,0.3);
+  }
+
+  .col-alg {
+    background: rgba(200, 64, 26, 0.04);
+  }
+
+  .col-val {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--ink);
+    line-height: 1.3;
+    margin-bottom: 4px;
+  }
+
+  .col-ea .col-val {
+    color: var(--gray);
+  }
+
+  .col-alg .col-val {
+    color: var(--red);
+  }
+
+  .col-detail {
+    font-size: 12px;
+    line-height: 1.45;
+    color: var(--gray);
+  }
+
+  /* Narrative view */
+  .narrative-view {
+    display: none;
+  }
+
+  .narrative-view.visible {
+    display: block;
+  }
+
+  .table-view.hidden {
+    display: none;
+  }
+
+  .narrative-card {
+    background: var(--white);
+    border-radius: 10px;
+    padding: 28px 24px;
+    margin-bottom: 16px;
+    border: 1px solid rgba(0,0,0,0.04);
+  }
+
+  .narrative-card .n-dimension {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 12px;
+    font-weight: 500;
+  }
+
+  .narrative-card .n-question {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1.25;
+    margin-bottom: 16px;
+  }
+
+  .n-compare {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .n-side {
+    padding: 14px;
+    border-radius: 6px;
+  }
+
+  .n-side.ea {
+    background: var(--paper);
+    border: 1px solid rgba(0,0,0,0.06);
+  }
+
+  .n-side.alg {
+    background: var(--ink);
+  }
+
+  .n-side .n-side-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    opacity: 0.5;
+  }
+
+  .n-side.ea .n-side-label {
+    color: var(--gray);
+  }
+
+  .n-side.alg .n-side-label {
+    color: var(--paper);
+  }
+
+  .n-side .n-answer {
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  .n-side.ea .n-answer {
+    color: var(--gray);
+  }
+
+  .n-side.alg .n-answer {
+    color: var(--paper);
+    font-weight: 400;
+  }
+
+  /* Bottom line */
+  .bottom-line {
+    background: var(--ink);
+    border-radius: 10px;
+    padding: 28px 24px;
+    margin-top: 32px;
+  }
+
+  .bottom-line .bl-head {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 12px;
+    font-weight: 500;
+  }
+
+  .bottom-line p {
+    font-size: 15px;
+    line-height: 1.6;
+    color: rgba(245, 240, 232, 0.85);
+    margin-bottom: 12px;
+  }
+
+  .bottom-line p:last-child {
+    margin-bottom: 0;
+  }
+
+  .bottom-line strong {
+    color: var(--paper);
+    font-weight: 500;
+  }
+
+  /* CTA */
+  .cta-row {
+    margin-top: 32px;
+    display: flex;
+    gap: 12px;
+  }
+
+  .cta-link {
+    display: inline-block;
+    padding: 14px 24px;
+    border-radius: 8px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .cta-link.primary {
+    background: var(--red);
+    color: white;
+  }
+
+  .cta-link.primary:hover {
+    opacity: 0.9;
+  }
+
+  .cta-link.secondary {
+    background: var(--white);
+    color: var(--ink);
+    border: 1px solid rgba(0,0,0,0.08);
+  }
+
+  .cta-link.secondary:hover {
+    border-color: var(--red);
+  }
+
+  /* Footer */
+  .toolkit-footer {
+    margin-top: 48px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(0,0,0,0.06);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .toolkit-footer span {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--gray-light);
+    letter-spacing: 0.05em;
+  }
+
+  .toolkit-footer a {
+    color: var(--red);
+    text-decoration: none;
+  }
+
+  @media (max-width: 640px) {
+    .compare-row {
+      grid-template-columns: 1fr;
+    }
+    .dim-label {
+      padding-bottom: 4px;
+    }
+    .compare-row.header-row {
+      display: none;
+    }
+    .col-ea::before {
+      content: 'Employee Advocacy';
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--gray-light);
+      display: block;
+      margin-bottom: 4px;
+    }
+    .col-alg::before {
+      content: 'ALG';
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--red);
+      display: block;
+      margin-bottom: 4px;
+    }
+    .n-compare {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <div class="topline">ALG Toolkit / Comparison</div>
+
+  <h1>Employee Advocacy asked people to share. ALG gives them a reason to.</h1>
+
+  <p class="intro">
+    Employee advocacy and ALG look similar on the surface - both involve people sharing on behalf of a company. The mechanics underneath are completely different.
+  </p>
+
+  <p class="intro-note">
+    This isn't a takedown of EA. Many teams have built real programs with real results. ALG is a different motion with a different architecture - and understanding where they diverge helps you decide which one fits.
+  </p>
+
+  <div class="view-toggle">
+    <button class="toggle-btn active" onclick="switchView('table')">Side by side</button>
+    <button class="toggle-btn" onclick="switchView('narrative')">Card view</button>
+  </div>
+
+  <!-- TABLE VIEW -->
+  <div class="table-view" id="tableView">
+    <div class="compare-section">
+      <div class="compare-row header-row">
+        <div class="dim-label"></div>
+        <div class="col-header ea">Employee Advocacy</div>
+        <div class="col-header alg">Advocacy-Led Growth</div>
+      </div>
+
+      <div class="compare-row">
+        <div class="dim-label">Who shares</div>
+        <div class="col-ea">
+          <div class="col-val">Employees</div>
+          <div class="col-detail">Prompted by management or a platform notification</div>
+        </div>
+        <div class="col-alg">
+          <div class="col-val">Any participant</div>
+          <div class="col-detail">Activated at a completion moment - employees, attendees, community members, partners</div>
+        </div>
+      </div>
+
+      <div class="compare-row">
+        <div class="dim-label">What they share</div>
+        <div class="col-ea">
+          <div class="col-val">Company content</div>
+          <div class="col-detail">Pre-written posts, blog links, product announcements</div>
+        </div>
+        <div class="col-alg">
+          <div class="col-val">Their own experience</div>
+          <div class="col-detail">A credential earned, an event attended, a milestone hit - their story, their voice</div>
+        </div>
+      </div>
+
+      <div class="compare-row">
+        <div class="dim-label">When</div>
+        <div class="col-ea">
+          <div class="col-val">Random Tuesday</div>
+          <div class="col-detail">Whenever the queue fills up or a manager sends a reminder</div>
+        </div>
+        <div class="col-alg">
+          <div class="col-val">The Belief Window</div>
+          <div class="col-detail">Immediately after a completion moment, when sharing feels natural</div>
+        </div>
+      </div>
+
+      <div class="compare-row">
+        <div class="dim-label">Why they do it</div>
+        <div class="col-ea">
+          <div class="col-val">They were asked</div>
+          <div class="col-detail">Obligation, manager pressure, gamification points</div>
+        </div>
+        <div class="col-alg">
+          <div class="col-val">It serves them</div>
+          <div class="col-detail">Credentials, professional visibility, recognition, economic access</div>
+        </div>
+      </div>
+
+      <div class="compare-row">
+        <div class="dim-label">Unit</div>
+        <div class="col-ea">
+          <div class="col-val">The individual</div>
+          <div class="col-detail">One person, one post, one notification</div>
+        </div>
+        <div class="col-alg">
+          <div class="col-val">The cohort</div>
+          <div class="col-detail">A group sharing the same experience - cascade effect amplifies each share</div>
+        </div>
+      </div>
+
+      <div class="compare-row">
+        <div class="dim-label">Distribution</div>
+        <div class="col-ea">
+          <div class="col-val">LinkedIn only</div>
+          <div class="col-detail">Single platform, ephemeral posts</div>
+        </div>
+        <div class="col-alg">
+          <div class="col-val">Signal ecosystem</div>
+          <div class="col-detail">LinkedIn, reviews, forums, communities, blogs - persistent and compounding</div>
+        </div>
+      </div>
+
+      <div class="compare-row">
+        <div class="dim-label">Compounds?</div>
+        <div class="col-ea">
+          <div class="col-val">No</div>
+          <div class="col-detail">Decays through burnout. Participation drops over time.</div>
+        </div>
+        <div class="col-alg">
+          <div class="col-val">Yes</div>
+          <div class="col-detail">Each cycle's participants become the next cycle's advocates. The loop feeds itself.</div>
+        </div>
+      </div>
+
+      <div class="compare-row">
+        <div class="dim-label">The test</div>
+        <div class="col-ea">
+          <div class="col-val">How many shared?</div>
+          <div class="col-detail">A number you can report once</div>
+        </div>
+        <div class="col-alg">
+          <div class="col-val">Would they still share if you removed your name?</div>
+          <div class="col-detail">A rate you can compound forever</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NARRATIVE VIEW -->
+  <div class="narrative-view" id="narrativeView">
+
+    <div class="narrative-card">
+      <div class="n-dimension">Who shares</div>
+      <div class="n-question">Who is doing the sharing - and did they choose to?</div>
+      <div class="n-compare">
+        <div class="n-side ea">
+          <div class="n-side-label">Employee Advocacy</div>
+          <div class="n-answer">Employees, prompted by a platform or manager. The pool is fixed to your headcount.</div>
+        </div>
+        <div class="n-side alg">
+          <div class="n-side-label">ALG</div>
+          <div class="n-answer">Any participant - employees, event attendees, community members, partners. The pool grows as participation grows.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="narrative-card">
+      <div class="n-dimension">What they share</div>
+      <div class="n-question">Is it the company's story or theirs?</div>
+      <div class="n-compare">
+        <div class="n-side ea">
+          <div class="n-side-label">Employee Advocacy</div>
+          <div class="n-answer">Company content - pre-written posts, blog links, product announcements. The employee is the distribution channel.</div>
+        </div>
+        <div class="n-side alg">
+          <div class="n-side-label">ALG</div>
+          <div class="n-answer">Their own experience - a credential earned, a milestone completed, an event attended. The company benefits as a side effect.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="narrative-card">
+      <div class="n-dimension">Timing</div>
+      <div class="n-question">When does the sharing happen?</div>
+      <div class="n-compare">
+        <div class="n-side ea">
+          <div class="n-side-label">Employee Advocacy</div>
+          <div class="n-answer">Whenever the content queue fills up. Disconnected from any real moment or emotion.</div>
+        </div>
+        <div class="n-side alg">
+          <div class="n-side-label">ALG</div>
+          <div class="n-answer">At the Belief Window - the brief period after completing something real, when sharing feels like self-expression, not obligation.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="narrative-card">
+      <div class="n-dimension">Motivation</div>
+      <div class="n-question">Why would someone actually do this?</div>
+      <div class="n-compare">
+        <div class="n-side ea">
+          <div class="n-side-label">Employee Advocacy</div>
+          <div class="n-answer">They were asked. Manager pressure, gamification points, team obligation. Motivation is external.</div>
+        </div>
+        <div class="n-side alg">
+          <div class="n-side-label">ALG</div>
+          <div class="n-answer">It serves their own interest - credentials, professional visibility, economic access. Motivation is intrinsic.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="narrative-card">
+      <div class="n-dimension">Compounding</div>
+      <div class="n-question">Does it get easier or harder over time?</div>
+      <div class="n-compare">
+        <div class="n-side ea">
+          <div class="n-side-label">Employee Advocacy</div>
+          <div class="n-answer">Harder. Participation decays through burnout. The same ask gets staler every week. Programs plateau or die.</div>
+        </div>
+        <div class="n-side alg">
+          <div class="n-side-label">ALG</div>
+          <div class="n-answer">Easier. Each cycle's participants become the next cycle's advocates. Repeat advocates share more, reach grows, conversion improves.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="narrative-card">
+      <div class="n-dimension">The test</div>
+      <div class="n-question">How do you know which one you're running?</div>
+      <div class="n-compare">
+        <div class="n-side ea">
+          <div class="n-side-label">Employee Advocacy</div>
+          <div class="n-answer">You count shares and report the number. The number goes up when you push harder, down when you don't.</div>
+        </div>
+        <div class="n-side alg">
+          <div class="n-side-label">ALG</div>
+          <div class="n-answer">You ask: if we removed our company name from the share, would the person still want to post it? If yes, you're running ALG.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Bottom line -->
+  <div class="bottom-line">
+    <div class="bl-head">The bottom line</div>
+    <p>
+      Employee advocacy turns your team into a distribution channel. ALG turns your participants into a growth engine. One is a tactic you manage. The other is a motion that compounds.
+    </p>
+    <p>
+      <strong>The real question isn't which to choose.</strong> It's whether you want a number you report quarterly, or a rate that improves every cycle.
+    </p>
+  </div>
+
+  <div class="cta-row">
+    <a href="https://advocacyled.com" class="cta-link primary">Explore the ALG framework</a>
+    <a href="#" class="cta-link secondary" onclick="event.preventDefault(); window.history.back();">Back to toolkit</a>
+  </div>
+
+  <div class="toolkit-footer">
+    <span>ALG Toolkit</span>
+    <span><a href="https://advocacyled.com">advocacyled.com</a></span>
+  </div>
+
+</div>
+
+<script>
+function switchView(view) {
+  const tableView = document.getElementById('tableView');
+  const narrativeView = document.getElementById('narrativeView');
+  const buttons = document.querySelectorAll('.toggle-btn');
+
+  if (view === 'table') {
+    tableView.classList.remove('hidden');
+    narrativeView.classList.remove('visible');
+    buttons[0].classList.add('active');
+    buttons[1].classList.remove('active');
+  } else {
+    tableView.classList.add('hidden');
+    narrativeView.classList.add('visible');
+    buttons[1].classList.add('active');
+    buttons[0].classList.remove('active');
+  }
+}
+</script>
+
+</body>
+</html>
