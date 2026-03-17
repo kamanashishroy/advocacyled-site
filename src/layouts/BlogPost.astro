@@ -9,9 +9,10 @@ interface Props {
   type?: string;
   guest?: string;
   slug: string;
+  hashtag?: string;
 }
 
-const { title, description, date, tags, type = 'post', guest, slug } = Astro.props;
+const { title, description, date, tags, type = 'post', guest, slug, hashtag } = Astro.props;
 
 const formattedDate = date.toLocaleDateString('en-US', {
   year: 'numeric',
@@ -68,6 +69,29 @@ const jsonLd = {
         Roy, K. "{title}." advocacyled.com, {formattedDate}. <a href={`https://advocacyled.com/blog/${slug}`} style="color: var(--accent);">advocacyled.com/blog/{slug}</a>
       </p>
     </div>
+
+    {hashtag && (
+      <div class="discuss-block" style="margin-top: var(--sp-6); max-width: 640px;">
+        <div style="display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;">
+          <a
+            href={`https://x.com/intent/tweet?url=${encodeURIComponent(`https://advocacyled.com/blog/${slug}`)}&hashtags=${hashtag}&text=${encodeURIComponent(``)}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="discuss-btn"
+          >
+            Discuss on X
+          </a>
+          <a
+            href={`https://x.com/search?q=%23${hashtag}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            style="font-family: 'IBM Plex Mono', monospace; font-size: 0.8rem; color: var(--muted); text-decoration: none; border-bottom: 1px solid var(--muted);"
+          >
+            View #{hashtag} discussion
+          </a>
+        </div>
+      </div>
+    )}
   </div>
 
 </Base>
@@ -155,5 +179,21 @@ const jsonLd = {
     border-top: 1px solid rgba(14, 13, 11, 0.1);
     margin: 2.5rem 0;
     max-width: 640px;
+  }
+  .discuss-btn {
+    display: inline-block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--paper);
+    background: var(--ink);
+    padding: 0.6rem 1.25rem;
+    text-decoration: none;
+    border: none;
+    transition: background 0.2s;
+  }
+  .discuss-btn:hover {
+    background: var(--accent);
   }
 </style>

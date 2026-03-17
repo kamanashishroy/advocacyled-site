@@ -5,6 +5,7 @@ date: 2026-03-17
 tags: ["employee advocacy", "comparison", "ALG fundamentals"]
 type: post
 draft: false
+hashtag: "ALG_vsEmployeeAdvocacy"
 ---
 
 Your employee advocacy program launched to applause. Participation was solid in month one. By month three, the same five people were sharing. By month six, you were sending Slack reminders that nobody responded to.

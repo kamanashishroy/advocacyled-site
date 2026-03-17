@@ -10,6 +10,7 @@ const blog = defineCollection({
     type: z.enum(['post', 'interview']).default('post'),
     guest: z.string().optional(),
     draft: z.boolean().default(false),
+    hashtag: z.string().optional(),
   }),
 });
 

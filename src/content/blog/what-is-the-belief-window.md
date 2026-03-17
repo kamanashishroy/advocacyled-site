@@ -5,6 +5,7 @@ date: 2026-03-17
 tags: ["belief window", "mechanism", "ALG fundamentals"]
 type: post
 draft: false
+hashtag: "ALG_BeliefWindow"
 ---
 
 You have seen this happen. Someone finishes a certification, walks out of a conference session, or completes their first week at a new company. Within hours, they post about it on LinkedIn. Nobody asked them to. Nobody sent a Slack reminder. They did it because the experience was fresh, the emotion was real, and sharing felt natural.

@@ -5,6 +5,7 @@ date: 2026-03-17
 tags: ["strategy", "campaigns", "compounding", "ALG fundamentals"]
 type: post
 draft: false
+hashtag: "ALG_WhyCampaignsFail"
 ---
 
 A marketing team publishes a LinkedIn post from the company page asking employees to share it. Three people do. Engagement is flat. The marketer concludes: "Advocacy doesn't work for us."
@@ -73,7 +74,7 @@ Every row has the same structure: the goal existed in the marketer's head but wa
 
 This is not an advocacy problem. This is a campaign design problem. But because advocacy is new and unfamiliar, the failure gets attributed to the motion rather than the instrumentation. "Advocacy didn't generate leads" is the conclusion. "We didn't include any mechanism for lead capture" is the actual diagnosis.
 
-## What the marketer doesn't know to ask
+## Why campaign thinking feels natural
 
 The marketers running these experiments are not incompetent. They are asking the right question - "How do I get more organic distribution?" - with the wrong mental model. They are thinking in campaigns because everything else in marketing is a campaign. Paid media is a campaign. Email is a campaign. Content is a campaign. The campaign model is so deeply embedded in marketing operations that applying it to advocacy feels natural.
 
