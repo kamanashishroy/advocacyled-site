@@ -97,4 +97,4 @@ If the Belief Window theory holds - and the data from ALG campaigns consistently
 
 The [Belief Window Timing Guide](/toolkit/belief-window-timing.html) walks through this in detail - mapping timing curves, channel sequencing, and trigger architecture for each completion moment type.
 
-The experiment is worth running because it turns a theoretical insight into an operating metric. Once you know the shape of your Belief Window for each completion type, you can design your entire activation architecture around it. That is the difference between advocacy as a program and advocacy as [infrastructure that compounds](/framework#maturity).
+The experiment is worth running because it turns a theoretical insight into an operating metric. Once you know the shape of your Belief Window for each completion type, you can design your entire activation architecture around it. That is the difference between advocacy as a program and advocacy as [infrastructure that compounds](/framework#maturity) - and it is the reason [ALG fails when treated as a one-time campaign](/blog/why-advocacy-led-growth-fails-as-a-campaign) but succeeds when built as a repeatable system.

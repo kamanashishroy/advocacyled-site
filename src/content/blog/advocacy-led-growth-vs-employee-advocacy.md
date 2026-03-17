@@ -73,7 +73,7 @@ When the value exchange is broken - when the company gains and the individual do
 
 Employee advocacy has linear economics. To reach more people, you need more employees sharing. To maintain reach, you need those employees to keep sharing indefinitely. When participation drops - and it always drops - reach drops proportionally.
 
-ALG has compounding economics. Each cohort's advocates reach their networks. Some of those networks contain the next cycle's participants. New participants complete something, the Belief Window opens, and they share to their networks. Reach grows because each cycle produces the seeds for the next cycle.
+ALG has compounding economics. Each cohort's advocates reach their networks. Some of those networks contain the next cycle's participants. New participants complete something, the Belief Window opens, and they share to their networks. Reach grows because each cycle produces the seeds for the next cycle. But this compounding only works when ALG is built as repeatable infrastructure - [running it as a one-time campaign kills the motion before it has the conditions to compound](/blog/why-advocacy-led-growth-fails-as-a-campaign).
 
 The [compound formula](/aql) makes this concrete: **Participants x A (activation rate) x R (reach multiplier) x C (conversion rate) = New Participants.** When any variable improves over time - and they do, because repeat advocates have higher activation rates and larger networks - the system compounds.
 
