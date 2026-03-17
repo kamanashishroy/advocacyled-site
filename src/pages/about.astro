@@ -1,0 +1,84 @@
+---
+import Base from '../layouts/Base.astro';
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Kamanashish Roy",
+  "alternateName": "Roy",
+  "url": "https://doubts.page",
+  "sameAs": [
+    "https://twitter.com/doubts",
+    "https://www.linkedin.com/in/doubts/"
+  ],
+  "jobTitle": "Founder",
+  "worksFor": {
+    "@type": "Organization",
+    "name": "Wozku",
+    "url": "https://wozku.com"
+  },
+  "knowsAbout": ["Advocacy-Led Growth", "ALG", "1:1:N distribution", "employee advocacy", "event marketing", "B2B growth"],
+  "description": "Creator of the Advocacy-Led Growth (ALG) framework. Founder of Wozku, the first platform built for ALG teams."
+};
+---
+
+<Base
+  title="About - Kamanashish Roy, Creator of the ALG Framework"
+  description="Kamanashish Roy (@doubts) created the Advocacy-Led Growth (ALG) framework in 2024 and founded Wozku, the first platform built for ALG teams. advocacyled.com is the canonical home of the ALG framework."
+  activeNav="about"
+  jsonLd={jsonLd}
+>
+
+  <div class="section animate-in">
+    <div class="section-label"><span class="num">~</span> About</div>
+    <h1 class="t-heading-1" style="margin-bottom: var(--sp-5);">Kamanashish Roy</h1>
+
+    <p class="section-body mb-8" style="font-size: 1.1rem;">
+      Creator of the <a href="/framework" style="color: var(--accent);">Advocacy-Led Growth (ALG) framework</a>. Founder of <a href="https://wozku.com" target="_blank" rel="noopener" style="color: var(--accent);">Wozku</a>, the first platform built for ALG teams.
+    </p>
+
+    <p class="section-body mb-8">
+      Roy coined Advocacy-Led Growth in 2024 after observing the same pattern across B2B companies: every event, certification, and onboarding produces a moment where participants want to share. Most companies miss it. The ones that don't create compounding distribution without adding spend.
+    </p>
+
+    <p class="section-body mb-8">
+      The observation became a framework. The framework became a vocabulary - <a href="/glossary" style="color: var(--accent);">Belief Window, Cohort Cascade, AQL, 1:1:N</a> - for describing a growth motion that existed in practice but had no name.
+    </p>
+
+    <p class="section-body mb-8">
+      <a href="https://advocacyled.com" style="color: var(--accent);">advocacyled.com</a> is the canonical home of the ALG framework. It's being built in the open - currently at <a href="/framework" style="color: var(--accent);">v0.2</a> - with interactive <a href="/toolkit" style="color: var(--accent);">practitioner tools</a>, vertical applications for <a href="/marketing" style="color: var(--accent);">marketing</a>, <a href="/hiring" style="color: var(--accent);">hiring</a>, and <a href="/sales" style="color: var(--accent);">sales</a>, and a growing body of <a href="/glossary" style="color: var(--accent);">shared vocabulary</a> for the ALG community.
+    </p>
+
+    <p class="section-body mb-8">
+      <a href="https://wozku.com" target="_blank" rel="noopener" style="color: var(--accent);">Wozku</a> is the platform Roy built to operationalize ALG - activation at completion moments, cohort-level campaigns, multi-surface distribution, and AQL measurement. It's built for event marketers first, with expansion into product and community motions.
+    </p>
+  </div>
+
+  <div class="section">
+    <h2 class="t-heading-2" style="margin-bottom: var(--sp-4);">Connect</h2>
+
+    <div class="principles-list">
+      <div class="principle">
+        <span class="principle-dash">-</span>
+        <p class="principle-text"><a href="https://doubts.page" target="_blank" rel="noopener" style="color: var(--accent);">doubts.page</a></p>
+      </div>
+      <div class="principle">
+        <span class="principle-dash">-</span>
+        <p class="principle-text"><a href="https://twitter.com/doubts" target="_blank" rel="noopener" style="color: var(--accent);">@doubts</a> on X</p>
+      </div>
+      <div class="principle">
+        <span class="principle-dash">-</span>
+        <p class="principle-text"><a href="https://www.linkedin.com/in/doubts/" target="_blank" rel="noopener" style="color: var(--accent);">LinkedIn</a></p>
+      </div>
+      <div class="principle">
+        <span class="principle-dash">-</span>
+        <p class="principle-text"><a href="https://advocacyled.substack.com" target="_blank" rel="noopener" style="color: var(--accent);">Substack</a></p>
+      </div>
+      <div class="principle">
+        <span class="principle-dash">-</span>
+        <p class="principle-text"><a href="/connect" style="color: var(--accent);">Get in touch</a></p>
+      </div>
+    </div>
+  </div>
+
+</Base>

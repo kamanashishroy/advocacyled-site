@@ -59,9 +59,13 @@ const fullOgImage = ogImage.startsWith('http') ? ogImage : `${siteUrl}${ogImage}
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
   <!-- JSON-LD -->
-  {jsonLd && (
+  {jsonLd && Array.isArray(jsonLd) ? (
+    jsonLd.map((item: object) => (
+      <script type="application/ld+json" set:html={JSON.stringify(item)} />
+    ))
+  ) : jsonLd ? (
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
-  )}
+  ) : null}
 </head>
 <body>
   <div class="shell">
@@ -218,6 +222,14 @@ const fullOgImage = ogImage.startsWith('http') ? ogImage : `${siteUrl}${ogImage}
         <ul class="sidebar-nav">
           <li><a href="/interviews" class={activeNav === 'interviews' ? 'active' : ''}>
             <span class="nav-num">&bull;</span> All interviews
+          </a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <ul class="sidebar-nav">
+          <li><a href="/about" class={activeNav === 'about' ? 'active' : ''}>
+            <span class="nav-num">~</span> About
           </a></li>
         </ul>
       </div>

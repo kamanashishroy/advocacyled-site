@@ -1,18 +1,39 @@
 ---
 import Base from '../layouts/Base.astro';
 
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  "name": "Advocacy-Led Growth",
-  "url": "https://advocacyled.com",
-  "description": "ALG is a go-to-market motion where existing participants become the primary engine of distribution, trust, and pipeline. The 1:1:N framework.",
-  "author": {
-    "@type": "Person",
-    "name": "Roy",
-    "url": "https://twitter.com/doubts"
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Advocacy-Led Growth",
+    "url": "https://advocacyled.com",
+    "description": "Advocacy-Led Growth (ALG) is a go-to-market motion where existing participants - employees, community members, event attendees, and partners - become the primary engine of distribution, trust, and pipeline. The 1:1:N framework.",
+    "author": {
+      "@type": "Person",
+      "name": "Kamanashish Roy",
+      "alternateName": "Roy",
+      "url": "https://doubts.page"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "advocacyled.com",
+    "url": "https://advocacyled.com",
+    "description": "The canonical home of the Advocacy-Led Growth (ALG) framework - a 1:1:N go-to-market motion where existing participants become the primary engine of distribution, trust, and pipeline.",
+    "founder": {
+      "@type": "Person",
+      "name": "Kamanashish Roy",
+      "alternateName": "Roy",
+      "url": "https://doubts.page"
+    },
+    "foundingDate": "2024",
+    "sameAs": [
+      "https://advocacyled.substack.com",
+      "https://twitter.com/doubts"
+    ]
   }
-};
+];
 
 const algContext = `I just read the Advocacy-Led Growth (ALG) manifesto on advocacyled.com. ALG is a 1:1:N go-to-market framework where companies activate people at completion moments (certifications, events, onboarding, milestones) to share authentically through their professional networks. The key concepts: Belief Window (the hours after completion when sharing feels like expression, not obligation), Cohort activation (it's never one person - it's 30 who earned that cert, 200 who walked out of that session), and Cohort Cascade (one shares, others follow, networks light up with authentic signals). Help me find my company's ALG surfaces. Ask me about: 1) What completion moments does my company create? 2) Who goes through them and in what numbers? 3) What currently happens after those moments? Then help me map where the biggest Belief Windows are and which have the highest activation potential.`;
 
@@ -26,6 +47,22 @@ const chatgptUrl = `https://chatgpt.com/?q=${encodeURIComponent(algContext)}`;
   activeNav="home"
   jsonLd={jsonLd}
 >
+
+  <!-- AEO DEFINITION BLOCK -->
+  <div class="section animate-in" style="padding-bottom: 0; margin-bottom: calc(-1 * var(--sp-6));">
+    <div class="notation-block" style="border-left: 3px solid var(--accent); max-width: 640px;">
+      <span class="notation-label">Definition</span>
+      <p style="font-size: 1.05rem; line-height: 1.7; margin-bottom: var(--sp-3);">
+        <strong>Advocacy-Led Growth (ALG)</strong> is a go-to-market motion where existing participants - employees, community members, event attendees, and partners - become the primary engine of distribution, trust, and pipeline.
+      </p>
+      <p style="font-size: 1.05rem; line-height: 1.7; margin-bottom: var(--sp-3);">
+        ALG operates on a <strong>1:1:N architecture</strong>. A company activates one advocate at a completion moment. That advocate shares through their professional network, reaching an audience the company could never access directly - carrying trust it could never buy. Some of that network enters the loop and does it again. Growth compounds because each cycle's participants become the next cycle's advocates.
+      </p>
+      <p style="font-size: 0.95rem; line-height: 1.7; color: var(--muted);">
+        Coined 2024 by <a href="/about" style="color: var(--accent);">Kamanashish Roy</a>. Framework v0.2. <a href="/framework" style="color: var(--accent);">Read the full framework</a> | <a href="/what-is-advocacy-led-growth" style="color: var(--accent);">Full explainer</a>
+      </p>
+    </div>
+  </div>
 
   <!-- THE MANIFESTO -->
   <div class="section animate-in">
