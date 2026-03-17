@@ -21,25 +21,15 @@ This is the most common way Advocacy Led Growth fails. Not because the motion is
 
 Every [ALG entry point](/framework#prerequisites) has a one-time version that looks reasonable, produces underwhelming results, and leads to the wrong conclusion:
 
-**Events:** "Let's get attendees to post about our conference." The event team sends a post-event email with suggested social copy three days after the event. A few people share. Most don't - the [Belief Window](/blog/what-is-the-belief-window) closed two days ago. Conclusion: "Our attendees don't share."
+| Entry point | What the team tries | What goes wrong | The wrong conclusion |
+|---|---|---|---|
+| **Events** | Post-event email with suggested social copy, sent 3 days later | [Belief Window](/blog/what-is-the-belief-window) closed 2 days ago. Sharing feels performative, not natural. | "Our attendees don't share." |
+| **Certifications** | Share-your-badge mechanic for the launch cohort | No system for the next cohort. Badges were a launch promotion, not infrastructure. Cohort 2 starts from zero. | "Gamification didn't move the needle." |
+| **Community** | Hackathon with a sharing prompt | Nothing connects this event to the next one. Participants who shared had no reason to share again. | "Didn't generate enough traction." |
+| **Employer brand** | Employee advocacy push for Q2 | No completion moment, no Belief Window, no value exchange. Same 5 people by week 3. | "Employees won't advocate." |
+| **LinkedIn page** | Company posts asking the network to engage | 2-5% organic reach. No cohort. No completion moment. No reason for anyone to share. | "Our audience isn't engaged." |
 
-The actual problem: activation happened after the Belief Window closed. The same attendees, activated at the moment they walked out of their best session, would have produced entirely different results.
-
-**Certifications:** "Let's gamify sharing when we launch the certification." The team designs a share-your-badge mechanic for the launch cohort. Participation is decent. But there is no system for the next cohort, or the one after that. The badges were a launch promotion, not infrastructure. The compounding never starts.
-
-The actual problem: the first cohort was the seed. Without a repeatable system, the seed never grows. Cohort 2 starts from zero instead of building on the advocates from Cohort 1.
-
-**Community challenges:** "Let's run a hackathon and get participants to share." The hackathon happens. Some participants post their projects. The energy fades within a week. Three months later, nobody remembers. The community manager proposes another hackathon and is told the last one "didn't generate enough traction."
-
-The actual problem: the hackathon produced completion moments, but nothing connected those moments to the next event. Participants who shared had no reason to share again. New participants had no exposure to the previous cohort's signals.
-
-**Employer brand:** "Let's run an employee advocacy push for Q2." HR asks employees to share posts about company culture during a designated month. Week 1 participation is decent. Week 3 it's the same five people. By month end, most employees associate "advocacy" with "that thing HR keeps asking me to do." The program quietly ends.
-
-The actual problem: no completion moment, no Belief Window, no value exchange. Employees were asked to share company content on the company's schedule. There was nothing in it for them. Burnout was not a risk - it was the inevitable outcome.
-
-**LinkedIn page posts:** The simplest version. The company posts something and asks their network to engage with it. Nothing happens. "Our audience isn't engaged."
-
-The actual problem: LinkedIn company pages have 2-5% organic reach. The post reached a fraction of followers, most of whom are not advocates - they are people who clicked "follow" once. There was no cohort. No completion moment. No reason for anyone to share anything. This was not a test of advocacy. It was a test of organic reach on a brand page.
+Every row in this table has the same structure: the team ran an experiment without the conditions ALG requires (timing, cohort, value exchange, repeatability) and concluded that advocacy itself doesn't work. They tested the wrapper, not the motion.
 
 ## Why the first attempt kills the motion
 
@@ -57,16 +47,15 @@ The marketers running these experiments are not incompetent. They are asking the
 
 But advocacy is not a campaign. Advocacy is a system. And systems need different questions:
 
-**Campaign question:** "How many shares did we get from this event?"
-**System question:** "Which community, at which interaction point, would generate the most ongoing advocacy?"
+| Campaign question (resets) | System question (compounds) |
+|---|---|
+| How many shares did we get from this event? | Which community, at which interaction point, would generate the most ongoing advocacy? |
+| What's the ROI of this advocacy push? | What's the incremental ROI when advocacy is layered onto our existing events, certs, and onboarding - measured across four quarters? |
+| How do we get employees to share more? | Which completion moments are we already creating that have high-intensity Belief Windows and cohort potential? |
+| Did our campaign hit its share target? | How many of last quarter's advocates activated again this quarter? |
+| Which content performed best? | Which cohort type produces the highest repeat advocate rate? |
 
-**Campaign question:** "What's the ROI of this advocacy push?"
-**System question:** "What's the incremental ROI when advocacy is layered onto our existing events, certs, and onboarding - measured across four quarters?"
-
-**Campaign question:** "How do we get employees to share more?"
-**System question:** "Which completion moments are we already creating that have high-intensity Belief Windows and cohort potential?"
-
-The campaign questions lead to one-off experiments that reset. The system questions lead to infrastructure that compounds.
+The left column leads to one-off experiments that reset. The right column leads to infrastructure that compounds.
 
 ## What "infrastructure" actually means
 
@@ -86,15 +75,14 @@ In a campaign model, repeat advocates are invisible - each campaign stands alone
 
 Here is what the numbers look like when measured as a system:
 
-Campaign 1: 200 participants. 15% activation rate. 30 advocates. 60,000 impressions.
+| Campaign | New participants | Repeat advocates | Total advocates | Impressions |
+|---|---|---|---|---|
+| 1 | 200 | 0 | 30 | 60,000 |
+| 2 | 200 | 8 (from C1) | 38 | 82,000 |
+| 3 | 200 | 14 (from C1+C2) | 42 | 95,000 |
+| 4 | 200 | 20 (from C1+C2+C3) | 48 | 112,000 |
 
-Campaign 2: 200 new participants + 8 repeat advocates from Campaign 1. Repeat advocates activate at 25-30% (higher than new). 38 total advocates. 82,000 impressions.
-
-Campaign 3: 200 new + 14 repeat advocates. 42 total advocates. 95,000 impressions.
-
-Campaign 4: 200 new + 20 repeat advocates. 48 total advocates. 112,000 impressions.
-
-Same event. Same budget. Same team size. But by Campaign 4, you are producing nearly double the reach of Campaign 1 - because the advocates from previous campaigns are still in the system.
+Same event. Same budget. Same team size. But by Campaign 4, you are producing nearly double the reach of Campaign 1 - because the advocates from previous campaigns are still in the system. Repeat advocates activate at 25-30% (higher than new participants) because they have done it before.
 
 Measured as a campaign, each event produces "about 60-80K impressions." Measured as infrastructure, the system is producing accelerating returns at decreasing marginal cost.
 
