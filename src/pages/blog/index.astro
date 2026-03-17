@@ -1,0 +1,50 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+
+<Base
+  title="Blog - Advocacy-Led Growth"
+  description="Deep dives into Advocacy Led Growth concepts, practitioner interviews, and the mechanics of 1:1:N distribution. Each post unpacks one idea from the ALG framework."
+  activeNav="blog"
+>
+
+  <div class="section animate-in">
+    <div class="section-label"><span class="num">&bull;</span> Blog</div>
+    <h1 class="t-heading-1" style="margin-bottom: var(--sp-5);">Blog</h1>
+    <p class="section-body mb-8">
+      Each post unpacks one concept from the <a href="/framework" style="color: var(--accent);">ALG framework</a>. Deep dives into the mechanics of Advocacy Led Growth, practitioner interviews, and the patterns behind 1:1:N distribution.
+    </p>
+  </div>
+
+  {posts.map((post) => (
+    <div class="section" style="padding-top: 0; padding-bottom: var(--sp-6);">
+      <a href={`/blog/${post.slug}`} style="text-decoration: none; color: inherit;">
+        <div class="vertical-card" style="max-width: 640px;">
+          <span class="vertical-icon">
+            {post.data.type === 'interview' ? 'interview' : 'post'}
+            {' '}&middot;{' '}
+            {post.data.date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
+          </span>
+          <div class="vertical-name">{post.data.title}</div>
+          <p class="vertical-desc">{post.data.description}</p>
+          {post.data.tags.length > 0 && (
+            <span class="vertical-icon" style="margin-top: var(--sp-2); margin-bottom: 0;">
+              {post.data.tags.join(' / ')}
+            </span>
+          )}
+        </div>
+      </a>
+    </div>
+  ))}
+
+  {posts.length === 0 && (
+    <div class="section">
+      <p class="section-body" style="color: var(--muted);">First posts coming soon.</p>
+    </div>
+  )}
+
+</Base>

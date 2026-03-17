@@ -1,11 +1,15 @@
 ---
 import Base from '../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+const interviews = (await getCollection('blog', ({ data }) => !data.draft && data.type === 'interview'))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 ---
 
 <Base
   title="Interviews - Advocacy-Led Growth"
-  description="Conversations with practitioners who are running ALG - some without knowing they had a name for it."
-  activeNav="interviews"
+  description="Conversations with practitioners who are running Advocacy Led Growth - some without knowing they had a name for it."
+  activeNav="blog"
 >
 
   <div class="section animate-in">
@@ -17,19 +21,37 @@ import Base from '../layouts/Base.astro';
       knowing they had a name for it. If you recognize your own work in the ALG framework, we'd like
       to talk.
     </p>
+  </div>
 
-    <div class="notation-block">
-      <span class="notation-label">Coming soon</span>
-      <div>
-        The interview series launches alongside ALG's first practitioner cohort. Each interview follows
-        the same structure: what the practitioner does, why it works, and the moment they realized it
-        maps to ALG.
-      </div>
+  {interviews.map((post) => (
+    <div class="section" style="padding-top: 0; padding-bottom: var(--sp-6);">
+      <a href={`/blog/${post.slug}`} style="text-decoration: none; color: inherit;">
+        <div class="vertical-card" style="max-width: 640px;">
+          <span class="vertical-icon">
+            interview &middot; {post.data.date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
+          </span>
+          <div class="vertical-name">{post.data.title}</div>
+          {post.data.guest && <p class="vertical-desc">with {post.data.guest}</p>}
+          <p class="vertical-desc">{post.data.description}</p>
+        </div>
+      </a>
     </div>
+  ))}
 
-    <p class="section-body mt-8">
-      Interested in being featured? Reach out to <a href="https://twitter.com/doubts" style="color: var(--accent);">@doubts</a> on X.
-    </p>
+  {interviews.length === 0 && (
+    <div class="section">
+      <p class="section-body" style="color: var(--muted); margin-bottom: var(--sp-6);">
+        Interview series launching soon. Each interview follows the same structure: what the practitioner does,
+        why it works, and the moment they realized it maps to ALG.
+      </p>
+      <p class="section-body">
+        Interested in being featured? <a href="/connect" style="color: var(--accent);">Get in touch</a> or reach out to <a href="https://twitter.com/doubts" style="color: var(--accent);">@doubts</a> on X.
+      </p>
+    </div>
+  )}
+
+  <div class="section" style="padding-top: 0;">
+    <a href="/blog" style="color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent);">&larr; All blog posts</a>
   </div>
 
 </Base>
