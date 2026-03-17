@@ -41,6 +41,38 @@ The one-time trap is not just ineffective. It is actively destructive because of
 
 **The wrong variable gets optimized.** The marketer looks at the results and asks: "How do we get more people to share?" This leads to incentives, gamification points, manager nudges - all of which are [employee advocacy](/blog/advocacy-led-growth-vs-employee-advocacy) tactics that address participation volume without fixing the structural problems (wrong timing, wrong content, no value exchange, no cohort). The optimization is real work that produces marginal improvement in the wrong system.
 
+## Two measurement traps
+
+Even when the first campaign produces decent results, two measurement problems kill the second one.
+
+### The benchmark trap
+
+The first ALG campaign often overperforms - and not because of a gimmick. The numbers are legitimately strong because dozens of variables aligned in ways that are hard to replicate exactly: the team on the ground did exceptional work explaining the flow, the interaction points were well chosen, the cohort's seniority mix skewed toward people with larger networks, the geography favored a culture of public sharing, the event format created high-intensity completion moments, the timing hit a natural Belief Window. Any combination of these can produce a strong first result.
+
+This becomes the benchmark.
+
+Campaign 2 runs three months later. Same cohort size, same mechanic. But the conditions are different - a less experienced team running activation, a different geography, a cohort with lower seniority, a format that generates weaker completion moments. Activation rate drops from 18% to 12%. Reach drops proportionally. The marketer sees regression. The report reads: "Campaign 2 underperformed Campaign 1."
+
+In email marketing, teams know that a 22% open rate is good. There are published benchmarks, industry averages, segment-level norms built over two decades of data. ALG has none of that yet. No marketer can look at a 12% activation rate and say "that's healthy for a second activation" because there is no reference frame. So the first campaign - whatever made it succeed - becomes the reference frame. Everything after it looks like decline.
+
+The truth is the opposite. Campaign 2's 12% is closer to the sustainable baseline. Campaign 1's 18% was the peak-conditions number. And by Campaign 4, repeat advocates push the blended rate back above 15% - but most teams never get to Campaign 4 because Campaign 2 looked like failure.
+
+### The goal-measurement gap
+
+The second trap is subtler. The campaign manager does not define what success looks like before activation, which makes post-activation measurement impossible.
+
+| What they wanted | What they built | Why measurement failed |
+|---|---|---|
+| Lead generation | Advocate posts with no links, no UTM parameters, no landing page | No way to attribute any leads to advocacy activity |
+| Brand awareness | Sharing prompt with no impression tracking or baseline measurement | No way to show whether awareness changed |
+| Event registrations | Social content that mentioned the event but linked to the company homepage | Registrations happened but couldn't be traced to advocate distribution |
+| Community growth | Advocate posts about the community with no join mechanism | New members appeared but no one could prove they came from advocacy |
+| Pipeline influence | Advocates shared thought leadership content unconnected to any deal stage | Sales saw the content but had no way to map it to pipeline movement |
+
+Every row has the same structure: the goal existed in the marketer's head but was never encoded into the activation design. The content, the links, the tracking, the landing pages - none of it was built to measure the thing the marketer actually wanted to measure.
+
+This is not an advocacy problem. This is a campaign design problem. But because advocacy is new and unfamiliar, the failure gets attributed to the motion rather than the instrumentation. "Advocacy didn't generate leads" is the conclusion. "We didn't include any mechanism for lead capture" is the actual diagnosis.
+
 ## What the marketer doesn't know to ask
 
 The marketers running these experiments are not incompetent. They are asking the right question - "How do I get more organic distribution?" - with the wrong mental model. They are thinking in campaigns because everything else in marketing is a campaign. Paid media is a campaign. Email is a campaign. Content is a campaign. The campaign model is so deeply embedded in marketing operations that applying it to advocacy feels natural.
