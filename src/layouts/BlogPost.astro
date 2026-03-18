@@ -1,6 +1,11 @@
 ---
 import Base from './Base.astro';
 
+interface PostLink {
+  slug: string;
+  title: string;
+}
+
 interface Props {
   title: string;
   description: string;
@@ -10,9 +15,11 @@ interface Props {
   guest?: string;
   slug: string;
   hashtag?: string;
+  prevPost?: PostLink | null;
+  nextPost?: PostLink | null;
 }
 
-const { title, description, date, tags, type = 'post', guest, slug, hashtag } = Astro.props;
+const { title, description, date, tags, type = 'post', guest, slug, hashtag, prevPost, nextPost } = Astro.props;
 
 const formattedDate = date.toLocaleDateString('en-US', {
   year: 'numeric',
@@ -89,6 +96,31 @@ const jsonLd = {
           >
             View #{hashtag} discussion
           </a>
+        </div>
+      </div>
+    )}
+
+    {/* Next / Previous navigation */}
+    {(prevPost || nextPost) && (
+      <div class="post-nav" style="margin-top: var(--sp-10); max-width: 640px;">
+        <div style="display: flex; justify-content: space-between; gap: 2rem; flex-wrap: wrap;">
+          {prevPost ? (
+            <a href={`/blog/${prevPost.slug}`} class="post-nav-link">
+              <span class="post-nav-label">&larr; Previous</span>
+              <span class="post-nav-title">{prevPost.title.replace(/ - .*$/, '').replace(/\?.*$/, '?')}</span>
+            </a>
+          ) : <div />}
+          {nextPost ? (
+            <a href={`/blog/${nextPost.slug}`} class="post-nav-link" style="text-align: right;">
+              <span class="post-nav-label">Next &rarr;</span>
+              <span class="post-nav-title">{nextPost.title.replace(/ - .*$/, '').replace(/\?.*$/, '?')}</span>
+            </a>
+          ) : (
+            <a href="/blog" class="post-nav-link" style="text-align: right;">
+              <span class="post-nav-label">All posts &rarr;</span>
+              <span class="post-nav-title">Back to blog</span>
+            </a>
+          )}
         </div>
       </div>
     )}
@@ -195,5 +227,34 @@ const jsonLd = {
   }
   .discuss-btn:hover {
     background: var(--accent);
+  }
+  .post-nav {
+    border-top: 1px solid rgba(14, 13, 11, 0.1);
+    padding-top: 2rem;
+  }
+  .post-nav-link {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    max-width: 280px;
+    transition: color 0.2s;
+  }
+  .post-nav-link:hover {
+    color: var(--accent);
+  }
+  .post-nav-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--accent);
+  }
+  .post-nav-title {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    line-height: 1.4;
   }
 </style>

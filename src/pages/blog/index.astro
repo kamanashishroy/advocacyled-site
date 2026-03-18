@@ -2,8 +2,40 @@
 import Base from '../../layouts/Base.astro';
 import { getCollection } from 'astro:content';
 
-const posts = (await getCollection('blog', ({ data }) => !data.draft))
+const allPosts = (await getCollection('blog', ({ data }) => !data.draft))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+// Define post groups by slug
+const conceptSlugs = [
+  'what-is-the-belief-window',
+  'what-is-a-cohort-cascade',
+  'the-1-1-n-distribution-architecture',
+  'what-is-an-aql',
+  'completion-moment-taxonomy',
+  'the-compound-formula',
+];
+const compareSlugs = [
+  'advocacy-led-growth-vs-employee-advocacy',
+  'alg-vs-influencer-marketing',
+  'community-led-growths-missing-layer',
+];
+const strategySlugs = [
+  'why-advocacy-led-growth-fails-as-a-campaign',
+  'why-advocacy-fails-when-it-feels-like-obligation',
+  'the-content-economy-inversion',
+  'alg-for-event-marketers',
+];
+
+const concepts = conceptSlugs.map(s => allPosts.find(p => p.slug === s)).filter(Boolean);
+const comparisons = compareSlugs.map(s => allPosts.find(p => p.slug === s)).filter(Boolean);
+const strategy = strategySlugs.map(s => allPosts.find(p => p.slug === s)).filter(Boolean);
+const interviews = allPosts.filter(p => p.data.type === 'interview');
+
+// Catch any posts not in a group
+const groupedSlugs = [...conceptSlugs, ...compareSlugs, ...strategySlugs];
+const ungrouped = allPosts.filter(p => !groupedSlugs.includes(p.slug) && p.data.type !== 'interview');
+
+const renderCard = (post: any) => ``;
 ---
 
 <Base
@@ -20,14 +52,18 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft))
     </p>
   </div>
 
-  {posts.map((post) => (
+  <!-- CORE CONCEPTS -->
+  <div class="section" style="padding-top: 0; padding-bottom: var(--sp-4);">
+    <div class="blog-group-label">Core Concepts</div>
+    <p class="blog-group-desc">The building blocks of ALG - Belief Window, cohort cascades, completion moments, the compound formula, and the 1:1:N architecture.</p>
+  </div>
+
+  {concepts.map((post) => (
     <div class="section" style="padding-top: 0; padding-bottom: var(--sp-6);">
       <a href={`/blog/${post.slug}`} style="text-decoration: none; color: inherit;">
         <div class="vertical-card" style="max-width: 640px;">
           <span class="vertical-icon">
-            {post.data.type === 'interview' ? 'interview' : 'post'}
-            {' '}&middot;{' '}
-            {post.data.date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
+            post &middot; {post.data.date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
           </span>
           <div class="vertical-name">{post.data.title}</div>
           <p class="vertical-desc">{post.data.description}</p>
@@ -41,10 +77,110 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft))
     </div>
   ))}
 
-  {posts.length === 0 && (
-    <div class="section">
-      <p class="section-body" style="color: var(--muted);">First posts coming soon.</p>
+  <!-- COMPARISONS -->
+  <div class="section" style="padding-top: var(--sp-4); padding-bottom: var(--sp-4);">
+    <div class="blog-group-label">Comparisons</div>
+    <p class="blog-group-desc">How ALG differs from employee advocacy, influencer marketing, and community-led growth.</p>
+  </div>
+
+  {comparisons.map((post) => (
+    <div class="section" style="padding-top: 0; padding-bottom: var(--sp-6);">
+      <a href={`/blog/${post.slug}`} style="text-decoration: none; color: inherit;">
+        <div class="vertical-card" style="max-width: 640px;">
+          <span class="vertical-icon">
+            post &middot; {post.data.date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
+          </span>
+          <div class="vertical-name">{post.data.title}</div>
+          <p class="vertical-desc">{post.data.description}</p>
+          {post.data.tags.length > 0 && (
+            <span class="vertical-icon" style="margin-top: var(--sp-2); margin-bottom: 0;">
+              {post.data.tags.join(' / ')}
+            </span>
+          )}
+        </div>
+      </a>
+    </div>
+  ))}
+
+  <!-- STRATEGY -->
+  <div class="section" style="padding-top: var(--sp-4); padding-bottom: var(--sp-4);">
+    <div class="blog-group-label">Strategy</div>
+    <p class="blog-group-desc">Why campaigns fail, why obligation kills participation, and practical guides for event marketers and the AI content economy.</p>
+  </div>
+
+  {strategy.map((post) => (
+    <div class="section" style="padding-top: 0; padding-bottom: var(--sp-6);">
+      <a href={`/blog/${post.slug}`} style="text-decoration: none; color: inherit;">
+        <div class="vertical-card" style="max-width: 640px;">
+          <span class="vertical-icon">
+            post &middot; {post.data.date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
+          </span>
+          <div class="vertical-name">{post.data.title}</div>
+          <p class="vertical-desc">{post.data.description}</p>
+          {post.data.tags.length > 0 && (
+            <span class="vertical-icon" style="margin-top: var(--sp-2); margin-bottom: 0;">
+              {post.data.tags.join(' / ')}
+            </span>
+          )}
+        </div>
+      </a>
+    </div>
+  ))}
+
+  <!-- INTERVIEWS (if any) -->
+  {interviews.length > 0 && (
+    <div class="section" style="padding-top: var(--sp-4); padding-bottom: var(--sp-4);">
+      <div class="blog-group-label">Interviews</div>
+      <p class="blog-group-desc">Conversations with practitioners who are running ALG - before it had a name.</p>
     </div>
   )}
 
+  {interviews.map((post) => (
+    <div class="section" style="padding-top: 0; padding-bottom: var(--sp-6);">
+      <a href={`/blog/${post.slug}`} style="text-decoration: none; color: inherit;">
+        <div class="vertical-card" style="max-width: 640px;">
+          <span class="vertical-icon">
+            interview &middot; {post.data.date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
+          </span>
+          <div class="vertical-name">{post.data.title}</div>
+          <p class="vertical-desc">{post.data.description}</p>
+        </div>
+      </a>
+    </div>
+  ))}
+
+  <!-- UNGROUPED (safety net for future posts) -->
+  {ungrouped.map((post) => (
+    <div class="section" style="padding-top: 0; padding-bottom: var(--sp-6);">
+      <a href={`/blog/${post.slug}`} style="text-decoration: none; color: inherit;">
+        <div class="vertical-card" style="max-width: 640px;">
+          <span class="vertical-icon">
+            {post.data.type === 'interview' ? 'interview' : 'post'} &middot; {post.data.date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
+          </span>
+          <div class="vertical-name">{post.data.title}</div>
+          <p class="vertical-desc">{post.data.description}</p>
+        </div>
+      </a>
+    </div>
+  ))}
+
 </Base>
+
+<style>
+  .blog-group-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+  }
+  .blog-group-desc {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--muted);
+    max-width: 640px;
+  }
+</style>

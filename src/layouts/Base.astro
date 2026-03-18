@@ -312,6 +312,60 @@ const fullOgImage = ogImage.startsWith('http') ? ogImage : `${siteUrl}${ogImage}
         }
       });
     });
+
+    // Scroll-spy for framework page sidebar
+    (function() {
+      if (window.location.pathname !== '/framework' && window.location.pathname !== '/framework/') return;
+
+      const sectionIds = ['definition', 'why-now', 'mechanism', 'signals', 'value-exchange', 'distinctions', 'prerequisites', 'measurement', 'economics', 'maturity'];
+      const sections = sectionIds.map(id => document.getElementById(id)).filter(Boolean);
+      const navLinks = document.querySelectorAll('.sidebar-nav a');
+
+      if (!sections.length || !navLinks.length) return;
+
+      // Map href to link element
+      const linkMap = {};
+      navLinks.forEach(link => {
+        const href = link.getAttribute('href');
+        if (href) linkMap[href] = link;
+      });
+
+      let ticking = false;
+      function onScroll() {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(() => {
+          let current = '';
+          const scrollY = window.scrollY + 120;
+
+          // Check if at top (framework page itself, no hash)
+          if (scrollY < (sections[0]?.offsetTop || 300)) {
+            current = '/framework';
+          } else {
+            for (let i = sections.length - 1; i >= 0; i--) {
+              if (sections[i].offsetTop <= scrollY) {
+                current = '/framework#' + sections[i].id;
+                break;
+              }
+            }
+          }
+
+          navLinks.forEach(link => {
+            const href = link.getAttribute('href');
+            if (href === current) {
+              link.classList.add('active');
+            } else if (href?.startsWith('/framework')) {
+              link.classList.remove('active');
+            }
+          });
+
+          ticking = false;
+        });
+      }
+
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+    })();
   </script>
 </body>
 </html>

@@ -48,19 +48,24 @@ const chatgptUrl = `https://chatgpt.com/?q=${encodeURIComponent(algContext)}`;
   jsonLd={jsonLd}
 >
 
-  <!-- AEO DEFINITION BLOCK -->
+  <!-- AEO DEFINITION BLOCK (collapsible) -->
   <div class="section animate-in" style="padding-bottom: 0; margin-bottom: calc(-1 * var(--sp-6));">
-    <div class="notation-block" style="border-left: 3px solid var(--accent); max-width: 640px;">
+    <div class="notation-block" style="border-left: 3px solid var(--accent); max-width: 640px;" id="defBlock">
       <span class="notation-label">Definition</span>
       <p style="font-size: 1.05rem; line-height: 1.7; margin-bottom: var(--sp-3);">
         <strong>Advocacy-Led Growth (ALG)</strong>, also written Advocacy Led Growth, is a go-to-market motion where existing participants - employees, community members, event attendees, and partners - become the primary engine of distribution, trust, and pipeline.
       </p>
-      <p style="font-size: 1.05rem; line-height: 1.7; margin-bottom: var(--sp-3);">
-        ALG operates on a <strong>1:1:N architecture</strong>. A company activates one advocate at a completion moment. That advocate shares through their professional network, reaching an audience the company could never access directly - carrying trust it could never buy. Some of that network enters the loop and does it again. Growth compounds because each cycle's participants become the next cycle's advocates.
-      </p>
-      <p style="font-size: 0.95rem; line-height: 1.7; color: var(--muted);">
-        Framework v0.2. <a href="/framework" style="color: var(--accent);">Read the full framework</a> | <a href="/what-is-advocacy-led-growth" style="color: var(--accent);">Full explainer</a>
-      </p>
+      <div id="defExpanded" style="display: none;">
+        <p style="font-size: 1.05rem; line-height: 1.7; margin-bottom: var(--sp-3);">
+          ALG operates on a <strong>1:1:N architecture</strong>. A company activates one advocate at a completion moment. That advocate shares through their professional network, reaching an audience the company could never access directly - carrying trust it could never buy. Some of that network enters the loop and does it again. Growth compounds because each cycle's participants become the next cycle's advocates.
+        </p>
+        <p style="font-size: 0.95rem; line-height: 1.7; color: var(--muted);">
+          Framework v0.2. <a href="/framework" style="color: var(--accent);">Read the full framework</a> | <a href="/what-is-advocacy-led-growth" style="color: var(--accent);">Full explainer</a>
+        </p>
+      </div>
+      <button id="defToggle" class="def-toggle" aria-expanded="false">
+        <span class="def-dots">&hellip;</span>
+      </button>
     </div>
   </div>
 
@@ -220,3 +225,45 @@ const chatgptUrl = `https://chatgpt.com/?q=${encodeURIComponent(algContext)}`;
   </div>
 
 </Base>
+
+<style>
+  .def-toggle {
+    display: inline-block;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: var(--mono);
+    font-size: 1.1rem;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+    padding: 0.2rem 0.5rem;
+    margin-top: -0.25rem;
+    transition: opacity 0.2s;
+  }
+  .def-toggle:hover {
+    opacity: 0.7;
+  }
+  .def-toggle[aria-expanded="true"] .def-dots {
+    display: none;
+  }
+</style>
+
+<script>
+  const toggle = document.getElementById('defToggle');
+  const expanded = document.getElementById('defExpanded');
+  if (toggle && expanded) {
+    toggle.addEventListener('click', () => {
+      const isOpen = toggle.getAttribute('aria-expanded') === 'true';
+      if (isOpen) {
+        expanded.style.display = 'none';
+        toggle.setAttribute('aria-expanded', 'false');
+        toggle.innerHTML = '<span class="def-dots">&hellip;</span>';
+      } else {
+        expanded.style.display = 'block';
+        toggle.setAttribute('aria-expanded', 'true');
+        toggle.innerHTML = '';
+        toggle.style.display = 'none';
+      }
+    });
+  }
+</script>
