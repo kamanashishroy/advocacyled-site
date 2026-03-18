@@ -1,7 +1,7 @@
 ---
 title: "What Is the Belief Window? The Timing Mechanic Behind Advocacy Led Growth"
 description: "The Belief Window is the period after a completion moment when sharing feels like expression, not obligation. It is the core timing mechanic of Advocacy Led Growth (ALG) and the reason traditional advocacy programs fail."
-date: 2026-03-17
+date: 2026-02-27
 tags: ["belief window", "mechanism", "ALG fundamentals"]
 type: post
 draft: false

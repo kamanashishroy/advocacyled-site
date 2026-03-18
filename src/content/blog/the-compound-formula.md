@@ -1,7 +1,7 @@
 ---
 title: "The ALG Compound Formula - A x R x C Explained"
 description: "Advocacy Led Growth compounds through three variables: Activation Rate (A), Reach Multiplier (R), and Conversion Rate (C). Together they form the formula that explains why ALG produces increasing returns while other motions produce flat ones."
-date: 2026-03-18
+date: 2026-03-17
 tags: ["compound formula", "measurement", "A x R x C", "ALG fundamentals"]
 type: post
 draft: false

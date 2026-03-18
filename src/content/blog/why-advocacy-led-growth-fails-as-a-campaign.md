@@ -1,7 +1,7 @@
 ---
 title: "Why Advocacy Led Growth Fails as a Campaign"
 description: "Advocacy Led Growth does not work as a one-time campaign. Most companies try it once, draw the wrong conclusion, and abandon a motion that only works when it compounds. Here is why one-off advocacy campaigns fail - and what changes when you build infrastructure instead."
-date: 2026-03-17
+date: 2026-03-03
 tags: ["strategy", "campaigns", "compounding", "ALG fundamentals"]
 type: post
 draft: false

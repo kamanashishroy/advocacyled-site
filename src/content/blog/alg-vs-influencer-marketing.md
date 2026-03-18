@@ -1,7 +1,7 @@
 ---
 title: "ALG vs Influencer Marketing - Why Borrowed Trust Depreciates and Cohort Trust Compounds"
 description: "Influencer marketing and Advocacy Led Growth both use the 1:1:N architecture - one person reaches their network on behalf of a brand. But the trust model underneath is fundamentally different, and that difference determines whether results compound or reset every campaign."
-date: 2026-03-18
+date: 2026-03-14
 tags: ["influencer marketing", "comparison", "trust", "ALG fundamentals"]
 type: post
 draft: false

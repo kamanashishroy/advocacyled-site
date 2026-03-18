@@ -1,7 +1,7 @@
 ---
 title: "The Completion Moment Taxonomy - Where Advocacy Led Growth Actually Starts"
 description: "Not all completion moments are equal. The intensity of the moment determines the width of the Belief Window, the strength of the cohort cascade, and whether advocacy compounds or fizzles. Here is the taxonomy that separates high-potential moments from wasted effort."
-date: 2026-03-18
+date: 2026-03-13
 tags: ["completion moments", "taxonomy", "mechanism", "ALG fundamentals"]
 type: post
 draft: false

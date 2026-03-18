@@ -1,7 +1,7 @@
 ---
 title: "What Is a Cohort Cascade? The Social Proof Engine Inside Advocacy Led Growth"
 description: "A cohort cascade is the chain reaction that happens when one person in a group shares a completion moment and others in the same cohort follow. It is the mechanism that separates ALG activation rates from employee advocacy participation rates."
-date: 2026-03-18
+date: 2026-03-05
 tags: ["cohort cascade", "mechanism", "ALG fundamentals"]
 type: post
 draft: false

@@ -1,7 +1,7 @@
 ---
 title: "The Content Economy Inversion - Why Brand Content Became Noise and Individual Signals Became Everything"
 description: "For two decades, growth meant publishing more. AI ended that era. When any company can generate infinite content at zero cost, brand content becomes noise. The signal that matters now is individual, experiential, and impossible to fake. This is why Advocacy Led Growth is the growth motion for the AI age."
-date: 2026-03-18
+date: 2026-03-21
 tags: ["content economy", "AI", "why now", "ALG fundamentals"]
 type: post
 draft: false

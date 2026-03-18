@@ -1,7 +1,7 @@
 ---
 title: "What Is an AQL? The Measurement Spec for Advocacy Led Growth"
 description: "An Advocacy Qualified Lead (AQL) is a person whose advocacy behavior generated measurable downstream impact. It gives ALG a measurement language as rigorous as MQLs and SQLs - with three tiers that map to the compound loop."
-date: 2026-03-18
+date: 2026-03-10
 tags: ["AQL", "measurement", "ALG fundamentals"]
 type: post
 draft: false

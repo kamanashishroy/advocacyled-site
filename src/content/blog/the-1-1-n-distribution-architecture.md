@@ -1,7 +1,7 @@
 ---
 title: "The 1:1:N Distribution Architecture - Why Advocacy Led Growth Compounds and Everything Else Resets"
 description: "Every growth motion has a distribution architecture. Most B2B motions run on 1:1 - brand sends, recipient acts or ignores, the chain ends. ALG runs on 1:1:N - and at maturity, 1:1:N:N. Here is why that architectural difference changes everything."
-date: 2026-03-18
+date: 2026-03-07
 tags: ["1:1:N", "distribution", "architecture", "ALG fundamentals"]
 type: post
 draft: false

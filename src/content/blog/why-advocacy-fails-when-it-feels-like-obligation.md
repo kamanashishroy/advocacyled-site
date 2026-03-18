@@ -1,7 +1,7 @@
 ---
 title: "Why Advocacy Fails the Moment It Feels Like Obligation"
 description: "The single clearest predictor of whether an advocacy program compounds or collapses is whether the participant feels like they are expressing something or performing something. The difference is structural, not motivational."
-date: 2026-03-18
+date: 2026-03-11
 tags: ["value exchange", "participation", "ALG fundamentals"]
 type: post
 draft: false

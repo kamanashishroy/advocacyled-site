@@ -1,7 +1,7 @@
 ---
 title: "ALG for Event Marketers - A Practical Guide to Making Events Perform Outside the Room"
 description: "Events are the fastest entry point for Advocacy Led Growth. You already have the participation layer, the completion moments, and the cohorts. This guide walks through how to activate ALG at events - from pre-event setup through post-event compounding."
-date: 2026-03-18
+date: 2026-03-24
 tags: ["events", "practical guide", "event marketing", "ALG fundamentals"]
 type: post
 draft: false

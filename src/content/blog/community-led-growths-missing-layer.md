@@ -1,7 +1,7 @@
 ---
 title: "Community-Led Growth's Missing Layer - Why Engagement Without Activation Is a Trap"
 description: "Community-Led Growth built the engagement layer that B2B needed. But most communities are energy traps - engagement circulates inside the walls and never compounds externally. ALG is the missing activation layer that turns community depth into distribution."
-date: 2026-03-18
+date: 2026-03-19
 tags: ["CLG", "community", "comparison", "ALG fundamentals"]
 type: post
 draft: false

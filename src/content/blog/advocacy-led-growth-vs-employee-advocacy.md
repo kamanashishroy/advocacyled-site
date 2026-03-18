@@ -1,7 +1,7 @@
 ---
 title: "Advocacy Led Growth vs Employee Advocacy - Why One Compounds and the Other Burns Out"
 description: "Advocacy Led Growth (ALG) and employee advocacy both involve people sharing on behalf of a company. The mechanics underneath are completely different. Here is how they diverge - and why it matters."
-date: 2026-03-17
+date: 2026-02-24
 tags: ["employee advocacy", "comparison", "ALG fundamentals"]
 type: post
 draft: false
