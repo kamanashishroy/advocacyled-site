@@ -381,6 +381,14 @@ body::before {
   letter-spacing: 0.04em;
 }
 
+.sidebar-back {
+  font-weight: 400;
+  opacity: 0.7;
+}
+.sidebar-back:hover {
+  opacity: 1;
+}
+
 /* ── MAIN CONTENT ── */
 .main {
   grid-column: 2;

@@ -1,5 +1,6 @@
 ---
 import '../styles/design-system.css';
+import { getCollection } from 'astro:content';
 
 interface Props {
   title: string;
@@ -20,6 +21,12 @@ const {
   jsonLd,
   hasAside = false,
 } = Astro.props;
+
+const isBlogNav = activeNav === 'blog';
+const blogPosts = isBlogNav
+  ? (await getCollection('blog', ({ data }) => !data.draft))
+      .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  : [];
 
 const siteUrl = 'https://advocacyled.com';
 const pageUrl = canonical || `${siteUrl}${Astro.url.pathname}`;
@@ -118,121 +125,130 @@ const fullOgImage = ogImage.startsWith('http') ? ogImage : `${siteUrl}${ogImage}
     <!-- SIDEBAR -->
     <nav class="sidebar" id="sidebar" aria-label="Main navigation">
 
-      <div class="sidebar-section">
-        <div class="sidebar-section-label">The Framework</div>
-        <ul class="sidebar-nav">
-          <li><a href="/" class={activeNav === 'home' ? 'active' : ''}>
-            <span class="nav-num">~</span> Start here
-          </a></li>
-          <li><a href="/framework" class={activeNav === 'framework' ? 'active' : ''}>
-            <span class="nav-num">00</span> The 1:1:N Architecture
-          </a></li>
-          <li><a href="/framework#definition" class={activeNav === 'definition' ? 'active' : ''}>
-            <span class="nav-num">01</span> Definition
-          </a></li>
-          <li><a href="/framework#why-now" class={activeNav === 'why-now' ? 'active' : ''}>
-            <span class="nav-num">02</span> Why Now
-          </a></li>
-          <li><a href="/framework#mechanism" class={activeNav === 'mechanism' ? 'active' : ''}>
-            <span class="nav-num">03</span> The Mechanism
-          </a></li>
-          <li><a href="/framework#signals" class={activeNav === 'signals' ? 'active' : ''}>
-            <span class="nav-num">04</span> Signal Ecosystem
-          </a></li>
-          <li><a href="/framework#value-exchange" class={activeNav === 'value-exchange' ? 'active' : ''}>
-            <span class="nav-num">05</span> Value Exchange
-          </a></li>
-          <li><a href="/framework#distinctions" class={activeNav === 'distinctions' ? 'active' : ''}>
-            <span class="nav-num">06</span> ALG vs Everything
-          </a></li>
-          <li><a href="/framework#prerequisites" class={activeNav === 'prerequisites' ? 'active' : ''}>
-            <span class="nav-num">07</span> Prerequisites
-          </a></li>
-          <li><a href="/framework#measurement" class={activeNav === 'measurement' ? 'active' : ''}>
-            <span class="nav-num">08</span> Measurement
-          </a></li>
-          <li><a href="/framework#economics" class={activeNav === 'economics' ? 'active' : ''}>
-            <span class="nav-num">09</span> Economics
-          </a></li>
-          <li><a href="/framework#maturity" class={activeNav === 'maturity' ? 'active' : ''}>
-            <span class="nav-num">10</span> Maturity Model
-          </a></li>
-        </ul>
-      </div>
+      {isBlogNav ? (
+        <Fragment>
+          <div class="sidebar-section">
+            <ul class="sidebar-nav">
+              <li><a href="/framework" class="sidebar-back">
+                <span class="nav-num">&larr;</span> Framework
+              </a></li>
+            </ul>
+          </div>
 
-      <div class="sidebar-section">
-        <div class="sidebar-section-label">In Practice</div>
-        <ul class="sidebar-nav">
-          <li><a href="/marketing" class={activeNav === 'marketing' ? 'active' : ''}>
-            <span class="nav-num">&rarr;</span> Marketing
-          </a></li>
-          <li><a href="/hiring" class={activeNav === 'hiring' ? 'active' : ''}>
-            <span class="nav-num">&rarr;</span> Hiring
-          </a></li>
-          <li><a href="/sales" class={activeNav === 'sales' ? 'active' : ''}>
-            <span class="nav-num">&rarr;</span> Sales
-          </a></li>
-          <li><a href="/framework#mechanism" style="opacity: 0.5; font-size: 0.8em;">
-            <span class="nav-num">+</span> CSR, Partnerships, Community...
-          </a></li>
-        </ul>
-      </div>
+          <div class="sidebar-section">
+            <div class="sidebar-section-label">Blog</div>
+            <ul class="sidebar-nav">
+              <li><a href="/blog" class="active">
+                <span class="nav-num">&bull;</span> All posts
+              </a></li>
+            </ul>
+          </div>
 
-      <div class="sidebar-section">
-        <div class="sidebar-section-label">Toolkit</div>
-        <ul class="sidebar-nav">
-          <li><a href="/toolkit" class={activeNav === 'toolkit' ? 'active' : ''}>
-            <span class="nav-num">T</span> All tools
-          </a></li>
-          <li><a href="/toolkit/readiness-diagnostic.html" target="_blank">
-            <span class="nav-num">01</span> Readiness Diagnostic
-          </a></li>
-          <li><a href="/toolkit/alg-vs-ea.html" target="_blank">
-            <span class="nav-num">02</span> ALG vs EA
-          </a></li>
-          <li><a href="/toolkit/completion-moment-audit.html" target="_blank">
-            <span class="nav-num">03</span> Completion Moment Audit
-          </a></li>
-          <li><a href="/toolkit/value-exchange-canvas.html" target="_blank">
-            <span class="nav-num">04</span> Value Exchange Canvas
-          </a></li>
-          <li><a href="/toolkit/belief-window-timing.html" target="_blank">
-            <span class="nav-num">05</span> Belief Window Timing
-          </a></li>
-          <li><a href="/toolkit/first-campaign-brief.html" target="_blank">
-            <span class="nav-num">06</span> First Campaign Brief
-          </a></li>
-        </ul>
-      </div>
+          <div class="sidebar-section">
+            <div class="sidebar-section-label">Posts</div>
+            <ul class="sidebar-nav">
+              {blogPosts.filter(p => p.data.type === 'post').map((post) => (
+                <li><a href={`/blog/${post.slug}`} class={Astro.url.pathname === `/blog/${post.slug}/` || Astro.url.pathname === `/blog/${post.slug}` ? 'active' : ''}>
+                  <span class="nav-num">&bull;</span> {post.data.title.replace(/ - .*$/, '').replace(/\?.*$/, '?')}
+                </a></li>
+              ))}
+            </ul>
+          </div>
 
-      <div class="sidebar-section">
-        <div class="sidebar-section-label">Reference</div>
-        <ul class="sidebar-nav">
-          <li><a href="/glossary" class={activeNav === 'glossary' ? 'active' : ''}>
-            <span class="nav-num">#</span> Glossary
-          </a></li>
-          <li><a href="/aql" class={activeNav === 'aql' ? 'active' : ''}>
-            <span class="nav-num">#</span> AQL Specification
-          </a></li>
-        </ul>
-      </div>
+          {blogPosts.filter(p => p.data.type === 'interview').length > 0 && (
+            <div class="sidebar-section">
+              <div class="sidebar-section-label">Interviews</div>
+              <ul class="sidebar-nav">
+                {blogPosts.filter(p => p.data.type === 'interview').map((post) => (
+                  <li><a href={`/blog/${post.slug}`} class={Astro.url.pathname === `/blog/${post.slug}/` || Astro.url.pathname === `/blog/${post.slug}` ? 'active' : ''}>
+                    <span class="nav-num">&bull;</span> {post.data.title.replace(/ - .*$/, '')}
+                  </a></li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </Fragment>
+      ) : (
+        <Fragment>
+          <div class="sidebar-section">
+            <div class="sidebar-section-label">The Framework</div>
+            <ul class="sidebar-nav">
+              <li><a href="/" class={activeNav === 'home' ? 'active' : ''}>
+                <span class="nav-num">~</span> Start here
+              </a></li>
+              <li><a href="/framework" class={activeNav === 'framework' ? 'active' : ''}>
+                <span class="nav-num">00</span> The 1:1:N Architecture
+              </a></li>
+              <li><a href="/framework#definition" class={activeNav === 'definition' ? 'active' : ''}>
+                <span class="nav-num">01</span> Definition
+              </a></li>
+              <li><a href="/framework#why-now" class={activeNav === 'why-now' ? 'active' : ''}>
+                <span class="nav-num">02</span> Why Now
+              </a></li>
+              <li><a href="/framework#mechanism" class={activeNav === 'mechanism' ? 'active' : ''}>
+                <span class="nav-num">03</span> The Mechanism
+              </a></li>
+              <li><a href="/framework#signals" class={activeNav === 'signals' ? 'active' : ''}>
+                <span class="nav-num">04</span> Signal Ecosystem
+              </a></li>
+              <li><a href="/framework#value-exchange" class={activeNav === 'value-exchange' ? 'active' : ''}>
+                <span class="nav-num">05</span> Value Exchange
+              </a></li>
+              <li><a href="/framework#distinctions" class={activeNav === 'distinctions' ? 'active' : ''}>
+                <span class="nav-num">06</span> ALG vs Everything
+              </a></li>
+              <li><a href="/framework#prerequisites" class={activeNav === 'prerequisites' ? 'active' : ''}>
+                <span class="nav-num">07</span> Prerequisites
+              </a></li>
+              <li><a href="/framework#measurement" class={activeNav === 'measurement' ? 'active' : ''}>
+                <span class="nav-num">08</span> Measurement
+              </a></li>
+              <li><a href="/framework#economics" class={activeNav === 'economics' ? 'active' : ''}>
+                <span class="nav-num">09</span> Economics
+              </a></li>
+              <li><a href="/framework#maturity" class={activeNav === 'maturity' ? 'active' : ''}>
+                <span class="nav-num">10</span> Maturity Model
+              </a></li>
+            </ul>
+          </div>
 
-      <div class="sidebar-section">
-        <div class="sidebar-section-label">Blog</div>
-        <ul class="sidebar-nav">
-          <li><a href="/blog" class={activeNav === 'blog' ? 'active' : ''}>
-            <span class="nav-num">&bull;</span> All posts
-          </a></li>
-        </ul>
-      </div>
+          <div class="sidebar-section">
+            <div class="sidebar-section-label">In Practice</div>
+            <ul class="sidebar-nav">
+              <li><a href="/marketing" class={activeNav === 'marketing' ? 'active' : ''}>
+                <span class="nav-num">&rarr;</span> Marketing
+              </a></li>
+              <li><a href="/hiring" class={activeNav === 'hiring' ? 'active' : ''}>
+                <span class="nav-num">&rarr;</span> Hiring
+              </a></li>
+              <li><a href="/sales" class={activeNav === 'sales' ? 'active' : ''}>
+                <span class="nav-num">&rarr;</span> Sales
+              </a></li>
+            </ul>
+          </div>
 
-      <div class="sidebar-section">
-        <ul class="sidebar-nav">
-          <li><a href="/about" class={activeNav === 'about' ? 'active' : ''}>
-            <span class="nav-num">~</span> About
-          </a></li>
-        </ul>
-      </div>
+          <div class="sidebar-section">
+            <div class="sidebar-section-label">Explore</div>
+            <ul class="sidebar-nav">
+              <li><a href="/toolkit" class={activeNav === 'toolkit' ? 'active' : ''}>
+                <span class="nav-num">T</span> Toolkit
+              </a></li>
+              <li><a href="/blog" class={activeNav === 'blog' ? 'active' : ''}>
+                <span class="nav-num">&bull;</span> Blog
+              </a></li>
+              <li><a href="/glossary" class={activeNav === 'glossary' ? 'active' : ''}>
+                <span class="nav-num">#</span> Glossary
+              </a></li>
+              <li><a href="/aql" class={activeNav === 'aql' ? 'active' : ''}>
+                <span class="nav-num">#</span> AQL Specification
+              </a></li>
+              <li><a href="/about" class={activeNav === 'about' ? 'active' : ''}>
+                <span class="nav-num">~</span> About
+              </a></li>
+            </ul>
+          </div>
+        </Fragment>
+      )}
 
     </nav>
 
